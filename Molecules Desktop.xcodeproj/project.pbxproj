@@ -11,9 +11,38 @@
 		BCBF619B16E83DCF00E2784A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BCBF619916E83DCF00E2784A /* InfoPlist.strings */; };
 		BCBF619D16E83DCF00E2784A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBF619C16E83DCF00E2784A /* main.m */; };
 		BCBF61A116E83DCF00E2784A /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = BCBF619F16E83DCF00E2784A /* Credits.rtf */; };
-		BCBF61A416E83DCF00E2784A /* SLSDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBF61A316E83DCF00E2784A /* SLSDocument.m */; };
-		BCBF61A716E83DCF00E2784A /* SLSDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCBF61A516E83DCF00E2784A /* SLSDocument.xib */; };
+		BCBF61A416E83DCF00E2784A /* SLSMoleculeDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBF61A316E83DCF00E2784A /* SLSMoleculeDocument.m */; };
+		BCBF61A716E83DCF00E2784A /* SLSMoleculeDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCBF61A516E83DCF00E2784A /* SLSMoleculeDocument.xib */; };
 		BCBF61AA16E83DCF00E2784A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCBF61A816E83DCF00E2784A /* MainMenu.xib */; };
+		BCBF61B216E83FBF00E2784A /* SLSMoleculeGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBF61B116E83FBF00E2784A /* SLSMoleculeGLView.m */; };
+		BCCF94B516ED4BE400871775 /* SLSMolecule.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCF94B016ED4BE400871775 /* SLSMolecule.m */; };
+		BCCF94B616ED4BE400871775 /* SLSMolecule+PDB.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCF94B216ED4BE400871775 /* SLSMolecule+PDB.m */; };
+		BCCF94B716ED4BE400871775 /* SLSMolecule+SDF.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCF94B416ED4BE400871775 /* SLSMolecule+SDF.m */; };
+		BCCF94C816ED603900871775 /* NSData+Gzip.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCF94C716ED603900871775 /* NSData+Gzip.m */; };
+		BCCF94CB16ED609D00871775 /* VCTitleCase.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCF94CA16ED609C00871775 /* VCTitleCase.m */; };
+		BCCF94CF16ED6BEB00871775 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCCF94CE16ED6BEB00871775 /* OpenGL.framework */; };
+		BCCF94D116ED6BFB00871775 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCCF94D016ED6BFB00871775 /* QuartzCore.framework */; };
+		BCCF94E416ED7A9100871775 /* CylinderAmbientOcclusion.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BCCF94D216ED7A9100871775 /* CylinderAmbientOcclusion.fsh */; };
+		BCCF94E516ED7A9100871775 /* CylinderAmbientOcclusion.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BCCF94D316ED7A9100871775 /* CylinderAmbientOcclusion.vsh */; };
+		BCCF94E616ED7A9100871775 /* CylinderDepth.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BCCF94D416ED7A9100871775 /* CylinderDepth.fsh */; };
+		BCCF94E716ED7A9100871775 /* CylinderDepth.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BCCF94D516ED7A9100871775 /* CylinderDepth.vsh */; };
+		BCCF94E816ED7A9100871775 /* CylinderRaytracing.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BCCF94D616ED7A9100871775 /* CylinderRaytracing.fsh */; };
+		BCCF94E916ED7A9100871775 /* CylinderRaytracing.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BCCF94D716ED7A9100871775 /* CylinderRaytracing.vsh */; };
+		BCCF94EA16ED7A9100871775 /* PlainDisplay.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BCCF94D816ED7A9100871775 /* PlainDisplay.fsh */; };
+		BCCF94EB16ED7A9100871775 /* PlainDisplay.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BCCF94D916ED7A9100871775 /* PlainDisplay.vsh */; };
+		BCCF94EC16ED7A9100871775 /* SphereAmbientOcclusion.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BCCF94DA16ED7A9100871775 /* SphereAmbientOcclusion.fsh */; };
+		BCCF94ED16ED7A9100871775 /* SphereAmbientOcclusion.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BCCF94DB16ED7A9100871775 /* SphereAmbientOcclusion.vsh */; };
+		BCCF94EE16ED7A9100871775 /* SphereAOLookup.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BCCF94DC16ED7A9100871775 /* SphereAOLookup.fsh */; };
+		BCCF94EF16ED7A9100871775 /* SphereAOLookup.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BCCF94DD16ED7A9100871775 /* SphereAOLookup.vsh */; };
+		BCCF94F016ED7A9100871775 /* SphereDepth.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BCCF94DE16ED7A9100871775 /* SphereDepth.fsh */; };
+		BCCF94F116ED7A9100871775 /* SphereDepth.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BCCF94DF16ED7A9100871775 /* SphereDepth.vsh */; };
+		BCCF94F216ED7A9100871775 /* SphereDepthWrite.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BCCF94E016ED7A9100871775 /* SphereDepthWrite.fsh */; };
+		BCCF94F316ED7A9100871775 /* SphereDepthWrite.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BCCF94E116ED7A9100871775 /* SphereDepthWrite.vsh */; };
+		BCCF94F416ED7A9100871775 /* SphereRaytracing.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BCCF94E216ED7A9100871775 /* SphereRaytracing.fsh */; };
+		BCCF94F516ED7A9100871775 /* SphereRaytracing.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BCCF94E316ED7A9100871775 /* SphereRaytracing.vsh */; };
+		BCCF94FC16EE82E700871775 /* SLSOpenGLRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCF94FB16EE82E700871775 /* SLSOpenGLRenderer.m */; };
+		BCCF94FF16EE839200871775 /* GLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCF94FE16EE839200871775 /* GLProgram.m */; };
+		BCCF950316EEC7FA00871775 /* MoleculesDesktop.iconset in Resources */ = {isa = PBXBuildFile; fileRef = BCCF950216EEC7FA00871775 /* MoleculesDesktop.iconset */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,10 +56,47 @@
 		BCBF619C16E83DCF00E2784A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BCBF619E16E83DCF00E2784A /* Molecules Desktop-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Molecules Desktop-Prefix.pch"; sourceTree = "<group>"; };
 		BCBF61A016E83DCF00E2784A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		BCBF61A216E83DCF00E2784A /* SLSDocument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLSDocument.h; sourceTree = "<group>"; };
-		BCBF61A316E83DCF00E2784A /* SLSDocument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLSDocument.m; sourceTree = "<group>"; };
-		BCBF61A616E83DCF00E2784A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SLSDocument.xib; sourceTree = "<group>"; };
+		BCBF61A216E83DCF00E2784A /* SLSMoleculeDocument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLSMoleculeDocument.h; sourceTree = "<group>"; };
+		BCBF61A316E83DCF00E2784A /* SLSMoleculeDocument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLSMoleculeDocument.m; sourceTree = "<group>"; };
+		BCBF61A616E83DCF00E2784A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SLSMoleculeDocument.xib; sourceTree = "<group>"; };
 		BCBF61A916E83DCF00E2784A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		BCBF61B016E83FBF00E2784A /* SLSMoleculeGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSMoleculeGLView.h; sourceTree = "<group>"; };
+		BCBF61B116E83FBF00E2784A /* SLSMoleculeGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSMoleculeGLView.m; sourceTree = "<group>"; };
+		BCCF94AF16ED4BE400871775 /* SLSMolecule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSMolecule.h; sourceTree = "<group>"; };
+		BCCF94B016ED4BE400871775 /* SLSMolecule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSMolecule.m; sourceTree = "<group>"; };
+		BCCF94B116ED4BE400871775 /* SLSMolecule+PDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SLSMolecule+PDB.h"; sourceTree = "<group>"; };
+		BCCF94B216ED4BE400871775 /* SLSMolecule+PDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SLSMolecule+PDB.m"; sourceTree = "<group>"; };
+		BCCF94B316ED4BE400871775 /* SLSMolecule+SDF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SLSMolecule+SDF.h"; sourceTree = "<group>"; };
+		BCCF94B416ED4BE400871775 /* SLSMolecule+SDF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SLSMolecule+SDF.m"; sourceTree = "<group>"; };
+		BCCF94C616ED603900871775 /* NSData+Gzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Gzip.h"; sourceTree = "<group>"; };
+		BCCF94C716ED603900871775 /* NSData+Gzip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Gzip.m"; sourceTree = "<group>"; };
+		BCCF94C916ED609C00871775 /* VCTitleCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCTitleCase.h; sourceTree = "<group>"; };
+		BCCF94CA16ED609C00871775 /* VCTitleCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCTitleCase.m; sourceTree = "<group>"; };
+		BCCF94CE16ED6BEB00871775 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		BCCF94D016ED6BFB00871775 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		BCCF94D216ED7A9100871775 /* CylinderAmbientOcclusion.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = CylinderAmbientOcclusion.fsh; path = Shaders/CylinderAmbientOcclusion.fsh; sourceTree = "<group>"; };
+		BCCF94D316ED7A9100871775 /* CylinderAmbientOcclusion.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = CylinderAmbientOcclusion.vsh; path = Shaders/CylinderAmbientOcclusion.vsh; sourceTree = "<group>"; };
+		BCCF94D416ED7A9100871775 /* CylinderDepth.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = CylinderDepth.fsh; path = Shaders/CylinderDepth.fsh; sourceTree = "<group>"; };
+		BCCF94D516ED7A9100871775 /* CylinderDepth.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = CylinderDepth.vsh; path = Shaders/CylinderDepth.vsh; sourceTree = "<group>"; };
+		BCCF94D616ED7A9100871775 /* CylinderRaytracing.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = CylinderRaytracing.fsh; path = Shaders/CylinderRaytracing.fsh; sourceTree = "<group>"; };
+		BCCF94D716ED7A9100871775 /* CylinderRaytracing.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = CylinderRaytracing.vsh; path = Shaders/CylinderRaytracing.vsh; sourceTree = "<group>"; };
+		BCCF94D816ED7A9100871775 /* PlainDisplay.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = PlainDisplay.fsh; path = Shaders/PlainDisplay.fsh; sourceTree = "<group>"; };
+		BCCF94D916ED7A9100871775 /* PlainDisplay.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = PlainDisplay.vsh; path = Shaders/PlainDisplay.vsh; sourceTree = "<group>"; };
+		BCCF94DA16ED7A9100871775 /* SphereAmbientOcclusion.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = SphereAmbientOcclusion.fsh; path = Shaders/SphereAmbientOcclusion.fsh; sourceTree = "<group>"; };
+		BCCF94DB16ED7A9100871775 /* SphereAmbientOcclusion.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = SphereAmbientOcclusion.vsh; path = Shaders/SphereAmbientOcclusion.vsh; sourceTree = "<group>"; };
+		BCCF94DC16ED7A9100871775 /* SphereAOLookup.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = SphereAOLookup.fsh; path = Shaders/SphereAOLookup.fsh; sourceTree = "<group>"; };
+		BCCF94DD16ED7A9100871775 /* SphereAOLookup.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = SphereAOLookup.vsh; path = Shaders/SphereAOLookup.vsh; sourceTree = "<group>"; };
+		BCCF94DE16ED7A9100871775 /* SphereDepth.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = SphereDepth.fsh; path = Shaders/SphereDepth.fsh; sourceTree = "<group>"; };
+		BCCF94DF16ED7A9100871775 /* SphereDepth.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = SphereDepth.vsh; path = Shaders/SphereDepth.vsh; sourceTree = "<group>"; };
+		BCCF94E016ED7A9100871775 /* SphereDepthWrite.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = SphereDepthWrite.fsh; path = Shaders/SphereDepthWrite.fsh; sourceTree = "<group>"; };
+		BCCF94E116ED7A9100871775 /* SphereDepthWrite.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = SphereDepthWrite.vsh; path = Shaders/SphereDepthWrite.vsh; sourceTree = "<group>"; };
+		BCCF94E216ED7A9100871775 /* SphereRaytracing.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = SphereRaytracing.fsh; path = Shaders/SphereRaytracing.fsh; sourceTree = "<group>"; };
+		BCCF94E316ED7A9100871775 /* SphereRaytracing.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = SphereRaytracing.vsh; path = Shaders/SphereRaytracing.vsh; sourceTree = "<group>"; };
+		BCCF94FA16EE82E700871775 /* SLSOpenGLRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSOpenGLRenderer.h; sourceTree = "<group>"; };
+		BCCF94FB16EE82E700871775 /* SLSOpenGLRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSOpenGLRenderer.m; sourceTree = "<group>"; };
+		BCCF94FD16EE839200871775 /* GLProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLProgram.h; sourceTree = "<group>"; };
+		BCCF94FE16EE839200871775 /* GLProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLProgram.m; sourceTree = "<group>"; };
+		BCCF950216EEC7FA00871775 /* MoleculesDesktop.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = MoleculesDesktop.iconset; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +104,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCCF94D116ED6BFB00871775 /* QuartzCore.framework in Frameworks */,
+				BCCF94CF16ED6BEB00871775 /* OpenGL.framework in Frameworks */,
 				BCBF619116E83DCF00E2784A /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,6 +133,8 @@
 		BCBF618F16E83DCF00E2784A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BCCF94D016ED6BFB00871775 /* QuartzCore.framework */,
+				BCCF94CE16ED6BEB00871775 /* OpenGL.framework */,
 				BCBF619016E83DCF00E2784A /* Cocoa.framework */,
 				BCBF619216E83DCF00E2784A /* Other Frameworks */,
 			);
@@ -84,10 +154,9 @@
 		BCBF619616E83DCF00E2784A /* Molecules Desktop */ = {
 			isa = PBXGroup;
 			children = (
-				BCBF61A216E83DCF00E2784A /* SLSDocument.h */,
-				BCBF61A316E83DCF00E2784A /* SLSDocument.m */,
-				BCBF61A516E83DCF00E2784A /* SLSDocument.xib */,
-				BCBF61A816E83DCF00E2784A /* MainMenu.xib */,
+				BCBF61B516E83FFF00E2784A /* Main Interface */,
+				BCBF61B316E83FE500E2784A /* Molecules */,
+				BCBF61B416E83FEE00E2784A /* 3D Molecule Display */,
 				BCBF619716E83DCF00E2784A /* Supporting Files */,
 			);
 			path = "Molecules Desktop";
@@ -96,6 +165,7 @@
 		BCBF619716E83DCF00E2784A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BCCF950216EEC7FA00871775 /* MoleculesDesktop.iconset */,
 				BCBF619816E83DCF00E2784A /* Molecules Desktop-Info.plist */,
 				BCBF619916E83DCF00E2784A /* InfoPlist.strings */,
 				BCBF619C16E83DCF00E2784A /* main.m */,
@@ -103,6 +173,73 @@
 				BCBF619F16E83DCF00E2784A /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BCBF61B316E83FE500E2784A /* Molecules */ = {
+			isa = PBXGroup;
+			children = (
+				BCBF61A216E83DCF00E2784A /* SLSMoleculeDocument.h */,
+				BCBF61A316E83DCF00E2784A /* SLSMoleculeDocument.m */,
+				BCBF61A516E83DCF00E2784A /* SLSMoleculeDocument.xib */,
+				BCCF94AF16ED4BE400871775 /* SLSMolecule.h */,
+				BCCF94B016ED4BE400871775 /* SLSMolecule.m */,
+				BCCF94B116ED4BE400871775 /* SLSMolecule+PDB.h */,
+				BCCF94B216ED4BE400871775 /* SLSMolecule+PDB.m */,
+				BCCF94B316ED4BE400871775 /* SLSMolecule+SDF.h */,
+				BCCF94B416ED4BE400871775 /* SLSMolecule+SDF.m */,
+				BCCF94C916ED609C00871775 /* VCTitleCase.h */,
+				BCCF94CA16ED609C00871775 /* VCTitleCase.m */,
+				BCCF94C616ED603900871775 /* NSData+Gzip.h */,
+				BCCF94C716ED603900871775 /* NSData+Gzip.m */,
+			);
+			name = Molecules;
+			sourceTree = "<group>";
+		};
+		BCBF61B416E83FEE00E2784A /* 3D Molecule Display */ = {
+			isa = PBXGroup;
+			children = (
+				BCCF94FA16EE82E700871775 /* SLSOpenGLRenderer.h */,
+				BCCF94FB16EE82E700871775 /* SLSOpenGLRenderer.m */,
+				BCCF94FD16EE839200871775 /* GLProgram.h */,
+				BCCF94FE16EE839200871775 /* GLProgram.m */,
+				BCBF61B016E83FBF00E2784A /* SLSMoleculeGLView.h */,
+				BCBF61B116E83FBF00E2784A /* SLSMoleculeGLView.m */,
+				BCBF61B616E8408200E2784A /* Shaders */,
+			);
+			name = "3D Molecule Display";
+			sourceTree = "<group>";
+		};
+		BCBF61B516E83FFF00E2784A /* Main Interface */ = {
+			isa = PBXGroup;
+			children = (
+				BCBF61A816E83DCF00E2784A /* MainMenu.xib */,
+			);
+			name = "Main Interface";
+			sourceTree = "<group>";
+		};
+		BCBF61B616E8408200E2784A /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				BCCF94D216ED7A9100871775 /* CylinderAmbientOcclusion.fsh */,
+				BCCF94D316ED7A9100871775 /* CylinderAmbientOcclusion.vsh */,
+				BCCF94D416ED7A9100871775 /* CylinderDepth.fsh */,
+				BCCF94D516ED7A9100871775 /* CylinderDepth.vsh */,
+				BCCF94D616ED7A9100871775 /* CylinderRaytracing.fsh */,
+				BCCF94D716ED7A9100871775 /* CylinderRaytracing.vsh */,
+				BCCF94D816ED7A9100871775 /* PlainDisplay.fsh */,
+				BCCF94D916ED7A9100871775 /* PlainDisplay.vsh */,
+				BCCF94DA16ED7A9100871775 /* SphereAmbientOcclusion.fsh */,
+				BCCF94DB16ED7A9100871775 /* SphereAmbientOcclusion.vsh */,
+				BCCF94DC16ED7A9100871775 /* SphereAOLookup.fsh */,
+				BCCF94DD16ED7A9100871775 /* SphereAOLookup.vsh */,
+				BCCF94DE16ED7A9100871775 /* SphereDepth.fsh */,
+				BCCF94DF16ED7A9100871775 /* SphereDepth.vsh */,
+				BCCF94E016ED7A9100871775 /* SphereDepthWrite.fsh */,
+				BCCF94E116ED7A9100871775 /* SphereDepthWrite.vsh */,
+				BCCF94E216ED7A9100871775 /* SphereRaytracing.fsh */,
+				BCCF94E316ED7A9100871775 /* SphereRaytracing.vsh */,
+			);
+			name = Shaders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,8 +296,27 @@
 			files = (
 				BCBF619B16E83DCF00E2784A /* InfoPlist.strings in Resources */,
 				BCBF61A116E83DCF00E2784A /* Credits.rtf in Resources */,
-				BCBF61A716E83DCF00E2784A /* SLSDocument.xib in Resources */,
+				BCBF61A716E83DCF00E2784A /* SLSMoleculeDocument.xib in Resources */,
 				BCBF61AA16E83DCF00E2784A /* MainMenu.xib in Resources */,
+				BCCF94E416ED7A9100871775 /* CylinderAmbientOcclusion.fsh in Resources */,
+				BCCF94E516ED7A9100871775 /* CylinderAmbientOcclusion.vsh in Resources */,
+				BCCF94E616ED7A9100871775 /* CylinderDepth.fsh in Resources */,
+				BCCF94E716ED7A9100871775 /* CylinderDepth.vsh in Resources */,
+				BCCF94E816ED7A9100871775 /* CylinderRaytracing.fsh in Resources */,
+				BCCF94E916ED7A9100871775 /* CylinderRaytracing.vsh in Resources */,
+				BCCF94EA16ED7A9100871775 /* PlainDisplay.fsh in Resources */,
+				BCCF94EB16ED7A9100871775 /* PlainDisplay.vsh in Resources */,
+				BCCF94EC16ED7A9100871775 /* SphereAmbientOcclusion.fsh in Resources */,
+				BCCF94ED16ED7A9100871775 /* SphereAmbientOcclusion.vsh in Resources */,
+				BCCF94EE16ED7A9100871775 /* SphereAOLookup.fsh in Resources */,
+				BCCF94EF16ED7A9100871775 /* SphereAOLookup.vsh in Resources */,
+				BCCF94F016ED7A9100871775 /* SphereDepth.fsh in Resources */,
+				BCCF94F116ED7A9100871775 /* SphereDepth.vsh in Resources */,
+				BCCF94F216ED7A9100871775 /* SphereDepthWrite.fsh in Resources */,
+				BCCF94F316ED7A9100871775 /* SphereDepthWrite.vsh in Resources */,
+				BCCF94F416ED7A9100871775 /* SphereRaytracing.fsh in Resources */,
+				BCCF94F516ED7A9100871775 /* SphereRaytracing.vsh in Resources */,
+				BCCF950316EEC7FA00871775 /* MoleculesDesktop.iconset in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,7 +328,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCBF619D16E83DCF00E2784A /* main.m in Sources */,
-				BCBF61A416E83DCF00E2784A /* SLSDocument.m in Sources */,
+				BCBF61A416E83DCF00E2784A /* SLSMoleculeDocument.m in Sources */,
+				BCBF61B216E83FBF00E2784A /* SLSMoleculeGLView.m in Sources */,
+				BCCF94B516ED4BE400871775 /* SLSMolecule.m in Sources */,
+				BCCF94B616ED4BE400871775 /* SLSMolecule+PDB.m in Sources */,
+				BCCF94B716ED4BE400871775 /* SLSMolecule+SDF.m in Sources */,
+				BCCF94C816ED603900871775 /* NSData+Gzip.m in Sources */,
+				BCCF94CB16ED609D00871775 /* VCTitleCase.m in Sources */,
+				BCCF94FC16EE82E700871775 /* SLSOpenGLRenderer.m in Sources */,
+				BCCF94FF16EE839200871775 /* GLProgram.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,12 +359,12 @@
 			name = Credits.rtf;
 			sourceTree = "<group>";
 		};
-		BCBF61A516E83DCF00E2784A /* SLSDocument.xib */ = {
+		BCBF61A516E83DCF00E2784A /* SLSMoleculeDocument.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				BCBF61A616E83DCF00E2784A /* en */,
 			);
-			name = SLSDocument.xib;
+			name = SLSMoleculeDocument.xib;
 			sourceTree = "<group>";
 		};
 		BCBF61A816E83DCF00E2784A /* MainMenu.xib */ = {
@@ -243,6 +407,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-lz";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -269,6 +434,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_LDFLAGS = "-lz";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -316,6 +482,7 @@
 				BCBF61AF16E83DCF00E2784A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
