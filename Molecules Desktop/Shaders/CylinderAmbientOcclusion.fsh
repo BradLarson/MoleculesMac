@@ -1,19 +1,17 @@
-precision mediump float;
-
 uniform sampler2D depthTexture;
-uniform mediump mat3 modelViewProjMatrix;
-uniform mediump mat3 inverseModelViewProjMatrix;
-uniform mediump float intensityFactor;
+uniform mat3 modelViewProjMatrix;
+uniform mat3 inverseModelViewProjMatrix;
+uniform float intensityFactor;
 
-varying mediump vec2 impostorSpaceCoordinate;
-varying mediump vec3 normalizedStartingCoordinate;
-varying mediump vec3 normalizedEndingCoordinate;
-varying mediump float halfCylinderRadius;
-varying mediump vec3 adjustmentForOrthographicProjection;
+varying vec2 impostorSpaceCoordinate;
+varying vec3 normalizedStartingCoordinate;
+varying vec3 normalizedEndingCoordinate;
+varying float halfCylinderRadius;
+varying vec3 adjustmentForOrthographicProjection;
 
-const mediump float oneThird = 1.0 / 3.0;
+const float oneThird = 1.0 / 3.0;
 
-mediump float depthFromEncodedColor(mediump vec4 encodedColor)
+float depthFromEncodedColor(vec4 encodedColor)
 {
     return oneThird * (encodedColor.r + encodedColor.g + encodedColor.b);
     //    return encodedColor.r;
@@ -22,7 +20,7 @@ mediump float depthFromEncodedColor(mediump vec4 encodedColor)
 
 // X and Y are from -0.5 .. 0.5, Z is from -1.0 .. 1.0
 
-mediump vec3 coordinateFromTexturePosition(mediump vec2 texturePosition)
+vec3 coordinateFromTexturePosition(vec2 texturePosition)
 {
     float halfS = texturePosition.s / 2.0;
     

@@ -3,15 +3,15 @@ attribute vec3 direction;
 attribute vec3 inputImpostorSpaceCoordinate;
 
 uniform mat3 modelViewProjMatrix;
-uniform mediump float cylinderRadius;
-uniform mediump mat3 orthographicMatrix;
-uniform mediump vec3 translation;
+uniform float cylinderRadius;
+uniform mat3 orthographicMatrix;
+uniform vec3 translation;
 
-varying mediump vec2 impostorSpaceCoordinate;
-varying mediump float depthOffsetAlongCenterAxis;
-varying mediump float normalizedDisplacementAtEndCaps;
-varying mediump float normalizedDepth;
-varying mediump float depthAdjustmentForOrthographicProjection;
+varying vec2 impostorSpaceCoordinate;
+varying float depthOffsetAlongCenterAxis;
+varying float normalizedDisplacementAtEndCaps;
+varying float normalizedDepth;
+varying float depthAdjustmentForOrthographicProjection;
 
 void main()
 {

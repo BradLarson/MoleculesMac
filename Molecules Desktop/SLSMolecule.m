@@ -472,7 +472,6 @@ NSString *const kSLSMoleculeRenderingEndedNotification = @"MoleculeRenderingEnde
         
         SLSAtomContainer atomContainer;
         [atomValue getValue:&atomContainer];
-        NSLog(@"Rendering atom at coordinate: %f, %f", atomContainer.center.x, atomContainer.center.y);
         
         SLS3DPoint atomCoordinate = atomContainer.center;
 		atomCoordinate.x -= centerOfMassInX;
@@ -506,7 +505,6 @@ NSString *const kSLSMoleculeRenderingEndedNotification = @"MoleculeRenderingEnde
         
         SLSBondContainer bondContainer;
         [bondValue getValue:&bondContainer];
-        NSLog(@"Rendering bond at coordinate: %f, %f", bondContainer.startPoint.x, bondContainer.startPoint.y);
         
         SLS3DPoint startingCoordinate = bondContainer.startPoint;
 		startingCoordinate.x -= centerOfMassInX;

@@ -12,17 +12,17 @@ attribute vec3 position;
 attribute vec2 inputImpostorSpaceCoordinate;
 attribute vec2 ambientOcclusionTextureOffset;
 
-varying highp vec2 impostorSpaceCoordinate;
-varying mediump vec2 depthLookupCoordinate;
-varying mediump vec3 normalizedViewCoordinate;
-varying mediump float adjustedSphereRadius;
-varying mediump vec3 adjustmentForOrthographicProjection;
-varying mediump float depthAdjustmentForOrthographicProjection;
+varying vec2 impostorSpaceCoordinate;
+varying vec2 depthLookupCoordinate;
+varying vec3 normalizedViewCoordinate;
+varying float adjustedSphereRadius;
+varying vec3 adjustmentForOrthographicProjection;
+varying float depthAdjustmentForOrthographicProjection;
 
-uniform highp mat3 modelViewProjMatrix;
-uniform mediump float sphereRadius;
-uniform mediump mat3 orthographicMatrix;
-uniform mediump float ambientOcclusionTexturePatchWidth;
+uniform mat3 modelViewProjMatrix;
+uniform float sphereRadius;
+uniform mat3 orthographicMatrix;
+uniform float ambientOcclusionTexturePatchWidth;
 
 void main()
 {

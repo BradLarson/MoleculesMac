@@ -5,20 +5,20 @@
 //  Created by Brad Larson on 4/20/2010.
 //
 
-attribute mediump vec3 position;
-attribute mediump vec2 inputImpostorSpaceCoordinate;
-attribute mediump vec2 ambientOcclusionTextureOffset;
+attribute vec3 position;
+attribute vec2 inputImpostorSpaceCoordinate;
+attribute vec2 ambientOcclusionTextureOffset;
 
-varying mediump vec2 impostorSpaceCoordinate;
-varying mediump vec3 normalizedViewCoordinate;
-varying mediump vec2 depthLookupCoordinate;
-varying mediump vec2 ambientOcclusionTextureBase;
-varying mediump float adjustedSphereRadius;
+varying vec2 impostorSpaceCoordinate;
+varying vec3 normalizedViewCoordinate;
+varying vec2 depthLookupCoordinate;
+varying vec2 ambientOcclusionTextureBase;
+varying float adjustedSphereRadius;
 
-uniform mediump mat3 modelViewProjMatrix;
-uniform mediump mat3 orthographicMatrix;
-uniform mediump float sphereRadius;
-uniform mediump vec3 translation;
+uniform mat3 modelViewProjMatrix;
+uniform mat3 orthographicMatrix;
+uniform float sphereRadius;
+uniform vec3 translation;
 
 void main()
 {

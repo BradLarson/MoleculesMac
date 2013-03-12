@@ -10,17 +10,17 @@ attribute vec2 inputImpostorSpaceCoordinate;
 attribute vec3 direction;
 attribute vec2 ambientOcclusionTextureOffset;
 
-varying mediump vec2 impostorSpaceCoordinate;
-varying mediump vec3 normalizedStartingCoordinate;
-varying mediump vec3 normalizedEndingCoordinate;
-varying mediump float halfCylinderRadius;
-varying mediump vec3 adjustmentForOrthographicProjection;
-varying mediump float depthAdjustmentForOrthographicProjection;
+varying vec2 impostorSpaceCoordinate;
+varying vec3 normalizedStartingCoordinate;
+varying vec3 normalizedEndingCoordinate;
+varying float halfCylinderRadius;
+varying vec3 adjustmentForOrthographicProjection;
+varying float depthAdjustmentForOrthographicProjection;
 
-uniform mediump mat3 modelViewProjMatrix;
-uniform mediump float cylinderRadius;
-uniform mediump mat3 orthographicMatrix;
-uniform mediump float ambientOcclusionTexturePatchWidth;
+uniform mat3 modelViewProjMatrix;
+uniform float cylinderRadius;
+uniform mat3 orthographicMatrix;
+uniform float ambientOcclusionTexturePatchWidth;
 
 void main()
 {

@@ -1,34 +1,32 @@
-precision mediump float;
-
 uniform vec3 cylinderColor;
 uniform sampler2D depthTexture;
 uniform sampler2D ambientOcclusionTexture;
 uniform mat3 inverseModelViewProjMatrix;
-uniform mediump float ambientOcclusionTexturePatchWidth;
+uniform float ambientOcclusionTexturePatchWidth;
 
-varying mediump vec2 impostorSpaceCoordinate;
-varying mediump vec3 normalAlongCenterAxis;
-varying mediump float depthOffsetAlongCenterAxis;
-varying mediump float normalizedDepthOffsetAlongCenterAxis;
-varying mediump float normalizedDisplacementAtEndCaps;
-varying mediump float normalizedRadialDisplacementAtEndCaps;
-varying mediump vec2 rotationFactor;
-varying mediump vec3 normalizedViewCoordinate;
-varying mediump vec2 ambientOcclusionTextureBase;
-varying mediump float depthAdjustmentForOrthographicProjection;
-varying mediump float normalizedDistanceAlongZAxis;
+varying vec2 impostorSpaceCoordinate;
+varying vec3 normalAlongCenterAxis;
+varying float depthOffsetAlongCenterAxis;
+varying float normalizedDepthOffsetAlongCenterAxis;
+varying float normalizedDisplacementAtEndCaps;
+varying float normalizedRadialDisplacementAtEndCaps;
+varying vec2 rotationFactor;
+varying vec3 normalizedViewCoordinate;
+varying vec2 ambientOcclusionTextureBase;
+varying float depthAdjustmentForOrthographicProjection;
+varying float normalizedDistanceAlongZAxis;
 
-const mediump float oneThird = 1.0 / 3.0;
+const float oneThird = 1.0 / 3.0;
 const vec3 lightPosition = vec3(0.312757, 0.248372, 0.916785);
 
 
-mediump float depthFromEncodedColor(mediump vec4 encodedColor)
+float depthFromEncodedColor(vec4 encodedColor)
 {
     return oneThird * (encodedColor.r + encodedColor.g + encodedColor.b);
     //    return encodedColor.r;
 }
 
-mediump vec2 textureCoordinateForCylinderSurfacePosition(mediump vec3 cylinderSurfacePosition)
+vec2 textureCoordinateForCylinderSurfacePosition(vec3 cylinderSurfacePosition)
 {
     vec2 halfAbsoluteXY = abs(cylinderSurfacePosition.xy / 2.0);
     

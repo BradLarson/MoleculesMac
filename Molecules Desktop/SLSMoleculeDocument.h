@@ -3,7 +3,7 @@
 #import "SLSOpenGLRenderer.h"
 #import "SLSMoleculeGLView.h"
 
-@interface SLSMoleculeDocument : NSDocument
+@interface SLSMoleculeDocument : NSDocument<SLSGLViewDelegate>
 {
     SLSMolecule *molecule;
     SLSOpenGLRenderer *openGLRenderer;

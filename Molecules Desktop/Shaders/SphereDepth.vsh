@@ -8,15 +8,15 @@
 attribute vec3 position;
 attribute vec2 inputImpostorSpaceCoordinate;
 
-varying mediump vec2 impostorSpaceCoordinate;
-varying mediump float normalizedDepth;
-varying mediump float adjustedSphereRadius;
-varying mediump vec2 depthLookupCoordinate;
+varying vec2 impostorSpaceCoordinate;
+varying float normalizedDepth;
+varying float adjustedSphereRadius;
+varying vec2 depthLookupCoordinate;
 
-uniform mediump mat3 modelViewProjMatrix;
-uniform mediump float sphereRadius;
-uniform mediump mat3 orthographicMatrix;
-uniform mediump vec3 translation;
+uniform mat3 modelViewProjMatrix;
+uniform float sphereRadius;
+uniform mat3 orthographicMatrix;
+uniform vec3 translation;
 
 void main()
 {

@@ -1,12 +1,10 @@
-precision mediump float;
+varying vec2 impostorSpaceCoordinate;
+varying float depthOffsetAlongCenterAxis;
+varying float normalizedDisplacementAtEndCaps;
+varying float normalizedDepth;
+varying float depthAdjustmentForOrthographicProjection;
 
-varying mediump vec2 impostorSpaceCoordinate;
-varying mediump float depthOffsetAlongCenterAxis;
-varying mediump float normalizedDisplacementAtEndCaps;
-varying mediump float normalizedDepth;
-varying mediump float depthAdjustmentForOrthographicProjection;
-
-const lowp vec3 stepValues = vec3(2.0, 1.0, 0.0);
+const vec3 stepValues = vec3(2.0, 1.0, 0.0);
 const float scaleDownFactor = 1.0 / 255.0;
 
 void main()
@@ -30,8 +28,8 @@ void main()
 
     calculatedDepth = calculatedDepth * 3.0;
 
-    lowp vec3 intDepthValue = vec3(calculatedDepth) - stepValues;
-    lowp vec4 outputColor = vec4(intDepthValue, 1.0);
+    vec3 intDepthValue = vec3(calculatedDepth) - stepValues;
+    vec4 outputColor = vec4(intDepthValue, 1.0);
     
     gl_FragColor = outputColor;
 }

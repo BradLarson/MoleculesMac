@@ -18,8 +18,8 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
     }
     
     self.openGLContext = newContext;
-    backingWidth = 512;
-    backingHeight = 512;
+    backingWidth = 1024;
+    backingHeight = 1024;
     
     isSceneReady = NO;
     
@@ -71,6 +71,29 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
 	lightDirection[1] = 0.248372;
 	lightDirection[2] = 0.916785;
     
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+    
+	glDisable(GL_ALPHA_TEST);
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_SCISSOR_TEST);
+	glDisable(GL_BLEND);
+    //	glEnable(GL_REPLACE);
+	glDisable(GL_DITHER);
+	glDisable(GL_CULL_FACE);
+	glEnable(GL_TEXTURE_RECTANGLE_EXT);
+    
+	glDisable(GL_LIGHTING);
+	
+	glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+	
+	glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+	
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Black Background
+	glClear(GL_COLOR_BUFFER_BIT);
+
     [self initializeDepthShaders];
     [self initializeAmbientOcclusionShaders];
     [self initializeRaytracingShaders];
@@ -1632,7 +1655,7 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
 
 - (void)freeVertexBuffers;
 {    
-    dispatch_async(openGLESContextQueue, ^{
+//    dispatch_async(openGLESContextQueue, ^{
         [[self openGLContext] makeCurrentContext];
         
         isSceneReady = NO;
@@ -1665,7 +1688,7 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
         
         totalNumberOfTriangles = 0;
         totalNumberOfVertices = 0;
-    });
+//    });
 }
 
 - (void)initiateMoleculeRendering;

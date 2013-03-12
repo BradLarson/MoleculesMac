@@ -5,10 +5,10 @@
 //  Created by Brad Larson on 4/20/2010.
 //
 
-attribute mediump vec2 inputImpostorSpaceCoordinate;
+attribute vec2 inputImpostorSpaceCoordinate;
 
-varying mediump vec2 impostorSpaceCoordinate;
-varying mediump vec2 depthLookupCoordinate;
+varying vec2 impostorSpaceCoordinate;
+varying vec2 depthLookupCoordinate;
 
 void main()
 {

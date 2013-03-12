@@ -33,10 +33,17 @@
 {
     [super windowControllerDidLoadNib:aController];
 
+    NSLog(@"Assign renderer");
+    _glView.renderingDelegate = self;
+
     openGLRenderer = [[SLSOpenGLRenderer alloc] initWithContext:[_glView openGLContext]];
     
     [openGLRenderer createFramebuffersForView:_glView];
     [openGLRenderer clearScreen];
+    
+    [molecule switchToDefaultVisualizationMode];
+    molecule.isBeingDisplayed = YES;
+    [molecule performSelectorInBackground:@selector(renderMolecule:) withObject:openGLRenderer];
 }
 
 + (BOOL)autosavesInPlace
@@ -53,6 +60,8 @@
     NSLog(@"Data type: %@", typeName);
     
     molecule = [[SLSMolecule alloc] initWithData:data extension:typeName];
+
+    NSLog(@"Read molecule data");
     
     // Start rendering after callback
     
@@ -121,5 +130,30 @@
 #endif
 }
 
+#pragma mark -
+#pragma mark SLSGLViewDelegate methods
+
+- (void)resizeView;
+{
+    [openGLRenderer renderFrameForMolecule:molecule];
+}
+
+- (void)rotateModelFromScreenDisplacementInX:(float)xRotation inY:(float)yRotation;
+{
+    [openGLRenderer rotateModelFromScreenDisplacementInX:xRotation inY:yRotation];
+    [openGLRenderer renderFrameForMolecule:molecule];
+}
+
+- (void)scaleModelByFactor:(float)scaleFactor;
+{
+    [openGLRenderer scaleModelByFactor:scaleFactor];
+    [openGLRenderer renderFrameForMolecule:molecule];
+}
+
+- (void)translateModelByScreenDisplacementInX:(float)xTranslation inY:(float)yTranslation;
+{
+    [openGLRenderer translateModelByScreenDisplacementInX:xTranslation inY:yTranslation];
+    [openGLRenderer renderFrameForMolecule:molecule];
+}
 
 @end

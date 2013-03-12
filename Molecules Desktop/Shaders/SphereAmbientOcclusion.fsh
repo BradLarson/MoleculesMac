@@ -1,27 +1,25 @@
-precision mediump float;
-
 uniform sampler2D depthTexture;
-uniform highp mat3 modelViewProjMatrix;
-uniform mediump mat3 inverseModelViewProjMatrix;
-uniform mediump float intensityFactor;
+uniform mat3 modelViewProjMatrix;
+uniform mat3 inverseModelViewProjMatrix;
+uniform float intensityFactor;
 
-varying highp vec2 impostorSpaceCoordinate;
-varying mediump vec3 normalizedViewCoordinate;
-varying mediump float adjustedSphereRadius;
-varying mediump vec3 adjustmentForOrthographicProjection;
+varying vec2 impostorSpaceCoordinate;
+varying vec3 normalizedViewCoordinate;
+varying float adjustedSphereRadius;
+varying vec3 adjustmentForOrthographicProjection;
 
-const mediump float oneThird = 1.0 / 3.0;
+const float oneThird = 1.0 / 3.0;
 
-mediump float depthFromEncodedColor(mediump vec4 encodedColor)
+float depthFromEncodedColor(vec4 encodedColor)
 {
     return oneThird * (encodedColor.r + encodedColor.g + encodedColor.b);
     //    return encodedColor.r;
 }
 
-highp vec3 coordinateFromTexturePosition(highp vec2 texturePosition)
+vec3 coordinateFromTexturePosition(vec2 texturePosition)
 {
-    highp vec2 absoluteTexturePosition = abs(texturePosition);
-    highp float h = 1.0 - absoluteTexturePosition.s - absoluteTexturePosition.t;
+    vec2 absoluteTexturePosition = abs(texturePosition);
+    float h = 1.0 - absoluteTexturePosition.s - absoluteTexturePosition.t;
     
     if (h >= 0.0)
     {
@@ -35,7 +33,7 @@ highp vec3 coordinateFromTexturePosition(highp vec2 texturePosition)
 
 void main()
 {
-    highp vec3 currentSphereSurfaceCoordinate = coordinateFromTexturePosition(clamp(impostorSpaceCoordinate, -1.0, 1.0));
+    vec3 currentSphereSurfaceCoordinate = coordinateFromTexturePosition(clamp(impostorSpaceCoordinate, -1.0, 1.0));
 
     currentSphereSurfaceCoordinate = normalize(modelViewProjMatrix * currentSphereSurfaceCoordinate);
      

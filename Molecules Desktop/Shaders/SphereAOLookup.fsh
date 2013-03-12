@@ -1,9 +1,7 @@
-precision mediump float;
+uniform mat3 inverseModelViewProjMatrix;
 
-uniform mediump mat3 inverseModelViewProjMatrix;
-
-varying mediump vec2 impostorSpaceCoordinate;
-varying mediump vec2 depthLookupCoordinate;
+varying vec2 impostorSpaceCoordinate;
+varying vec2 depthLookupCoordinate;
 
 void main()
 {
