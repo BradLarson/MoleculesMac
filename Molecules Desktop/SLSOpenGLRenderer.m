@@ -18,8 +18,8 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
     }
     
     self.openGLContext = newContext;
-    backingWidth = 1024;
-    backingHeight = 1024;
+    backingWidth = 1920;
+    backingHeight = 1080;
     
     isSceneReady = NO;
     
@@ -49,21 +49,9 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
     glGetIntegerv(GL_MAX_TEXTURE_SIZE, &maxTextureSize);
     
     // Use higher-resolution textures on the A5 and higher GPUs, because they can support it
-    if (maxTextureSize > 2048)
-    {
-        //        ambientOcclusionTextureWidth = 2048;
-        //        ambientOcclusionLookupTextureWidth = 512;
-        //        sphereDepthTextureWidth = 512;
-        ambientOcclusionTextureWidth = 1024;
-        ambientOcclusionLookupTextureWidth = 128;
-        sphereDepthTextureWidth = 1024;
-    }
-    else
-    {
-        ambientOcclusionTextureWidth = 512;
-        ambientOcclusionLookupTextureWidth = 128;
-        sphereDepthTextureWidth = 256;
-    }
+    ambientOcclusionTextureWidth = 1024;
+    ambientOcclusionLookupTextureWidth = 128;
+    sphereDepthTextureWidth = 1024;
     
     currentViewportSize = CGSizeZero;
     
@@ -378,6 +366,9 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
          */
         glEnable(GL_TEXTURE_2D);
         
+        backingWidth = glView.frame.size.width;
+        backingHeight = glView.frame.size.height;
+        
 //        [self createFramebuffer:&viewFramebuffer size:CGSizeZero renderBuffer:&viewRenderbuffer depthBuffer:&viewDepthBuffer texture:NULL layer:glLayer];
         [self createFramebuffer:&depthPassFramebuffer size:CGSizeMake(backingWidth, backingHeight) renderBuffer:NULL depthBuffer:&depthPassDepthBuffer texture:&depthPassTexture];
         
@@ -422,6 +413,71 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
     });
     
     return YES;
+}
+
+- (void)resizeFramebuffersToMatchView:(NSView *)glView;
+{
+    dispatch_async(openGLESContextQueue, ^{
+        [[self openGLContext] makeCurrentContext];
+
+        if (viewFramebuffer)
+        {
+            glDeleteFramebuffers(1, &viewFramebuffer);
+            viewFramebuffer = 0;
+        }
+        
+        if (viewRenderbuffer)
+        {
+            glDeleteRenderbuffers(1, &viewRenderbuffer);
+            viewRenderbuffer = 0;
+        }
+        
+        if (viewDepthBuffer)
+        {
+            glDeleteRenderbuffers(1, &viewDepthBuffer);
+            viewDepthBuffer = 0;
+        }
+        
+        if (depthPassFramebuffer)
+        {
+            glDeleteFramebuffers(1, &depthPassFramebuffer);
+            depthPassFramebuffer = 0;
+        }
+        
+        if (depthPassDepthBuffer)
+        {
+            glDeleteRenderbuffers(1, &depthPassDepthBuffer);
+            depthPassDepthBuffer = 0;
+        }
+        
+        if (depthPassTexture)
+        {
+            glDeleteTextures(1, &depthPassTexture);
+            depthPassTexture = 0;
+        }
+
+        backingWidth = glView.frame.size.width;
+        backingHeight = glView.frame.size.height;
+
+        [self createFramebuffer:&depthPassFramebuffer size:CGSizeMake(backingWidth, backingHeight) renderBuffer:NULL depthBuffer:&depthPassDepthBuffer texture:&depthPassTexture];
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, depthPassTexture);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
+
+        [self switchToDisplayFramebuffer];
+        glViewport(0, 0, backingWidth, backingHeight);
+        
+        currentViewportSize = CGSizeMake(backingWidth, backingHeight);
+        
+        //    [self loadOrthoMatrix:orthographicMatrix left:-1.0 right:1.0 bottom:(-1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) top:(1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) near:-3.0 far:3.0];
+        //    [self loadOrthoMatrix:orthographicMatrix left:-1.0 right:1.0 bottom:(-1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) top:(1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) near:-2.0 far:2.0];
+        //    [self loadOrthoMatrix:orthographicMatrix left:-1.0 right:1.0 bottom:(-1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) top:(1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) near:-0.5 far:0.5];
+        [self loadOrthoMatrix:orthographicMatrix left:-1.0 right:1.0 bottom:(-1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) top:(1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) near:-1.0 far:1.0];
+
+    });
+
 }
 
 - (BOOL)createFramebuffer:(GLuint *)framebufferPointer size:(CGSize)bufferSize renderBuffer:(GLuint *)renderbufferPointer depthBuffer:(GLuint *)depthbufferPointer texture:(GLuint *)backingTexturePointer;

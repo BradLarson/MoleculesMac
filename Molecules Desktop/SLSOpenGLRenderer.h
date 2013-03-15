@@ -17,7 +17,7 @@ extern NSString *const kSLSMoleculeShadowCalculationEndedNotification;
 // OpenGL helper functions
 void normalize(GLfloat *v);
 
-typedef typedef struct { 
+typedef struct { 
     GLubyte redComponent;
     GLubyte greenComponent;
     GLubyte blueComponent;
@@ -175,6 +175,7 @@ static const SLSAtomProperties atomProperties[NUM_ATOMTYPES] = {
 // OpenGL drawing support
 - (BOOL)createFramebuffersForView:(NSView *)glView;
 - (void)destroyFramebuffers;
+- (void)resizeFramebuffersToMatchView:(NSView *)glView;
 - (void)configureLighting;
 - (void)clearScreen;
 - (void)startDrawingFrame;
@@ -205,7 +206,6 @@ static const SLSAtomProperties atomProperties[NUM_ATOMTYPES] = {
 - (void)terminateMoleculeRendering;
 - (void)cancelMoleculeRendering;
 - (void)waitForLastFrameToFinishRendering;
-
 
 // OpenGL drawing support
 - (void)initializeDepthShaders;
