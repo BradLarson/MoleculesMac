@@ -13,6 +13,6 @@
 {
     NSPoint lastMovementPosition;
 }
-@property(readwrite, assign) id<SLSGLViewDelegate>renderingDelegate;
+@property(readwrite, weak) id<SLSGLViewDelegate>renderingDelegate;
 
 @end

@@ -18,6 +18,6 @@
     BOOL isZooming;
 }
 
-@property(readwrite, assign) IBOutlet SLSMoleculeGLView *glView;
+@property(readwrite, weak) IBOutlet SLSMoleculeGLView *glView;
 
 @end

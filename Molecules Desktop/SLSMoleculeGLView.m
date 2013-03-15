@@ -60,11 +60,17 @@
 
 - (void)mouseDragged:(NSEvent *)theEvent;
 {
-	// Keep tracking mouse as you move the view area
-//	[self mouseDown:theEvent];
+    // Use shift for zooming, regular drag for rotation
 	NSPoint currentMovementPosition = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    if ([theEvent modifierFlags] & NSShiftKeyMask)
+    {
+        [self.renderingDelegate scaleModelByFactor:(1.0 + 3.0 * (currentMovementPosition.y - lastMovementPosition.y) / self.frame.size.height)];
+    }
+    else
+    {
+        [self.renderingDelegate rotateModelFromScreenDisplacementInX:(currentMovementPosition.x - lastMovementPosition.x) inY:(lastMovementPosition.y - currentMovementPosition.y)];
+    }
     
-    [self.renderingDelegate rotateModelFromScreenDisplacementInX:(currentMovementPosition.x - lastMovementPosition.x) inY:(lastMovementPosition.y - currentMovementPosition.y)];
     lastMovementPosition = currentMovementPosition;
 }
 

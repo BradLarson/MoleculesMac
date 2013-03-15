@@ -207,15 +207,32 @@
             NSArray *firstHandFingers = [firstHand fingers];
             if ([firstHandFingers count] > 0)
             {
-                LeapFinger *firstIndexFinger = [firstHandFingers objectAtIndex:0];
-                LeapVector *tipPosition1 = [firstIndexFinger tipPosition];
+                // Try averaging the fingers on the hand to clean things up
+                LeapVector *avgFirstFingerPosition = [[LeapVector alloc] init];
+                for (LeapFinger *finger in firstHandFingers)
+                {
+                    avgFirstFingerPosition = [avgFirstFingerPosition plus:[finger tipPosition]];
+                }
+                avgFirstFingerPosition = [avgFirstFingerPosition divide:[firstHandFingers count]];
+                LeapVector *tipPosition1 = avgFirstFingerPosition;
+
+//                LeapFinger *firstIndexFinger = [firstHandFingers objectAtIndex:0];
+//                LeapVector *tipPosition1 = [firstIndexFinger tipPosition];
                 
                 LeapHand *secondHand = [[frame hands] objectAtIndex:1];
                 NSArray *secondHandFingers = [secondHand fingers];
                 if ([[secondHand fingers] count] > 0)
                 {
-                    LeapFinger *secondIndexFinger = [secondHandFingers objectAtIndex:0];
-                    LeapVector *tipPosition2 = [secondIndexFinger tipPosition];
+                    LeapVector *avgSecondFingerPosition = [[LeapVector alloc] init];
+                    for (LeapFinger *finger in secondHandFingers)
+                    {
+                        avgSecondFingerPosition = [avgSecondFingerPosition plus:[finger tipPosition]];
+                    }
+                    avgSecondFingerPosition = [avgSecondFingerPosition divide:[firstHandFingers count]];
+                    LeapVector *tipPosition2 = avgSecondFingerPosition;
+
+//                    LeapFinger *secondIndexFinger = [secondHandFingers objectAtIndex:0];
+//                    LeapVector *tipPosition2 = [secondIndexFinger tipPosition];
                     NSLog(@"Two index fingers");
                     
                     if (!isZooming)
@@ -246,8 +263,16 @@
             
             if ([firstHandFingers count] > 0)
             {
-                LeapFinger *firstIndexFinger = [firstHandFingers objectAtIndex:0];
-                LeapVector *tipPosition1 = [firstIndexFinger tipPosition];
+                LeapVector *avgFirstFingerPosition = [[LeapVector alloc] init];
+                for (LeapFinger *finger in firstHandFingers)
+                {
+                    avgFirstFingerPosition = [avgFirstFingerPosition plus:[finger tipPosition]];
+                }
+                avgFirstFingerPosition = [avgFirstFingerPosition divide:[firstHandFingers count]];
+                LeapVector *tipPosition1 = avgFirstFingerPosition;
+
+//                LeapFinger *firstIndexFinger = [firstHandFingers objectAtIndex:0];
+//                LeapVector *tipPosition1 = [firstIndexFinger tipPosition];
                 NSLog(@"Rotate gesture with point: %@", tipPosition1);
 
                 if (!isRotating)
@@ -322,6 +347,13 @@
         default:
             return @"STATE_INVALID";
     }
+}
+
+#pragma mark -
+#pragma mark NSWindowController delegate methods
+
+- (void)windowWillClose:(NSNotification *)notification;
+{
 }
 
 @end
