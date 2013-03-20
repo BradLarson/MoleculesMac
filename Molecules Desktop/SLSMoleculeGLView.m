@@ -22,10 +22,12 @@
 -(void)awakeFromNib
 {
 	
-	NSOpenGLPixelFormatAttribute requestedAttrib[3];
+	NSOpenGLPixelFormatAttribute requestedAttrib[5];
 	requestedAttrib[0]=NSOpenGLPFADoubleBuffer;
-	requestedAttrib[1]=NSOpenGLPFAAccelerated;
-	requestedAttrib[2]=0;
+	requestedAttrib[1]=NSOpenGLPFADepthSize;
+	requestedAttrib[2]=24;
+	requestedAttrib[3]=NSOpenGLPFAAccelerated;
+	requestedAttrib[4]=0;
 	NSOpenGLPixelFormat *pixelFormat=[[NSOpenGLPixelFormat alloc] initWithAttributes:requestedAttrib];
 	if(pixelFormat!=nil)
 	{

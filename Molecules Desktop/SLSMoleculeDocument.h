@@ -9,6 +9,7 @@
     SLSMolecule *molecule;
     SLSOpenGLRenderer *openGLRenderer;
     LeapController *controller;
+    LeapFrame *previousLeapFrame;
 
     BOOL isAutorotating;
     
@@ -19,5 +20,9 @@
 }
 
 @property(readwrite, weak) IBOutlet SLSMoleculeGLView *glView;
+
+- (void)useFingersToRotateLikeOniOS:(LeapFrame *)currentLeapFrame;
+- (void)useHandsToRotateLikeOniOS:(LeapFrame *)currentLeapFrame;
+- (void)useGraspingMotionToScaleAndRotate:(LeapFrame *)currentLeapFrame;
 
 @end

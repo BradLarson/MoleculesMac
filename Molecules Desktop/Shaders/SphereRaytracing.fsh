@@ -25,18 +25,10 @@ void main()
     vec4 precalculatedDepthAndLighting = texture2D(sphereDepthMap, depthLookupCoordinate);
     float alphaComponent = 1.0;
   
-//    gl_FragColor = vec4(1.0);
-    
     alphaComponent = step(0.5, precalculatedDepthAndLighting.a);
 
-    float currentDepthValue = normalizedViewCoordinate.z - adjustedSphereRadius * precalculatedDepthAndLighting.r;        
-    vec3 encodedColor = texture2D(depthTexture, normalizedViewCoordinate.xy).rgb;
-    float previousDepthValue = depthFromEncodedColor(encodedColor);
-      
-        // Check to see that this fragment is the frontmost one for this area
-    alphaComponent = alphaComponent * step((currentDepthValue - 0.004), previousDepthValue);
-//    alphaComponent = alphaComponent * smoothstep((currentDepthValue - 0.024), (currentDepthValue - 0.006), previousDepthValue);
-//    alphaComponent = alphaComponent * smoothstep((currentDepthValue - 0.006), (currentDepthValue - 0.024), previousDepthValue);
+    float currentDepthValue = normalizedViewCoordinate.z - adjustedSphereRadius * precalculatedDepthAndLighting.r;
+    gl_FragDepth = currentDepthValue + (1.0 - alphaComponent);
     
     vec2 lookupTextureCoordinate = texture2D(precalculatedAOLookupTexture, depthLookupCoordinate).st;
     lookupTextureCoordinate = (lookupTextureCoordinate * 2.0) - 1.0;
@@ -53,10 +45,5 @@ void main()
     // Specular lighting    
     finalSphereColor = finalSphereColor + ( (precalculatedDepthAndLighting.b * ambientOcclusionIntensity) * (vec3(1.0) - finalSphereColor));
     
-    gl_FragColor = vec4(finalSphereColor * alphaComponent, alphaComponent); // Black background
-//    gl_FragColor = vec4(finalSphereColor * alphaComponent + (1.0 - 1.0 * alphaComponent), alphaComponent); // White background
-//            gl_FragColor = vec4(texture2D(ambientOcclusionTexture, textureCoordinateForAOLookup).rgb * alphaComponent + (1.0 - 1.0 * alphaComponent), alphaComponent);
-//            gl_FragColor = vec4(textureCoordinateForAOLookup * alphaComponent, 0.0, alphaComponent);
-            //    gl_FragColor = vec4(normalizedViewCoordinate, 1.0);
-            //    gl_FragColor = vec4(precalculatedDepthAndLighting, 1.0);
+    gl_FragColor = vec4(finalSphereColor, 1.0); // Black background
 }

@@ -1192,7 +1192,7 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
         
         [[self openGLContext] makeCurrentContext];
         
-        //        CFTimeInterval previousTimestamp = CFAbsoluteTimeGetCurrent();
+//        CFTimeInterval previousTimestamp = CFAbsoluteTimeGetCurrent();
         
         GLfloat currentModelViewMatrix[9];
         [self convert3DTransform:&currentCalculatedMatrix to3x3Matrix:currentModelViewMatrix];
@@ -1210,7 +1210,7 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
         GLfloat currentScaleFactor = currentModelScaleFactor;
         
         [self precalculateAOLookupTextureForInverseMatrix:inverseModelViewMatrix];
-        [self renderDepthTextureForModelViewMatrix:currentModelViewMatrix translation:currentTranslation scale:currentScaleFactor];
+//        [self renderDepthTextureForModelViewMatrix:currentModelViewMatrix translation:currentTranslation scale:currentScaleFactor];
         //        [self displayTextureToScreen:sphereAOLookupTexture];
         //        [self displayTextureToScreen:depthPassTexture];
         //        [self displayTextureToScreen:ambientOcclusionTexture];
@@ -1221,9 +1221,9 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
         
         [self presentRenderBuffer];
         
-        //        CFTimeInterval frameDuration = CFAbsoluteTimeGetCurrent() - previousTimestamp;
-        //
-        //        NSLog(@"Frame duration: %f ms", frameDuration * 1000.0);
+//        CFTimeInterval frameDuration = CFAbsoluteTimeGetCurrent() - previousTimestamp;
+//
+//        NSLog(@"Frame duration: %f ms at %d x %d", frameDuration * 1000.0, backingWidth, backingHeight);
         
         dispatch_semaphore_signal(frameRenderingSemaphore);
     });
@@ -1941,14 +1941,15 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
 #endif
     
     
+    glDisable(GL_BLEND);
+    glEnable(GL_DEPTH_TEST);
     glDepthMask(GL_TRUE);
-    
+//
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
-    glColorMask(0.0, 0.0, 0.0, 0.0);
-    [self writeDepthValuesForOpaqueAreasForModelViewMatrix:raytracingModelViewMatrix translation:modelTranslation scale:scaleFactor];
-    glColorMask(1.0, 1.0, 1.0, 1.0);
-    glDepthMask(GL_FALSE);
+//
+//    glColorMask(0.0, 0.0, 0.0, 0.0);
+//    [self writeDepthValuesForOpaqueAreasForModelViewMatrix:raytracingModelViewMatrix translation:modelTranslation scale:scaleFactor];
+//    glColorMask(1.0, 1.0, 1.0, 1.0);
     
     //    glClear(GL_COLOR_BUFFER_BIT);
     //
@@ -2039,6 +2040,8 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
         }
     }
     
+    glDepthMask(GL_FALSE);
+    glEnable(GL_BLEND);
 }
 
 - (void)renderAmbientOcclusionTextureForModelViewMatrix:(GLfloat *)ambientOcclusionModelViewMatrix inverseMatrix:(GLfloat *)inverseMatrix fractionOfTotal:(GLfloat)fractionOfTotal;

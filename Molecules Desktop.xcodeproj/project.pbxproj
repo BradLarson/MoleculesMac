@@ -17,6 +17,7 @@
 		BCBF61A716E83DCF00E2784A /* SLSMoleculeDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCBF61A516E83DCF00E2784A /* SLSMoleculeDocument.xib */; };
 		BCBF61AA16E83DCF00E2784A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCBF61A816E83DCF00E2784A /* MainMenu.xib */; };
 		BCBF61B216E83FBF00E2784A /* SLSMoleculeGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBF61B116E83FBF00E2784A /* SLSMoleculeGLView.m */; };
+		BCC23A4016F94FCF003EA181 /* SLSApplicationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC23A3F16F94FCF003EA181 /* SLSApplicationDelegate.m */; };
 		BCCF94B516ED4BE400871775 /* SLSMolecule.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCF94B016ED4BE400871775 /* SLSMolecule.m */; };
 		BCCF94B616ED4BE400871775 /* SLSMolecule+PDB.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCF94B216ED4BE400871775 /* SLSMolecule+PDB.m */; };
 		BCCF94B716ED4BE400871775 /* SLSMolecule+SDF.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCF94B416ED4BE400871775 /* SLSMolecule+SDF.m */; };
@@ -47,6 +48,8 @@
 		BCCF950316EEC7FA00871775 /* MoleculesDesktop.iconset in Resources */ = {isa = PBXBuildFile; fileRef = BCCF950216EEC7FA00871775 /* MoleculesDesktop.iconset */; };
 		BCCF951516EF7D1800871775 /* libLeap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BCCF951416EF7D1700871775 /* libLeap.dylib */; };
 		BCCF951616EF7DF600871775 /* libLeap.dylib in Resources */ = {isa = PBXBuildFile; fileRef = BCCF951416EF7D1700871775 /* libLeap.dylib */; };
+		BCE7796116F9453500FFB749 /* SLSPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE7795F16F9453500FFB749 /* SLSPreferencesWindowController.m */; };
+		BCE7796216F9453500FFB749 /* SLSPreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCE7796016F9453500FFB749 /* SLSPreferencesWindowController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +70,8 @@
 		BCBF61A916E83DCF00E2784A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		BCBF61B016E83FBF00E2784A /* SLSMoleculeGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSMoleculeGLView.h; sourceTree = "<group>"; };
 		BCBF61B116E83FBF00E2784A /* SLSMoleculeGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSMoleculeGLView.m; sourceTree = "<group>"; };
+		BCC23A3E16F94FCF003EA181 /* SLSApplicationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSApplicationDelegate.h; sourceTree = "<group>"; };
+		BCC23A3F16F94FCF003EA181 /* SLSApplicationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSApplicationDelegate.m; sourceTree = "<group>"; };
 		BCCF94AF16ED4BE400871775 /* SLSMolecule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSMolecule.h; sourceTree = "<group>"; };
 		BCCF94B016ED4BE400871775 /* SLSMolecule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSMolecule.m; sourceTree = "<group>"; };
 		BCCF94B116ED4BE400871775 /* SLSMolecule+PDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SLSMolecule+PDB.h"; sourceTree = "<group>"; };
@@ -107,6 +112,9 @@
 		BCCF951116EF7BAB00871775 /* LeapObjectiveC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeapObjectiveC.h; path = ../../LeapSDK/include/LeapObjectiveC.h; sourceTree = "<group>"; };
 		BCCF951216EF7BAB00871775 /* LeapObjectiveC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = LeapObjectiveC.mm; path = ../../LeapSDK/include/LeapObjectiveC.mm; sourceTree = "<group>"; };
 		BCCF951416EF7D1700871775 /* libLeap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libLeap.dylib; path = ../LeapSDK/lib/libLeap.dylib; sourceTree = "<group>"; };
+		BCE7795E16F9453500FFB749 /* SLSPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSPreferencesWindowController.h; sourceTree = "<group>"; };
+		BCE7795F16F9453500FFB749 /* SLSPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSPreferencesWindowController.m; sourceTree = "<group>"; };
+		BCE7796016F9453500FFB749 /* SLSPreferencesWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SLSPreferencesWindowController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				BCBF61B516E83FFF00E2784A /* Main Interface */,
+				BCE7795D16F944CA00FFB749 /* Preferences */,
 				BCBF61B316E83FE500E2784A /* Molecules */,
 				BCCF950E16EF7ADB00871775 /* Leap Motion */,
 				BCBF61B416E83FEE00E2784A /* 3D Molecule Display */,
@@ -228,6 +237,8 @@
 			isa = PBXGroup;
 			children = (
 				BCBF61A816E83DCF00E2784A /* MainMenu.xib */,
+				BCC23A3E16F94FCF003EA181 /* SLSApplicationDelegate.h */,
+				BCC23A3F16F94FCF003EA181 /* SLSApplicationDelegate.m */,
 			);
 			name = "Main Interface";
 			sourceTree = "<group>";
@@ -266,6 +277,16 @@
 				BCCF951216EF7BAB00871775 /* LeapObjectiveC.mm */,
 			);
 			name = "Leap Motion";
+			sourceTree = "<group>";
+		};
+		BCE7795D16F944CA00FFB749 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				BCE7795E16F9453500FFB749 /* SLSPreferencesWindowController.h */,
+				BCE7795F16F9453500FFB749 /* SLSPreferencesWindowController.m */,
+				BCE7796016F9453500FFB749 /* SLSPreferencesWindowController.xib */,
+			);
+			name = Preferences;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,6 +366,7 @@
 				BCCF94F416ED7A9100871775 /* SphereRaytracing.fsh in Resources */,
 				BCCF94F516ED7A9100871775 /* SphereRaytracing.vsh in Resources */,
 				BCCF950316EEC7FA00871775 /* MoleculesDesktop.iconset in Resources */,
+				BCE7796216F9453500FFB749 /* SLSPreferencesWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +404,8 @@
 				BCCF94FC16EE82E700871775 /* SLSOpenGLRenderer.m in Sources */,
 				BCCF94FF16EE839200871775 /* GLProgram.m in Sources */,
 				BC3D5DC216EF8342004F2E7B /* LeapObjectiveC.mm in Sources */,
+				BCE7796116F9453500FFB749 /* SLSPreferencesWindowController.m in Sources */,
+				BCC23A4016F94FCF003EA181 /* SLSApplicationDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
