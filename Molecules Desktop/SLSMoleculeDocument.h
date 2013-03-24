@@ -24,5 +24,6 @@
 - (void)useFingersToRotateLikeOniOS:(LeapFrame *)currentLeapFrame;
 - (void)useHandsToRotateLikeOniOS:(LeapFrame *)currentLeapFrame;
 - (void)useGraspingMotionToScaleAndRotate:(LeapFrame *)currentLeapFrame;
+- (void)useOpenHandToScaleAndRotate:(LeapFrame *)currentLeapFrame;
 
 @end

@@ -70,8 +70,8 @@ NSString *const kSLSMoleculeRenderingEndedNotification = @"MoleculeRenderingEnde
     {
         return nil;
     }
-	
-    if ([[[filename pathExtension] lowercaseString] isEqualToString:@"sdf"])
+    
+    if ([[fileExtension lowercaseString] isEqualToString:@"sdf"])
     {
         if (![self readFromSDFData:fileData])
         {
@@ -93,6 +93,10 @@ NSString *const kSLSMoleculeRenderingEndedNotification = @"MoleculeRenderingEnde
 {
 	// TODO: Make the categories perform a selector to determine whether this file is supported
 	if ([[[filePath pathExtension] lowercaseString] isEqualToString:@"pdb"]) // Uncompressed PDB file
+	{
+		return YES;
+	}
+    if ([[[filePath pathExtension] lowercaseString] isEqualToString:@"sdf"]) // Uncompressed PDB file
 	{
 		return YES;
 	}

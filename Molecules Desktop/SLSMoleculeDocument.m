@@ -318,8 +318,41 @@
         LeapHand *firstHand = [[currentLeapFrame hands] objectAtIndex:0];
         LeapVector *handTranslation = [firstHand translation:previousLeapFrame];
         
+        LeapVector *palmPosition = [firstHand palmPosition];
+        
+        if (palmPosition.z > 180.0)
+        {
+            previousLeapFrame = nil;
+            return;
+        }
+        
+        NSLog(@"Hand position: %f, %f", palmPosition.x, palmPosition.y);
+        
         [self scaleModelByFactor:1.0 + (handTranslation.z * 0.005)];
-        [self rotateModelFromScreenDisplacementInX:2.0 * handTranslation.x inY:2.0 * -handTranslation.y];
+        [self rotateModelFromScreenDisplacementInX:handTranslation.x inY:-handTranslation.y];
+    }
+    else
+    {
+        previousLeapFrame = nil;
+    }
+}
+
+- (void)useOpenHandToScaleAndRotate:(LeapFrame *)currentLeapFrame;
+{
+    // Only rotate, scale, or translate when an open hand is detected
+    if ([[currentLeapFrame hands] count] != 1)
+    {
+        previousLeapFrame = nil;
+        return;
+    }
+    
+    if ([[currentLeapFrame fingers] count] > 0)
+    {
+        LeapHand *firstHand = [[currentLeapFrame hands] objectAtIndex:0];
+        LeapVector *handTranslation = [firstHand translation:previousLeapFrame];
+        
+        [self scaleModelByFactor:1.0 + (handTranslation.z * 0.005)];
+        [self rotateModelFromScreenDisplacementInX:handTranslation.x inY:-handTranslation.y];
     }
     else
     {
@@ -399,6 +432,7 @@
             case 0: [self useFingersToRotateLikeOniOS:frame]; break;
             case 1: [self useHandsToRotateLikeOniOS:frame]; break;
             case 2: [self useGraspingMotionToScaleAndRotate:frame]; break;
+            case 3: [self useOpenHandToScaleAndRotate:frame]; break;
             default: [self useFingersToRotateLikeOniOS:frame]; break;
         }
     }

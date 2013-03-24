@@ -45,5 +45,5 @@ void main()
     // Specular lighting    
     finalSphereColor = finalSphereColor + ( (precalculatedDepthAndLighting.b * ambientOcclusionIntensity) * (vec3(1.0) - finalSphereColor));
     
-    gl_FragColor = vec4(finalSphereColor, 1.0); // Black background
+    gl_FragColor = vec4(finalSphereColor * alphaComponent, 1.0); // Black background
 }

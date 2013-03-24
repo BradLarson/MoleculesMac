@@ -68,6 +68,10 @@
     {
         [self.renderingDelegate scaleModelByFactor:(1.0 + 3.0 * (currentMovementPosition.y - lastMovementPosition.y) / self.frame.size.height)];
     }
+    else if ([theEvent modifierFlags] & NSCommandKeyMask)
+    {
+        [self.renderingDelegate translateModelByScreenDisplacementInX:(currentMovementPosition.x - lastMovementPosition.x) inY:(currentMovementPosition.y - lastMovementPosition.y)];
+    }
     else
     {
         [self.renderingDelegate rotateModelFromScreenDisplacementInX:(currentMovementPosition.x - lastMovementPosition.x) inY:(lastMovementPosition.y - currentMovementPosition.y)];

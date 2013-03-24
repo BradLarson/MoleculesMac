@@ -174,7 +174,6 @@
                 processedAtomType = UNKNOWN;
             }
 
-
             [self addAtomToDatabase:processedAtomType atPoint:atomCoordinate structureNumber:1 residueKey:UNKNOWNRESIDUE];
         }
         else if (([currentLine length] > 20) && (hasReachedAtoms))
