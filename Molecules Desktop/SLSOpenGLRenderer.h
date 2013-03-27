@@ -199,7 +199,7 @@ static const SLSAtomProperties atomProperties[NUM_ATOMTYPES] = {
 - (void)addBondToVertexBuffersWithStartPoint:(SLS3DPoint)startPoint endPoint:(SLS3DPoint)endPoint bondColor:(GLubyte *)bondColor bondType:(SLSBondType)bondType;
 
 // OpenGL drawing routines
-- (void)bindVertexBuffersForMolecule;
+- (void)bindVertexBuffersForMolecule:(SLSMolecule *)molecule;
 - (void)drawMolecule;
 - (void)freeVertexBuffers;
 - (void)initiateMoleculeRendering;
@@ -231,7 +231,7 @@ static const SLSAtomProperties atomProperties[NUM_ATOMTYPES] = {
 - (void)writeDepthValuesForOpaqueAreasForModelViewMatrix:(GLfloat *)depthModelViewMatrix translation:(GLfloat *)modelTranslation scale:(GLfloat)scaleFactor;
 - (void)renderRaytracedSceneForModelViewMatrix:(GLfloat *)raytracingModelViewMatrix inverseMatrix:(GLfloat *)inverseMatrix translation:(GLfloat *)modelTranslation scale:(GLfloat)scaleFactor;
 - (void)renderAmbientOcclusionTextureForModelViewMatrix:(GLfloat *)ambientOcclusionModelViewMatrix inverseMatrix:(GLfloat *)inverseMatrix fractionOfTotal:(GLfloat)fractionOfTotal;
-- (void)prepareAmbientOcclusionMap;
+- (void)prepareAmbientOcclusionMapForMolecule:(SLSMolecule *)molecule;
 - (void)precalculateAOLookupTextureForInverseMatrix:(GLfloat *)inverseMatrix;
 - (void)displayTextureToScreen:(GLuint)textureToDisplay;
 

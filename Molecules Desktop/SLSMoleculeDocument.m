@@ -1,23 +1,34 @@
 #import "SLSMoleculeDocument.h"
+#import "SLSMoleculeOverlayWindowController.h"
+
+#pragma mark -
+#pragma mark Core Video callback function
+
+static CVReturn renderCallback(CVDisplayLinkRef displayLink,
+							   const CVTimeStamp *inNow,
+							   const CVTimeStamp *inOutputTime,
+							   CVOptionFlags flagsIn,
+							   CVOptionFlags *flagsOut,
+							   void *displayLinkContext)
+{
+    return [(__bridge SLSMoleculeDocument *)displayLinkContext handleAutorotationTimer:inOutputTime];
+}
 
 @implementation SLSMoleculeDocument
 
 @synthesize glView = _glView;
+@synthesize overlayWindowController = _overlayWindowController;
+@synthesize glWindow = _glWindow;
 
 - (id)init
 {
     self = [super init];
     if (self) {
 		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-		[nc addObserver:self selector:@selector(showRenderingIndicator:) name:kSLSMoleculeRenderingStartedNotification object:nil];
-		[nc addObserver:self selector:@selector(updateRenderingIndicator:) name:kSLSMoleculeRenderingUpdateNotification object:nil];
-		[nc addObserver:self selector:@selector(hideRenderingIndicator:) name:kSLSMoleculeRenderingEndedNotification object:nil];
 		
 		[nc addObserver:self selector:@selector(showScanningIndicator:) name:@"FileLoadingStarted" object:nil];
 		[nc addObserver:self selector:@selector(updateScanningIndicator:) name:@"FileLoadingUpdate" object:nil];
 		[nc addObserver:self selector:@selector(hideScanningIndicator:) name:@"FileLoadingEnded" object:nil];
-        
-        [nc addObserver:self selector:@selector(handleFinishOfMoleculeRendering:) name:@"MoleculeRenderingEnded" object:nil];
     }
     return self;
 }
@@ -33,7 +44,6 @@
 {
     [super windowControllerDidLoadNib:aController];
 
-    NSLog(@"Assign renderer");
     _glView.renderingDelegate = self;
 
     openGLRenderer = [[SLSOpenGLRenderer alloc] initWithContext:[_glView openGLContext]];
@@ -47,6 +57,22 @@
     
     controller = [[LeapController alloc] init];
     [controller addListener:self];
+    
+    // Create and place the overlay window above the rendering view
+	NSRect overlayRect = [self.glView frame];
+	NSPoint originOnScreen = [self.glWindow convertBaseToScreen:overlayRect.origin];
+	overlayRect.origin = originOnScreen;
+	
+	[self.overlayWindowController.window setFrame:overlayRect display:YES];
+	[self.glWindow addChildWindow:self.overlayWindowController.window ordered:NSWindowAbove];
+}
+
+- (void)windowDidResize:(NSNotification *)notification
+{
+	NSRect overlayRect = [self.glView frame];
+	NSPoint originOnScreen = [self.glWindow convertBaseToScreen:overlayRect.origin];
+	overlayRect.origin = originOnScreen;
+	[self.overlayWindowController.window setFrame:overlayRect display:YES];
 }
 
 + (BOOL)autosavesInPlace
@@ -56,15 +82,7 @@
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
 {
-    // Insert code here to read your document from the given data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning NO.
-    // You can also choose to override -readFromFileWrapper:ofType:error: or -readFromURL:ofType:error: instead.
-    // If you override either of these, you should also override -isEntireFileLoaded to return NO if the contents are lazily loaded.
-
-    NSLog(@"Data type: %@", typeName);
-    
-    molecule = [[SLSMolecule alloc] initWithData:data extension:typeName];
-
-    NSLog(@"Read molecule data");
+    molecule = [[SLSMolecule alloc] initWithData:data extension:typeName renderingDelegate:self];
     
     // Start rendering after callback
     
@@ -80,61 +98,67 @@
 
 - (void)updateScanningIndicator:(NSNotification *)note;
 {
-	
 }
 
 - (void)hideScanningIndicator:(NSNotification *)note;
 {
 }
 
-- (void)showRenderingIndicator:(NSNotification *)note;
+#pragma mark -
+#pragma mark Autorotation
+
+- (IBAction)toggleAutorotation:(id)sender;
 {
-	[openGLRenderer clearScreen];
-    
-    NSLog(@"Clearing screen");
+    if (isAutorotating)
+	{
+        CVDisplayLinkStop(displayLink);
+        CVDisplayLinkRelease(displayLink);
+		
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"ToggleRotationSelected" object:[NSNumber numberWithBool:NO]];
+	}
+	else
+	{
+		previousTimestamp = 0;
+		CGDirectDisplayID   displayID = CGMainDisplayID();
+		CVReturn            error = kCVReturnSuccess;
+		error = CVDisplayLinkCreateWithCGDisplay(displayID, &displayLink);
+		if (error)
+		{
+			NSLog(@"DisplayLink created with error:%d", error);
+			displayLink = NULL;
+		}
+		CVDisplayLinkSetOutputCallback(displayLink, renderCallback, (__bridge void *)self);
+		
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"ToggleRotationSelected" object:[NSNumber numberWithBool:YES]];
+        CVDisplayLinkStart(displayLink);
+
+	}
+	isAutorotating = !isAutorotating;
 }
 
-- (void)updateRenderingIndicator:(NSNotification *)note;
+- (CVReturn)handleAutorotationTimer:(const CVTimeStamp *)currentTimeStamp;
 {
-}
+//	NSLog(@"Display link refresh period: %f", CVDisplayLinkGetActualOutputVideoRefreshPeriod(displayLink));
+//	NSLog(@"videoTime: %d, hostTime: %lld, rateScalar: %f, videoRefreshPeriod: %lld", currentTimeStamp->videoTimeScale, currentTimeStamp->videoTime, currentTimeStamp->rateScalar, currentTimeStamp->videoRefreshPeriod);
 
-- (void)hideRenderingIndicator:(NSNotification *)note;
-{
-}
-
-- (void)handleFinishOfMoleculeRendering:(NSNotification *)note;
-{
-    NSLog(@"Finishing rendering");
-	[openGLRenderer clearScreen];
-	[NSThread sleepForTimeInterval:0.1];
-    
-    [openGLRenderer resetModelViewMatrix];
-	
-#ifdef RUN_OPENGL_BENCHMARKS
-    
-    [self.displayLink invalidate];
-    self.displayLink = nil;
-    
-    //    [[NSNotificationCenter defaultCenter] postNotificationName:@"ToggleRotationSelected" object:[NSNumber numberWithBool:NO]];
-	[NSThread sleepForTimeInterval:0.2];
-    
-    
-    [self runOpenGLBenchmarks];
-#else
+	if (previousTimestamp == 0)
+	{
+        [self rotateModelFromScreenDisplacementInX:1.0f inY:0.0f];
+	}
+	else
+	{
+//        [self rotateModelFromScreenDisplacementInX:(30.0f * (displayLink.timestamp - previousTimestamp)) inY:0.0f];
+	}
     
     [openGLRenderer renderFrameForMolecule:molecule];
 
-//    if (!isAutorotating)
-//    {
-//        [self startOrStopAutorotation:self];
-//    }
+//	previousTimestamp = displayLink.timestamp;
     
-    
-#endif
+    return kCVReturnSuccess;
 }
 
 #pragma mark -
-#pragma mark Leap gesture controls
+#pragma mark Leap gesture interaction styles
 
 - (void)useFingersToRotateLikeOniOS:(LeapFrame *)currentLeapFrame;
 {
@@ -361,6 +385,63 @@
 }
 
 #pragma mark -
+#pragma mark SLSMoleculeRenderingDelegate methods
+
+- (void)renderingStarted;
+{
+    NSLog(@"Rendering started");
+//    [self switchToDisplayFramebuffer];
+//    
+//    [[self openGLContext] makeCurrentContext];
+//    NSLog(@"Awaking view");
+//    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+//    glBindRenderbuffer(GL_RENDERBUFFER, 0);
+//    glViewport(0, 0, backingWidth, backingHeight);
+//    glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Black Background
+//    glClear(GL_COLOR_BUFFER_BIT);
+//    [[self openGLContext] flushBuffer];
+//    glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Black Background
+//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//    [[self openGLContext] flushBuffer];
+}
+
+- (void)renderingUpdated:(CGFloat)renderingProgress;
+{
+    [self.overlayWindowController updateProgressIndicator:renderingProgress * 100.0];
+}
+
+- (void)renderingEnded;
+{
+    [self.overlayWindowController hideOverlay];
+
+    NSLog(@"Finishing rendering");
+	[openGLRenderer clearScreen];
+	[NSThread sleepForTimeInterval:0.1];
+    
+    [openGLRenderer resetModelViewMatrix];
+	
+#ifdef RUN_OPENGL_BENCHMARKS
+    
+    [self.displayLink invalidate];
+    self.displayLink = nil;
+    
+    //    [[NSNotificationCenter defaultCenter] postNotificationName:@"ToggleRotationSelected" object:[NSNumber numberWithBool:NO]];
+	[NSThread sleepForTimeInterval:0.2];
+    
+    
+    [self runOpenGLBenchmarks];
+#else
+    
+    [openGLRenderer renderFrameForMolecule:molecule];
+    
+    //    if (!isAutorotating)
+    //    {
+    //        [self startOrStopAutorotation:self];
+    //    }
+#endif
+}
+
+#pragma mark -
 #pragma mark SLSGLViewDelegate methods
 
 - (void)resizeView;
@@ -392,7 +473,6 @@
 
 - (void)onInit:(NSNotification *)notification
 {
-    NSLog(@"Initialized Leap");
 }
 
 - (void)onConnect:(NSNotification *)notification;
@@ -415,6 +495,11 @@
 
 - (void)onFrame:(NSNotification *)notification;
 {
+    if (!isRespondingToLeapInput)
+    {
+        return;
+    }
+    
     LeapController *aController = (LeapController *)[notification object];
     
     // Get the most recent frame and report some basic information
@@ -460,6 +545,47 @@
 
 - (void)windowWillClose:(NSNotification *)notification;
 {
+    if(isAutorotating)
+    {
+        CVDisplayLinkStop(displayLink);
+        CVDisplayLinkRelease(displayLink);
+    }
 }
+
+//- (void)windowDidBecomeMain:(NSNotification *)notification
+- (void)windowDidBecomeKey:(NSNotification *)notification
+{
+    isRespondingToLeapInput = YES;
+}
+
+- (void)windowDidResignKey:(NSNotification *)notification
+{
+    isRespondingToLeapInput = NO;
+}
+
+- (void)windowDidEnterFullScreen:(NSNotification *)notification
+{
+    [openGLRenderer renderFrameForMolecule:molecule];
+
+}
+
+- (void)windowDidExitFullScreen:(NSNotification *)notification
+{
+    [openGLRenderer renderFrameForMolecule:molecule];
+}
+
+#pragma mark -
+#pragma mark Accessors
+
+- (SLSMoleculeOverlayWindowController *)overlayWindowController;
+{
+	if (_overlayWindowController == nil)
+	{
+		_overlayWindowController = [[SLSMoleculeOverlayWindowController alloc] initWithWindowNibName:@"SLSMoleculeOverlayWindowController"];
+	}
+	
+	return _overlayWindowController;
+}
+
 
 @end

@@ -4,15 +4,27 @@
 #import "SLSMoleculeGLView.h"
 #import "LeapObjectiveC.h"
 
-@interface SLSMoleculeDocument : NSDocument<SLSGLViewDelegate, LeapListener>
+static CVReturn renderCallback(CVDisplayLinkRef displayLink,
+							   const CVTimeStamp *inNow,
+							   const CVTimeStamp *inOutputTime,
+							   CVOptionFlags flagsIn,
+							   CVOptionFlags *flagsOut,
+							   void *displayLinkContext);
+
+@class SLSMoleculeOverlayWindowController;
+
+@interface SLSMoleculeDocument : NSDocument<SLSGLViewDelegate, LeapListener, SLSMoleculeRenderingDelegate>
 {
     SLSMolecule *molecule;
     SLSOpenGLRenderer *openGLRenderer;
     LeapController *controller;
     LeapFrame *previousLeapFrame;
-
-    BOOL isAutorotating;
+    BOOL isRespondingToLeapInput;    
     
+    BOOL isAutorotating;
+	CVDisplayLinkRef displayLink;
+    CFTimeInterval previousTimestamp;
+
     NSPoint lastFingerPoint;
     CGFloat startingZoomDistance, previousScale;
     BOOL isRotating;
@@ -20,7 +32,14 @@
 }
 
 @property(readwrite, weak) IBOutlet SLSMoleculeGLView *glView;
+@property(readonly, retain) SLSMoleculeOverlayWindowController *overlayWindowController;
+@property(readwrite, weak) IBOutlet NSWindow *glWindow;
 
+// Autorotation
+- (IBAction)toggleAutorotation:(id)sender;
+- (CVReturn)handleAutorotationTimer:(const CVTimeStamp *)currentTimeStamp;
+
+// Leap gesture interaction styles
 - (void)useFingersToRotateLikeOniOS:(LeapFrame *)currentLeapFrame;
 - (void)useHandsToRotateLikeOniOS:(LeapFrame *)currentLeapFrame;
 - (void)useGraspingMotionToScaleAndRotate:(LeapFrame *)currentLeapFrame;

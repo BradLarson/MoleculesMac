@@ -15,13 +15,11 @@
 
 #import "SLSOpenGLRenderer.h"
 
-NSString *const kSLSMoleculeRenderingStartedNotification = @"MoleculeRenderingStarted";
-NSString *const kSLSMoleculeRenderingUpdateNotification = @"MoleculeRenderingUpdate";
-NSString *const kSLSMoleculeRenderingEndedNotification = @"MoleculeRenderingEnded";
-
 #define BOND_LENGTH_LIMIT 3.0f
 
 @implementation SLSMolecule
+
+@synthesize renderingDelegate = _renderingDelegate;
 
 #pragma mark -
 #pragma mark Initialization and deallocation
@@ -64,12 +62,14 @@ NSString *const kSLSMoleculeRenderingEndedNotification = @"MoleculeRenderingEnde
 	return self;
 }
 
-- (id)initWithData:(NSData *)fileData extension:(NSString *)fileExtension;
+- (id)initWithData:(NSData *)fileData extension:(NSString *)fileExtension renderingDelegate:(id<SLSMoleculeRenderingDelegate>)newRenderingDelegate;
 {
     if (!(self = [self init]))
     {
         return nil;
     }
+    
+    self.renderingDelegate = newRenderingDelegate;
     
     if ([[fileExtension lowercaseString] isEqualToString:@"sdf"])
     {
@@ -351,17 +351,17 @@ NSString *const kSLSMoleculeRenderingEndedNotification = @"MoleculeRenderingEnde
 
 - (void)showStatusIndicator;
 {
-	[[NSNotificationCenter defaultCenter] postNotificationName:kSLSMoleculeRenderingStartedNotification object:nil ];
+    [self.renderingDelegate renderingStarted];
 }
 
 - (void)updateStatusIndicator;
 {
-	[[NSNotificationCenter defaultCenter] postNotificationName:kSLSMoleculeRenderingUpdateNotification object:[NSNumber numberWithDouble:(double)currentFeatureBeingRendered/(double)totalNumberOfFeaturesToRender] ];
+    [self.renderingDelegate renderingUpdated:(double)currentFeatureBeingRendered/(double)totalNumberOfFeaturesToRender];
 }
 
 - (void)hideStatusIndicator;
 {
-	[[NSNotificationCenter defaultCenter] postNotificationName:kSLSMoleculeRenderingEndedNotification object:nil ];
+    [self.renderingDelegate renderingEnded];
 }
 
 #pragma mark -
@@ -431,7 +431,7 @@ NSString *const kSLSMoleculeRenderingEndedNotification = @"MoleculeRenderingEnde
 		
 		if (!isRenderingCancelled)
 		{
-            [openGLRenderer bindVertexBuffersForMolecule];
+            [openGLRenderer bindVertexBuffersForMolecule:self];
             //        }
             //        else
             //        {

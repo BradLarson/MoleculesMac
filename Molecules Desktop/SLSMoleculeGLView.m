@@ -14,14 +14,8 @@
     return self;
 }
 
-- (void)drawRect:(NSRect)dirtyRect
-{
-    // Drawing code here.
-}
-
 -(void)awakeFromNib
 {
-	
 	NSOpenGLPixelFormatAttribute requestedAttrib[5];
 	requestedAttrib[0]=NSOpenGLPFADoubleBuffer;
 	requestedAttrib[1]=NSOpenGLPFADepthSize;
@@ -36,15 +30,24 @@
 	else
 	{
 		NSLog(@"Error: No appropriate pixel format found");
-	}
-	
-    //	[self initializeOpenGLLayer];
+	}    
+}
+
+- (void)drawRect:(NSRect)dirtyRect;
+{
+    [self.renderingDelegate translateModelByScreenDisplacementInX:0.0 inY:0.0];
 }
 
 - (void)reshape;
 {
 //	[[self openGLContext] update];
     [self.renderingDelegate resizeView];
+}
+
+- (void)viewDidEndLiveResize;
+{
+    [self.renderingDelegate translateModelByScreenDisplacementInX:0.0 inY:0.0];
+//    [self.renderingDelegate resizeView];
 }
 
 - (BOOL)acceptsFirstMouse:(NSEvent *)theEvent

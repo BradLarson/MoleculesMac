@@ -10,10 +10,6 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString *const kSLSMoleculeRenderingStartedNotification;
-extern NSString *const kSLSMoleculeRenderingUpdateNotification;
-extern NSString *const kSLSMoleculeRenderingEndedNotification;
-
 @class SLSOpenGLRenderer;
 
 // TODO: Convert enum to elemental number
@@ -45,6 +41,13 @@ typedef struct {
     NSInteger structureNumber;
     SLSResidueType residueKey;
 } SLSBondContainer;
+
+
+@protocol SLSMoleculeRenderingDelegate <NSObject>
+- (void)renderingStarted;
+- (void)renderingUpdated:(CGFloat)renderingProgress;
+- (void)renderingEnded;
+@end
 
 @interface SLSMolecule : NSObject 
 {
@@ -81,8 +84,9 @@ typedef struct {
 @property (readwrite, strong) NSValue *previousTerminalAtomValue;
 @property (readwrite, nonatomic) SLSVisualizationType currentVisualizationType;
 @property (readwrite) unsigned int numberOfStructureBeingDisplayed;
+@property (readwrite, weak) id<SLSMoleculeRenderingDelegate> renderingDelegate;
 
-- (id)initWithData:(NSData *)fileData extension:(NSString *)fileExtension;
+- (id)initWithData:(NSData *)fileData extension:(NSString *)fileExtension renderingDelegate:(id<SLSMoleculeRenderingDelegate>)newRenderingDelegate;
 
 + (BOOL)isFiletypeSupportedForFile:(NSString *)filePath;
 + (void)setBondColor:(GLubyte *)bondColor forResidueType:(SLSResidueType)residueType;

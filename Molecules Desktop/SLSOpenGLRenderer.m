@@ -65,11 +65,11 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
 	glDisable(GL_ALPHA_TEST);
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_SCISSOR_TEST);
-	glDisable(GL_BLEND);
+	glEnable(GL_BLEND);
     //	glEnable(GL_REPLACE);
 	glDisable(GL_DITHER);
 	glDisable(GL_CULL_FACE);
-	glEnable(GL_TEXTURE_RECTANGLE_EXT);
+//	glEnable(GL_TEXTURE_RECTANGLE_EXT);
     
 	glDisable(GL_LIGHTING);
 	
@@ -79,8 +79,10 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
 	glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 	
+    glViewport(0, 0, backingWidth, backingHeight);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Black Background
 	glClear(GL_COLOR_BUFFER_BIT);
+    glFlush();
 
     [self initializeDepthShaders];
     [self initializeAmbientOcclusionShaders];
@@ -349,6 +351,8 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
 
 - (BOOL)createFramebuffersForView:(NSView *)glView;
 {
+    NSLog(@"Create framebuffers");
+    
     dispatch_async(openGLESContextQueue, ^{
         [[self openGLContext] makeCurrentContext];
         
@@ -409,7 +413,7 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
         glBindTexture(GL_TEXTURE_2D, sphereAOLookupTexture);
         
         glActiveTexture(GL_TEXTURE3);
-        glBindTexture(GL_TEXTURE_2D, sphereDepthMappingTexture);
+        glBindTexture(GL_TEXTURE_2D, sphereDepthMappingTexture);        
     });
     
     return YES;
@@ -419,64 +423,80 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
 {
     dispatch_async(openGLESContextQueue, ^{
         [[self openGLContext] makeCurrentContext];
-
-        if (viewFramebuffer)
-        {
-            glDeleteFramebuffers(1, &viewFramebuffer);
-            viewFramebuffer = 0;
-        }
+        glEnable(GL_TEXTURE_2D);
         
-        if (viewRenderbuffer)
-        {
-            glDeleteRenderbuffers(1, &viewRenderbuffer);
-            viewRenderbuffer = 0;
-        }
-        
-        if (viewDepthBuffer)
-        {
-            glDeleteRenderbuffers(1, &viewDepthBuffer);
-            viewDepthBuffer = 0;
-        }
-        
-        if (depthPassFramebuffer)
-        {
-            glDeleteFramebuffers(1, &depthPassFramebuffer);
-            depthPassFramebuffer = 0;
-        }
-        
-        if (depthPassDepthBuffer)
-        {
-            glDeleteRenderbuffers(1, &depthPassDepthBuffer);
-            depthPassDepthBuffer = 0;
-        }
-        
-        if (depthPassTexture)
-        {
-            glDeleteTextures(1, &depthPassTexture);
-            depthPassTexture = 0;
-        }
-
         backingWidth = glView.frame.size.width;
         backingHeight = glView.frame.size.height;
 
-        [self createFramebuffer:&depthPassFramebuffer size:CGSizeMake(backingWidth, backingHeight) renderBuffer:NULL depthBuffer:&depthPassDepthBuffer texture:&depthPassTexture];
-
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, depthPassTexture);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
-
+        
         [self switchToDisplayFramebuffer];
         glViewport(0, 0, backingWidth, backingHeight);
-        
         currentViewportSize = CGSizeMake(backingWidth, backingHeight);
-        
-        //    [self loadOrthoMatrix:orthographicMatrix left:-1.0 right:1.0 bottom:(-1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) top:(1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) near:-3.0 far:3.0];
-        //    [self loadOrthoMatrix:orthographicMatrix left:-1.0 right:1.0 bottom:(-1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) top:(1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) near:-2.0 far:2.0];
-        //    [self loadOrthoMatrix:orthographicMatrix left:-1.0 right:1.0 bottom:(-1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) top:(1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) near:-0.5 far:0.5];
         [self loadOrthoMatrix:orthographicMatrix left:-1.0 right:1.0 bottom:(-1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) top:(1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) near:-1.0 far:1.0];
 
+        currentViewportSize = CGSizeMake(backingWidth, backingHeight);
     });
+    
+//    dispatch_async(openGLESContextQueue, ^{
+//        [[self openGLContext] makeCurrentContext];
+//
+//        if (viewFramebuffer)
+//        {
+//            glDeleteFramebuffers(1, &viewFramebuffer);
+//            viewFramebuffer = 0;
+//        }
+//        
+//        if (viewRenderbuffer)
+//        {
+//            glDeleteRenderbuffers(1, &viewRenderbuffer);
+//            viewRenderbuffer = 0;
+//        }
+//        
+//        if (viewDepthBuffer)
+//        {
+//            glDeleteRenderbuffers(1, &viewDepthBuffer);
+//            viewDepthBuffer = 0;
+//        }
+//        
+//        if (depthPassFramebuffer)
+//        {
+//            glDeleteFramebuffers(1, &depthPassFramebuffer);
+//            depthPassFramebuffer = 0;
+//        }
+//        
+//        if (depthPassDepthBuffer)
+//        {
+//            glDeleteRenderbuffers(1, &depthPassDepthBuffer);
+//            depthPassDepthBuffer = 0;
+//        }
+//        
+//        if (depthPassTexture)
+//        {
+//            glDeleteTextures(1, &depthPassTexture);
+//            depthPassTexture = 0;
+//        }
+//
+//        backingWidth = glView.frame.size.width;
+//        backingHeight = glView.frame.size.height;
+//
+//        [self createFramebuffer:&depthPassFramebuffer size:CGSizeMake(backingWidth, backingHeight) renderBuffer:NULL depthBuffer:&depthPassDepthBuffer texture:&depthPassTexture];
+//
+//        glActiveTexture(GL_TEXTURE0);
+//        glBindTexture(GL_TEXTURE_2D, depthPassTexture);
+//        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
+//        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
+//
+//        [self switchToDisplayFramebuffer];
+//        glViewport(0, 0, backingWidth, backingHeight);
+//        
+//        currentViewportSize = CGSizeMake(backingWidth, backingHeight);
+//        
+//        //    [self loadOrthoMatrix:orthographicMatrix left:-1.0 right:1.0 bottom:(-1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) top:(1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) near:-3.0 far:3.0];
+//        //    [self loadOrthoMatrix:orthographicMatrix left:-1.0 right:1.0 bottom:(-1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) top:(1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) near:-2.0 far:2.0];
+//        //    [self loadOrthoMatrix:orthographicMatrix left:-1.0 right:1.0 bottom:(-1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) top:(1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) near:-0.5 far:0.5];
+//        [self loadOrthoMatrix:orthographicMatrix left:-1.0 right:1.0 bottom:(-1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) top:(1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) near:-1.0 far:1.0];
+//
+//    });
 
 }
 
@@ -1634,7 +1654,7 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
     NSAssert(NO, @"Method not overridden");
 }
 
-- (void)bindVertexBuffersForMolecule;
+- (void)bindVertexBuffersForMolecule:(SLSMolecule *)molecule;
 {
     dispatch_async(openGLESContextQueue, ^{
         [[self openGLContext] makeCurrentContext];
@@ -1699,7 +1719,7 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
         }    
     });    
 
-    [self prepareAmbientOcclusionMap];
+    [self prepareAmbientOcclusionMapForMolecule:molecule];
     
     isSceneReady = YES;
 }
@@ -2206,7 +2226,7 @@ static float ambientOcclusionRotationAngles[AMBIENTOCCLUSIONSAMPLINGPOINTS][2] =
  };
  */
 
-- (void)prepareAmbientOcclusionMap;
+- (void)prepareAmbientOcclusionMapForMolecule:(SLSMolecule *)molecule;
 {
     dispatch_semaphore_wait(frameRenderingSemaphore, DISPATCH_TIME_FOREVER);
     
@@ -2274,7 +2294,7 @@ static float ambientOcclusionRotationAngles[AMBIENTOCCLUSIONSAMPLINGPOINTS][2] =
                 [self renderAmbientOcclusionTextureForModelViewMatrix:currentModelViewMatrix inverseMatrix:inverseModelViewMatrix fractionOfTotal:(0.5 / (GLfloat)AMBIENTOCCLUSIONSAMPLINGPOINTS)];
                 //        [self renderAmbientOcclusionTextureForModelViewMatrix:currentModelViewMatrix inverseMatrix:inverseModelViewMatrix fractionOfTotal:(1.0 / (GLfloat)AMBIENTOCCLUSIONSAMPLINGPOINTS)];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kSLSMoleculeRenderingUpdateNotification object:[NSNumber numberWithFloat:((float)currentAOSamplingPoint * 2.0) / ((float)AMBIENTOCCLUSIONSAMPLINGPOINTS * 2.0)] ];
+                    [molecule.renderingDelegate renderingUpdated:((float)currentAOSamplingPoint * 2.0) / ((float)AMBIENTOCCLUSIONSAMPLINGPOINTS * 2.0)];
                 });
                 
                 theta = theta + M_PI / 8.0;
@@ -2292,7 +2312,7 @@ static float ambientOcclusionRotationAngles[AMBIENTOCCLUSIONSAMPLINGPOINTS][2] =
                 [self renderAmbientOcclusionTextureForModelViewMatrix:currentModelViewMatrix inverseMatrix:inverseModelViewMatrix fractionOfTotal:(1.5 / (GLfloat)AMBIENTOCCLUSIONSAMPLINGPOINTS)];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kSLSMoleculeRenderingUpdateNotification object:[NSNumber numberWithFloat:((float)currentAOSamplingPoint * 2.0 + 1.0) / ((float)AMBIENTOCCLUSIONSAMPLINGPOINTS * 2.0)] ];
+                    [molecule.renderingDelegate renderingUpdated:((float)currentAOSamplingPoint * 2.0 + 1.0) / ((float)AMBIENTOCCLUSIONSAMPLINGPOINTS * 2.0)];
                 });
             }
             

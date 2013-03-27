@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		BC3D5DC116EF82DC004F2E7B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BC3D5DC016EF82DC004F2E7B /* libz.dylib */; };
 		BC3D5DC216EF8342004F2E7B /* LeapObjectiveC.mm in Sources */ = {isa = PBXBuildFile; fileRef = BCCF951216EF7BAB00871775 /* LeapObjectiveC.mm */; };
+		BC56CFE7170149FD00CA05BE /* SLSMoleculeOverlayWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC56CFE5170149FD00CA05BE /* SLSMoleculeOverlayWindowController.m */; };
+		BC56CFE8170149FD00CA05BE /* SLSMoleculeOverlayWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC56CFE6170149FD00CA05BE /* SLSMoleculeOverlayWindowController.xib */; };
+		BC56CFEB170150B300CA05BE /* SLSTransparentWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC56CFEA170150B300CA05BE /* SLSTransparentWindow.m */; };
 		BCBF619116E83DCF00E2784A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCBF619016E83DCF00E2784A /* Cocoa.framework */; };
 		BCBF619B16E83DCF00E2784A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BCBF619916E83DCF00E2784A /* InfoPlist.strings */; };
 		BCBF619D16E83DCF00E2784A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBF619C16E83DCF00E2784A /* main.m */; };
@@ -54,15 +57,21 @@
 
 /* Begin PBXFileReference section */
 		BC3D5DC016EF82DC004F2E7B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		BCBF618D16E83DCF00E2784A /* Molecules Desktop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Molecules Desktop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC56CFE31701442C00CA05BE /* Molecular Viewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Molecular Viewer.entitlements"; sourceTree = SOURCE_ROOT; };
+		BC56CFE4170149FD00CA05BE /* SLSMoleculeOverlayWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSMoleculeOverlayWindowController.h; sourceTree = "<group>"; };
+		BC56CFE5170149FD00CA05BE /* SLSMoleculeOverlayWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSMoleculeOverlayWindowController.m; sourceTree = "<group>"; };
+		BC56CFE6170149FD00CA05BE /* SLSMoleculeOverlayWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SLSMoleculeOverlayWindowController.xib; sourceTree = "<group>"; };
+		BC56CFE9170150B300CA05BE /* SLSTransparentWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSTransparentWindow.h; sourceTree = "<group>"; };
+		BC56CFEA170150B300CA05BE /* SLSTransparentWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSTransparentWindow.m; sourceTree = "<group>"; };
+		BCBF618D16E83DCF00E2784A /* Molecular Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Molecular Viewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCBF619016E83DCF00E2784A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BCBF619316E83DCF00E2784A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		BCBF619416E83DCF00E2784A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		BCBF619516E83DCF00E2784A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		BCBF619816E83DCF00E2784A /* Molecules Desktop-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Molecules Desktop-Info.plist"; sourceTree = "<group>"; };
+		BCBF619816E83DCF00E2784A /* Molecular Viewer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Molecular Viewer-Info.plist"; sourceTree = "<group>"; };
 		BCBF619A16E83DCF00E2784A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCBF619C16E83DCF00E2784A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		BCBF619E16E83DCF00E2784A /* Molecules Desktop-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Molecules Desktop-Prefix.pch"; sourceTree = "<group>"; };
+		BCBF619E16E83DCF00E2784A /* Molecular Viewer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Molecular Viewer-Prefix.pch"; sourceTree = "<group>"; };
 		BCBF61A016E83DCF00E2784A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		BCBF61A216E83DCF00E2784A /* SLSMoleculeDocument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLSMoleculeDocument.h; sourceTree = "<group>"; };
 		BCBF61A316E83DCF00E2784A /* SLSMoleculeDocument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLSMoleculeDocument.m; sourceTree = "<group>"; };
@@ -136,7 +145,7 @@
 		BCBF618416E83DCF00E2784A = {
 			isa = PBXGroup;
 			children = (
-				BCBF619616E83DCF00E2784A /* Molecules Desktop */,
+				BCBF619616E83DCF00E2784A /* Molecular Viewer */,
 				BCBF618F16E83DCF00E2784A /* Frameworks */,
 				BCBF618E16E83DCF00E2784A /* Products */,
 			);
@@ -145,7 +154,7 @@
 		BCBF618E16E83DCF00E2784A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BCBF618D16E83DCF00E2784A /* Molecules Desktop.app */,
+				BCBF618D16E83DCF00E2784A /* Molecular Viewer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -173,9 +182,10 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		BCBF619616E83DCF00E2784A /* Molecules Desktop */ = {
+		BCBF619616E83DCF00E2784A /* Molecular Viewer */ = {
 			isa = PBXGroup;
 			children = (
+				BC56CFE31701442C00CA05BE /* Molecular Viewer.entitlements */,
 				BCBF61B516E83FFF00E2784A /* Main Interface */,
 				BCE7795D16F944CA00FFB749 /* Preferences */,
 				BCBF61B316E83FE500E2784A /* Molecules */,
@@ -183,6 +193,7 @@
 				BCBF61B416E83FEE00E2784A /* 3D Molecule Display */,
 				BCBF619716E83DCF00E2784A /* Supporting Files */,
 			);
+			name = "Molecular Viewer";
 			path = "Molecules Desktop";
 			sourceTree = "<group>";
 		};
@@ -190,10 +201,10 @@
 			isa = PBXGroup;
 			children = (
 				BCCF950216EEC7FA00871775 /* MoleculesDesktop.iconset */,
-				BCBF619816E83DCF00E2784A /* Molecules Desktop-Info.plist */,
+				BCBF619816E83DCF00E2784A /* Molecular Viewer-Info.plist */,
 				BCBF619916E83DCF00E2784A /* InfoPlist.strings */,
 				BCBF619C16E83DCF00E2784A /* main.m */,
-				BCBF619E16E83DCF00E2784A /* Molecules Desktop-Prefix.pch */,
+				BCBF619E16E83DCF00E2784A /* Molecular Viewer-Prefix.pch */,
 				BCBF619F16E83DCF00E2784A /* Credits.rtf */,
 			);
 			name = "Supporting Files";
@@ -215,6 +226,11 @@
 				BCCF94CA16ED609C00871775 /* VCTitleCase.m */,
 				BCCF94C616ED603900871775 /* NSData+Gzip.h */,
 				BCCF94C716ED603900871775 /* NSData+Gzip.m */,
+				BC56CFE4170149FD00CA05BE /* SLSMoleculeOverlayWindowController.h */,
+				BC56CFE5170149FD00CA05BE /* SLSMoleculeOverlayWindowController.m */,
+				BC56CFE6170149FD00CA05BE /* SLSMoleculeOverlayWindowController.xib */,
+				BC56CFE9170150B300CA05BE /* SLSTransparentWindow.h */,
+				BC56CFEA170150B300CA05BE /* SLSTransparentWindow.m */,
 			);
 			name = Molecules;
 			sourceTree = "<group>";
@@ -292,9 +308,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BCBF618C16E83DCF00E2784A /* Molecules Desktop */ = {
+		BCBF618C16E83DCF00E2784A /* Molecular Viewer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BCBF61AD16E83DCF00E2784A /* Build configuration list for PBXNativeTarget "Molecules Desktop" */;
+			buildConfigurationList = BCBF61AD16E83DCF00E2784A /* Build configuration list for PBXNativeTarget "Molecular Viewer" */;
 			buildPhases = (
 				BCBF618916E83DCF00E2784A /* Sources */,
 				BCBF618A16E83DCF00E2784A /* Frameworks */,
@@ -305,9 +321,9 @@
 			);
 			dependencies = (
 			);
-			name = "Molecules Desktop";
+			name = "Molecular Viewer";
 			productName = "Molecules Desktop";
-			productReference = BCBF618D16E83DCF00E2784A /* Molecules Desktop.app */;
+			productReference = BCBF618D16E83DCF00E2784A /* Molecular Viewer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -320,7 +336,7 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Sunset Lake Software LLC";
 			};
-			buildConfigurationList = BCBF618816E83DCF00E2784A /* Build configuration list for PBXProject "Molecules Desktop" */;
+			buildConfigurationList = BCBF618816E83DCF00E2784A /* Build configuration list for PBXProject "Molecular Viewer" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -332,7 +348,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BCBF618C16E83DCF00E2784A /* Molecules Desktop */,
+				BCBF618C16E83DCF00E2784A /* Molecular Viewer */,
 			);
 		};
 /* End PBXProject section */
@@ -367,6 +383,7 @@
 				BCCF94F516ED7A9100871775 /* SphereRaytracing.vsh in Resources */,
 				BCCF950316EEC7FA00871775 /* MoleculesDesktop.iconset in Resources */,
 				BCE7796216F9453500FFB749 /* SLSPreferencesWindowController.xib in Resources */,
+				BC56CFE8170149FD00CA05BE /* SLSMoleculeOverlayWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,6 +423,8 @@
 				BC3D5DC216EF8342004F2E7B /* LeapObjectiveC.mm in Sources */,
 				BCE7796116F9453500FFB749 /* SLSPreferencesWindowController.m in Sources */,
 				BCC23A4016F94FCF003EA181 /* SLSApplicationDelegate.m in Sources */,
+				BC56CFE7170149FD00CA05BE /* SLSMoleculeOverlayWindowController.m in Sources */,
+				BC56CFEB170150B300CA05BE /* SLSTransparentWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,6 +479,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application: Brad Larson";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -477,6 +497,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -494,6 +515,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application: Brad Larson";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -504,6 +526,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = "";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -511,16 +534,17 @@
 		BCBF61AE16E83DCF00E2784A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Molecular Viewer.entitlements";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Molecules Desktop/Molecules Desktop-Prefix.pch";
-				INFOPLIST_FILE = "Molecules Desktop/Molecules Desktop-Info.plist";
+				GCC_PREFIX_HEADER = "Molecules Desktop/Molecular Viewer-Prefix.pch";
+				INFOPLIST_FILE = "Molecules Desktop/Molecular Viewer-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../LeapSDK/lib\"",
 					"\"$(SRCROOT)\"",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Molecular Viewer";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -528,16 +552,17 @@
 		BCBF61AF16E83DCF00E2784A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Molecular Viewer.entitlements";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Molecules Desktop/Molecules Desktop-Prefix.pch";
-				INFOPLIST_FILE = "Molecules Desktop/Molecules Desktop-Info.plist";
+				GCC_PREFIX_HEADER = "Molecules Desktop/Molecular Viewer-Prefix.pch";
+				INFOPLIST_FILE = "Molecules Desktop/Molecular Viewer-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../LeapSDK/lib\"",
 					"\"$(SRCROOT)\"",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Molecular Viewer";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -545,7 +570,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BCBF618816E83DCF00E2784A /* Build configuration list for PBXProject "Molecules Desktop" */ = {
+		BCBF618816E83DCF00E2784A /* Build configuration list for PBXProject "Molecular Viewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BCBF61AB16E83DCF00E2784A /* Debug */,
@@ -554,7 +579,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BCBF61AD16E83DCF00E2784A /* Build configuration list for PBXNativeTarget "Molecules Desktop" */ = {
+		BCBF61AD16E83DCF00E2784A /* Build configuration list for PBXNativeTarget "Molecular Viewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BCBF61AE16E83DCF00E2784A /* Debug */,
