@@ -33,7 +33,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 
 @property(readwrite, weak) IBOutlet SLSMoleculeGLView *glView;
 @property(readonly, retain) SLSMoleculeOverlayWindowController *overlayWindowController;
-@property(readwrite, weak) IBOutlet NSWindow *glWindow;
+@property(readwrite, retain) IBOutlet NSWindow *glWindow;
 
 // Autorotation
 - (IBAction)toggleAutorotation:(id)sender;

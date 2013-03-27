@@ -12,6 +12,7 @@
 		BC56CFE7170149FD00CA05BE /* SLSMoleculeOverlayWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC56CFE5170149FD00CA05BE /* SLSMoleculeOverlayWindowController.m */; };
 		BC56CFE8170149FD00CA05BE /* SLSMoleculeOverlayWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC56CFE6170149FD00CA05BE /* SLSMoleculeOverlayWindowController.xib */; };
 		BC56CFEB170150B300CA05BE /* SLSTransparentWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC56CFEA170150B300CA05BE /* SLSTransparentWindow.m */; };
+		BC56CFF21702A12A00CA05BE /* SLSMolecule+XYZ.m in Sources */ = {isa = PBXBuildFile; fileRef = BC56CFF11702A12A00CA05BE /* SLSMolecule+XYZ.m */; };
 		BCBF619116E83DCF00E2784A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCBF619016E83DCF00E2784A /* Cocoa.framework */; };
 		BCBF619B16E83DCF00E2784A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BCBF619916E83DCF00E2784A /* InfoPlist.strings */; };
 		BCBF619D16E83DCF00E2784A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBF619C16E83DCF00E2784A /* main.m */; };
@@ -63,6 +64,8 @@
 		BC56CFE6170149FD00CA05BE /* SLSMoleculeOverlayWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SLSMoleculeOverlayWindowController.xib; sourceTree = "<group>"; };
 		BC56CFE9170150B300CA05BE /* SLSTransparentWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSTransparentWindow.h; sourceTree = "<group>"; };
 		BC56CFEA170150B300CA05BE /* SLSTransparentWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSTransparentWindow.m; sourceTree = "<group>"; };
+		BC56CFF01702A12900CA05BE /* SLSMolecule+XYZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SLSMolecule+XYZ.h"; sourceTree = "<group>"; };
+		BC56CFF11702A12A00CA05BE /* SLSMolecule+XYZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SLSMolecule+XYZ.m"; sourceTree = "<group>"; };
 		BCBF618D16E83DCF00E2784A /* Molecular Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Molecular Viewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCBF619016E83DCF00E2784A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BCBF619316E83DCF00E2784A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -142,6 +145,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC56CFF41702A18000CA05BE /* File Formats */ = {
+			isa = PBXGroup;
+			children = (
+				BCCF94B116ED4BE400871775 /* SLSMolecule+PDB.h */,
+				BCCF94B216ED4BE400871775 /* SLSMolecule+PDB.m */,
+				BCCF94B316ED4BE400871775 /* SLSMolecule+SDF.h */,
+				BCCF94B416ED4BE400871775 /* SLSMolecule+SDF.m */,
+				BC56CFF01702A12900CA05BE /* SLSMolecule+XYZ.h */,
+				BC56CFF11702A12A00CA05BE /* SLSMolecule+XYZ.m */,
+			);
+			name = "File Formats";
+			sourceTree = "<group>";
+		};
 		BCBF618416E83DCF00E2784A = {
 			isa = PBXGroup;
 			children = (
@@ -218,10 +234,7 @@
 				BCBF61A516E83DCF00E2784A /* SLSMoleculeDocument.xib */,
 				BCCF94AF16ED4BE400871775 /* SLSMolecule.h */,
 				BCCF94B016ED4BE400871775 /* SLSMolecule.m */,
-				BCCF94B116ED4BE400871775 /* SLSMolecule+PDB.h */,
-				BCCF94B216ED4BE400871775 /* SLSMolecule+PDB.m */,
-				BCCF94B316ED4BE400871775 /* SLSMolecule+SDF.h */,
-				BCCF94B416ED4BE400871775 /* SLSMolecule+SDF.m */,
+				BC56CFF41702A18000CA05BE /* File Formats */,
 				BCCF94C916ED609C00871775 /* VCTitleCase.h */,
 				BCCF94CA16ED609C00871775 /* VCTitleCase.m */,
 				BCCF94C616ED603900871775 /* NSData+Gzip.h */,
@@ -425,6 +438,7 @@
 				BCC23A4016F94FCF003EA181 /* SLSApplicationDelegate.m in Sources */,
 				BC56CFE7170149FD00CA05BE /* SLSMoleculeOverlayWindowController.m in Sources */,
 				BC56CFEB170150B300CA05BE /* SLSTransparentWindow.m in Sources */,
+				BC56CFF21702A12A00CA05BE /* SLSMolecule+XYZ.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
