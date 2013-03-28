@@ -12,7 +12,11 @@
 				<string>pdb</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string></string>
+			<string>MoleculesDocumentIcon</string>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>chemical/x-pdb</string>
+			</array>
 			<key>CFBundleTypeName</key>
 			<string>PDB</string>
 			<key>CFBundleTypeOSTypes</key>
@@ -29,8 +33,32 @@
 			<array>
 				<string>sdf</string>
 			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>MoleculesDocumentIcon</string>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>chemical/x-mdl-sdfile</string>
+			</array>
 			<key>CFBundleTypeName</key>
 			<string>SDF</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>NSDocumentClass</key>
+			<string>SLSMoleculeDocument</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>xyz</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>MoleculesDocumentIcon</string>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>chemical/x-xyz</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>XYZ</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>NSDocumentClass</key>

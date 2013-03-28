@@ -54,6 +54,7 @@
 		BCCF951616EF7DF600871775 /* libLeap.dylib in Resources */ = {isa = PBXBuildFile; fileRef = BCCF951416EF7D1700871775 /* libLeap.dylib */; };
 		BCE7796116F9453500FFB749 /* SLSPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE7795F16F9453500FFB749 /* SLSPreferencesWindowController.m */; };
 		BCE7796216F9453500FFB749 /* SLSPreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCE7796016F9453500FFB749 /* SLSPreferencesWindowController.xib */; };
+		BCFE5DAB1703D0D1004C4EF3 /* MoleculesDocumentIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BCFE5DAA1703D0D1004C4EF3 /* MoleculesDocumentIcon.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -127,6 +128,7 @@
 		BCE7795E16F9453500FFB749 /* SLSPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSPreferencesWindowController.h; sourceTree = "<group>"; };
 		BCE7795F16F9453500FFB749 /* SLSPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSPreferencesWindowController.m; sourceTree = "<group>"; };
 		BCE7796016F9453500FFB749 /* SLSPreferencesWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SLSPreferencesWindowController.xib; sourceTree = "<group>"; };
+		BCFE5DAA1703D0D1004C4EF3 /* MoleculesDocumentIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MoleculesDocumentIcon.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,6 +218,7 @@
 		BCBF619716E83DCF00E2784A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BCFE5DAA1703D0D1004C4EF3 /* MoleculesDocumentIcon.icns */,
 				BCCF950216EEC7FA00871775 /* MoleculesDesktop.iconset */,
 				BCBF619816E83DCF00E2784A /* Molecular Viewer-Info.plist */,
 				BCBF619916E83DCF00E2784A /* InfoPlist.strings */,
@@ -397,6 +400,7 @@
 				BCCF950316EEC7FA00871775 /* MoleculesDesktop.iconset in Resources */,
 				BCE7796216F9453500FFB749 /* SLSPreferencesWindowController.xib in Resources */,
 				BC56CFE8170149FD00CA05BE /* SLSMoleculeOverlayWindowController.xib in Resources */,
+				BCFE5DAB1703D0D1004C4EF3 /* MoleculesDocumentIcon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

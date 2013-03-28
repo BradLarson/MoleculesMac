@@ -10,7 +10,7 @@
     self = [super initWithContentRect:contentRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
     if (self != nil) {
 		
-		[self setBackgroundColor:[NSColor colorWithCalibratedHue:0 saturation:0 brightness:0 alpha:0.2]];
+		[self setBackgroundColor:[NSColor colorWithCalibratedHue:0 saturation:0 brightness:0 alpha:1.0]];
         // Start with no transparency for all drawing into the window
         //        [self setAlphaValue:1.0];
         // Turn off opacity so that the parts of the window that are not drawn into are transparent.

@@ -49,7 +49,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
     openGLRenderer = [[SLSOpenGLRenderer alloc] initWithContext:[_glView openGLContext]];
     
     [openGLRenderer createFramebuffersForView:_glView];
-    [openGLRenderer clearScreen];
+    [openGLRenderer resizeFramebuffersToMatchView:_glView];
     
     [molecule switchToDefaultVisualizationMode];
     molecule.isBeingDisplayed = YES;
@@ -57,14 +57,6 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
     
     controller = [[LeapController alloc] init];
     [controller addListener:self];
-    
-    // Create and place the overlay window above the rendering view
-	NSRect overlayRect = [self.glView frame];
-	NSPoint originOnScreen = [self.glWindow convertBaseToScreen:overlayRect.origin];
-	overlayRect.origin = originOnScreen;
-	
-	[self.overlayWindowController.window setFrame:overlayRect display:YES];
-	[self.glWindow addChildWindow:self.overlayWindowController.window ordered:NSWindowAbove];
 }
 
 - (void)windowDidResize:(NSNotification *)notification
@@ -73,11 +65,6 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 	NSPoint originOnScreen = [self.glWindow convertBaseToScreen:overlayRect.origin];
 	overlayRect.origin = originOnScreen;
 	[self.overlayWindowController.window setFrame:overlayRect display:YES];
-}
-
-+ (BOOL)autosavesInPlace
-{
-    return YES;
 }
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
@@ -390,9 +377,24 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 - (void)renderingStarted;
 {
     NSLog(@"Rendering started");
+    // Create and place the overlay window above the rendering view
+	NSRect overlayRect = [self.glView frame];
+	NSPoint originOnScreen = [self.glWindow convertBaseToScreen:overlayRect.origin];
+	overlayRect.origin = originOnScreen;
+	
+    [self.overlayWindowController showOverlay];
+	[self.overlayWindowController.window setFrame:overlayRect display:YES];
+	[self.glWindow addChildWindow:self.overlayWindowController.window ordered:NSWindowAbove];
+
 //    [self switchToDisplayFramebuffer];
 //    
 //    [[self openGLContext] makeCurrentContext];
+//    glViewport(0, 0, backingWidth, backingHeight);
+//    glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Black Background
+//	glClear(GL_COLOR_BUFFER_BIT);
+//    CGLFlushDrawable([[self openGLContext] CGLContextObj]);
+
+    
 //    NSLog(@"Awaking view");
 //    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 //    glBindRenderbuffer(GL_RENDERBUFFER, 0);
@@ -414,7 +416,6 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 {
     [self.overlayWindowController hideOverlay];
 
-    NSLog(@"Finishing rendering");
 	[openGLRenderer clearScreen];
 	[NSThread sleepForTimeInterval:0.1];
     
@@ -433,6 +434,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 #else
     
     [openGLRenderer renderFrameForMolecule:molecule];
+    [self toggleAutorotation:self];
     
     //    if (!isAutorotating)
     //    {
@@ -447,7 +449,11 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 - (void)resizeView;
 {
     [openGLRenderer resizeFramebuffersToMatchView:self.glView];
-    [openGLRenderer renderFrameForMolecule:molecule];
+    if ([molecule isDoneRendering])
+    {
+        [openGLRenderer waitForLastFrameToFinishRendering];
+        [openGLRenderer renderFrameForMolecule:molecule];
+    }
 }
 
 - (void)rotateModelFromScreenDisplacementInX:(float)xRotation inY:(float)yRotation;
