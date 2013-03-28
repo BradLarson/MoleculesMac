@@ -18,8 +18,8 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
     }
     
     self.openGLContext = newContext;
-    backingWidth = 1920;
-    backingHeight = 1080;
+    backingWidth = 576;
+    backingHeight = 1024;
     
     isSceneReady = NO;
     
@@ -47,6 +47,7 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
 	[[self openGLContext] makeCurrentContext];
     GLint maxTextureSize;
     glGetIntegerv(GL_MAX_TEXTURE_SIZE, &maxTextureSize);
+    NSLog(@"Max texture size: %d", maxTextureSize);
     
     // Use higher-resolution textures on the A5 and higher GPUs, because they can support it
     ambientOcclusionTextureWidth = 1024;
@@ -346,8 +347,6 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
 
 - (BOOL)createFramebuffersForView:(NSView *)glView;
 {
-    NSLog(@"Create framebuffers");
-    
     dispatch_async(openGLESContextQueue, ^{
         [[self openGLContext] makeCurrentContext];
         
@@ -369,7 +368,8 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
         backingHeight = glView.frame.size.height;
         
 //        [self createFramebuffer:&viewFramebuffer size:CGSizeZero renderBuffer:&viewRenderbuffer depthBuffer:&viewDepthBuffer texture:NULL layer:glLayer];
-        [self createFramebuffer:&depthPassFramebuffer size:CGSizeMake(backingWidth, backingHeight) renderBuffer:NULL depthBuffer:&depthPassDepthBuffer texture:&depthPassTexture];
+//        [self createFramebuffer:&depthPassFramebuffer size:CGSizeMake(backingWidth, backingHeight) renderBuffer:NULL depthBuffer:&depthPassDepthBuffer texture:&depthPassTexture];
+        [self createFramebuffer:&depthPassFramebuffer size:CGSizeMake(0.75* ambientOcclusionTextureWidth, ambientOcclusionTextureWidth) renderBuffer:NULL depthBuffer:&depthPassDepthBuffer texture:&depthPassTexture];
         
         if (!ambientOcclusionFramebuffer)
         {
@@ -962,14 +962,9 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
 - (void)switchToDepthPassFramebuffer;
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, depthPassFramebuffer);
-    
-    CGSize newViewportSize = CGSizeMake(backingWidth, backingHeight);
-    
-    if (!CGSizeEqualToSize(newViewportSize, currentViewportSize))
-    {
-        glViewport(0, 0, backingWidth, backingHeight);
-        currentViewportSize = newViewportSize;
-    }
+    CGSize newViewportSize = CGSizeMake(0.75* ambientOcclusionTextureWidth, ambientOcclusionTextureWidth);
+    glViewport(0, 0, newViewportSize.width, newViewportSize.height);
+    currentViewportSize = newViewportSize;    
 }
 
 - (void)switchToAmbientOcclusionFramebuffer;
@@ -1149,11 +1144,6 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
     [self loadOrthoMatrix:orthographicMatrix left:-1.0 right:1.0 bottom:(-1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) top:(1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) near:-4.0 far:4.0];
 }
 
-- (void)configureLighting;
-{
-    NSAssert(NO, @"Method not overridden");
-}
-
 - (void)clearScreen;
 {
     dispatch_async(openGLESContextQueue, ^{
@@ -1166,11 +1156,6 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
         
         [self presentRenderBuffer];
     });
-}
-
-- (void)startDrawingFrame;
-{
-    NSAssert(NO, @"Method not overridden");
 }
 
 - (void)presentRenderBuffer;
@@ -1647,11 +1632,6 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
     }
 }
 
-- (void)addVertexBuffer;
-{
-    NSAssert(NO, @"Method not overridden");
-}
-
 - (void)bindVertexBuffersForMolecule:(SLSMolecule *)molecule;
 {
     dispatch_async(openGLESContextQueue, ^{
@@ -1720,11 +1700,6 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
     [self prepareAmbientOcclusionMapForMolecule:molecule];
     
     isSceneReady = YES;
-}
-
-- (void)drawMolecule;
-{
-    NSAssert(NO, @"Method not overridden");
 }
 
 - (void)freeVertexBuffers;

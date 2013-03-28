@@ -13,6 +13,8 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 
 @class SLSMoleculeOverlayWindowController;
 
+typedef enum {LEFTTORIGHTAUTOROTATION, RIGHTTOLEFTAUTOROTATION, TOPTOBOTTOMAUTOROTATION, BOTTOMTOTOPAUTOROTATION } SLSAutorotationType;
+
 @interface SLSMoleculeDocument : NSDocument<SLSGLViewDelegate, LeapListener, SLSMoleculeRenderingDelegate>
 {
     SLSMolecule *molecule;
@@ -29,6 +31,8 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
     CGFloat startingZoomDistance, previousScale;
     BOOL isRotating;
     BOOL isZooming;
+    
+    SLSAutorotationType currentAutorotationType;
 }
 
 @property(readwrite, weak) IBOutlet SLSMoleculeGLView *glView;

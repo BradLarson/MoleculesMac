@@ -176,9 +176,7 @@ static const SLSAtomProperties atomProperties[NUM_ATOMTYPES] = {
 - (BOOL)createFramebuffersForView:(NSView *)glView;
 - (void)destroyFramebuffers;
 - (void)resizeFramebuffersToMatchView:(NSView *)glView;
-- (void)configureLighting;
 - (void)clearScreen;
-- (void)startDrawingFrame;
 - (void)configureProjection;
 - (void)presentRenderBuffer;
 - (void)suspendRenderingDuringRotation;

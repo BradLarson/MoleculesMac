@@ -8,7 +8,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	[[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-															 [NSNumber numberWithInt:1], @"leapControlStyle",
+															 [NSNumber numberWithInt:3], @"leapControlStyle",
 															 nil]];
     
 }

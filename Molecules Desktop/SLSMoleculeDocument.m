@@ -43,7 +43,8 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController
 {
     [super windowControllerDidLoadNib:aController];
-
+    currentAutorotationType = LEFTTORIGHTAUTOROTATION;
+    
     _glView.renderingDelegate = self;
 
     openGLRenderer = [[SLSOpenGLRenderer alloc] initWithContext:[_glView openGLContext]];
@@ -130,7 +131,13 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 
 	if (previousTimestamp == 0)
 	{
-        [self rotateModelFromScreenDisplacementInX:1.0f inY:0.0f];
+        switch(currentAutorotationType)
+        {
+            case LEFTTORIGHTAUTOROTATION:[self rotateModelFromScreenDisplacementInX:1.0f inY:0.0f]; break;
+            case RIGHTTOLEFTAUTOROTATION:[self rotateModelFromScreenDisplacementInX:-1.0f inY:0.0f]; break;
+            case TOPTOBOTTOMAUTOROTATION:[self rotateModelFromScreenDisplacementInX:0.0f inY:1.0f]; break;
+            case BOTTOMTOTOPAUTOROTATION:[self rotateModelFromScreenDisplacementInX:0.0f inY:-1.0f]; break;
+        }
 	}
 	else
 	{
@@ -323,10 +330,11 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
         previousLeapFrame = nil;
         return;
     }
-        
-    if ([[currentLeapFrame fingers] count] < 2)
+    
+    LeapHand *firstHand = [[currentLeapFrame hands] objectAtIndex:0];
+
+    if ([[firstHand fingers] count] < 2)
     {
-        LeapHand *firstHand = [[currentLeapFrame hands] objectAtIndex:0];
         LeapVector *handTranslation = [firstHand translation:previousLeapFrame];
         
         LeapVector *palmPosition = [firstHand palmPosition];
@@ -350,24 +358,105 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 
 - (void)useOpenHandToScaleAndRotate:(LeapFrame *)currentLeapFrame;
 {
+    NSArray *gestures = [currentLeapFrame gestures:nil];
+    if ([gestures count] > 0)
+    {
+        NSLog(@"Gestures detected");
+        for (LeapGesture *currentGesture in gestures)
+        {
+            LeapSwipeGesture *swipeGesture = (LeapSwipeGesture *)currentGesture;
+            LeapVector *swipePosition = [swipeGesture position];
+            LeapVector *swipeStartPosition = [swipeGesture startPosition];
+            
+            if (!isAutorotating)
+            {
+                CGFloat displacementInX = swipePosition.x - swipeStartPosition.x;
+                CGFloat displacementInY = swipePosition.y - swipeStartPosition.y;
+                BOOL shouldAutorotate = NO;
+                if (displacementInX > 50.0)
+                {
+                    shouldAutorotate = YES;
+                    currentAutorotationType = LEFTTORIGHTAUTOROTATION;
+                }
+                else if (displacementInX < -50.0)
+                {
+                    shouldAutorotate = YES;
+                    currentAutorotationType = RIGHTTOLEFTAUTOROTATION;
+                }
+                else if (displacementInY > 50.0)
+                {
+                    shouldAutorotate = YES;
+                    currentAutorotationType = BOTTOMTOTOPAUTOROTATION;
+                }
+                else if (displacementInY < -50.0)
+                {
+                    shouldAutorotate = YES;
+                    currentAutorotationType = TOPTOBOTTOMAUTOROTATION;
+                }
+                
+                if (shouldAutorotate)
+                {
+                    [self toggleAutorotation:self];
+                }
+            }
+            NSLog(@"Swipe pos: %f, %f, %f start: %f, %f, %f, speed: %f", swipePosition.x, swipePosition.y, swipePosition.z, swipeStartPosition.x, swipeStartPosition.y, swipeStartPosition.z, [swipeGesture speed]);
+        }
+
+        previousLeapFrame = nil;
+        return;
+    }
+
     // Only rotate, scale, or translate when an open hand is detected
-    if ([[currentLeapFrame hands] count] != 1)
+    if ([[currentLeapFrame hands] count] < 1)
     {
         previousLeapFrame = nil;
         return;
     }
-    
-    if ([[currentLeapFrame fingers] count] > 0)
+    else if ([[currentLeapFrame hands] count] < 2)
     {
         LeapHand *firstHand = [[currentLeapFrame hands] objectAtIndex:0];
-        LeapVector *handTranslation = [firstHand translation:previousLeapFrame];
         
-        [self scaleModelByFactor:1.0 + (handTranslation.z * 0.005)];
-        [self rotateModelFromScreenDisplacementInX:handTranslation.x inY:-handTranslation.y];
+        if ([[firstHand fingers] count] > 1)
+        {
+            if (isAutorotating)
+            {
+                [self toggleAutorotation:self];
+            }
+            
+            LeapVector *handTranslation = [firstHand translation:previousLeapFrame];
+            
+            [self scaleModelByFactor:1.0 + (handTranslation.z * 0.007)];
+            [self rotateModelFromScreenDisplacementInX:handTranslation.x inY:-handTranslation.y];
+        }
+        else
+        {
+            previousLeapFrame = nil;
+        }
     }
     else
     {
-        previousLeapFrame = nil;
+        if (isAutorotating)
+        {
+            [self toggleAutorotation:self];
+        }
+
+        LeapVector *multiHandTranslation = [currentLeapFrame translation:previousLeapFrame];
+        [self translateModelByScreenDisplacementInX:3.0 * multiHandTranslation.x inY:3.0 * multiHandTranslation.y];
+        [self scaleModelByFactor:1.0 + (multiHandTranslation.z * 0.007)];
+//
+//        LeapHand *firstHand = [[currentLeapFrame hands] objectAtIndex:0];
+//        
+//        if ([[firstHand fingers] count] > 1)
+//        {
+//            LeapVector *handTranslation = [firstHand translation:previousLeapFrame];
+//            
+//            [self scaleModelByFactor:1.0 + (handTranslation.z * 0.007)];
+//            [self rotateModelFromScreenDisplacementInX:handTranslation.x inY:-handTranslation.y];
+//        }
+//        else
+//        {
+//            previousLeapFrame = nil;
+//        }
     }
 }
 
@@ -376,7 +465,6 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 
 - (void)renderingStarted;
 {
-    NSLog(@"Rendering started");
     // Create and place the overlay window above the rendering view
 	NSRect overlayRect = [self.glView frame];
 	NSPoint originOnScreen = [self.glWindow convertBaseToScreen:overlayRect.origin];
@@ -516,16 +604,16 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
     
     if (previousLeapFrame != nil)
     {
-//        [self useFingersToRotateLikeOniOS:frame];
-        NSInteger leapControlStyle = [[NSUserDefaults standardUserDefaults] integerForKey:@"leapControlStyle"];
-        switch(leapControlStyle)
-        {
-            case 0: [self useFingersToRotateLikeOniOS:frame]; break;
-            case 1: [self useHandsToRotateLikeOniOS:frame]; break;
-            case 2: [self useGraspingMotionToScaleAndRotate:frame]; break;
-            case 3: [self useOpenHandToScaleAndRotate:frame]; break;
-            default: [self useFingersToRotateLikeOniOS:frame]; break;
-        }
+        [self useOpenHandToScaleAndRotate:frame];
+//        NSInteger leapControlStyle = [[NSUserDefaults standardUserDefaults] integerForKey:@"leapControlStyle"];
+//        switch(leapControlStyle)
+//        {
+//            case 0: [self useFingersToRotateLikeOniOS:frame]; break;
+//            case 1: [self useHandsToRotateLikeOniOS:frame]; break;
+//            case 2: [self useGraspingMotionToScaleAndRotate:frame]; break;
+//            case 3: [self useOpenHandToScaleAndRotate:frame]; break;
+//            default: [self useFingersToRotateLikeOniOS:frame]; break;
+//        }
     }
     previousLeapFrame = frame;
 }
