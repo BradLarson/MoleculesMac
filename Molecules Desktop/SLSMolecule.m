@@ -12,6 +12,7 @@
 // Filetypes
 #import "SLSMolecule+PDB.h"
 #import "SLSMolecule+SDF.h"
+#import "SLSMolecule+XYZ.h"
 
 #import "SLSOpenGLRenderer.h"
 
@@ -78,6 +79,13 @@
             return nil;
         }
     }
+    else if ([[fileExtension lowercaseString] isEqualToString:@"xyz"])
+    {
+        if (![self readFromXYZData:fileData])
+        {
+            return nil;
+        }
+    }
     else
     {
         if (![self readFromPDBData:fileData])
@@ -96,7 +104,11 @@
 	{
 		return YES;
 	}
-    if ([[[filePath pathExtension] lowercaseString] isEqualToString:@"sdf"]) // Uncompressed PDB file
+    if ([[[filePath pathExtension] lowercaseString] isEqualToString:@"sdf"]) // Uncompressed SDF file
+	{
+		return YES;
+	}
+    if ([[[filePath pathExtension] lowercaseString] isEqualToString:@"xyz"]) // Uncompressed XYZ file
 	{
 		return YES;
 	}

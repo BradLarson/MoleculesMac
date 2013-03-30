@@ -43,6 +43,10 @@ typedef enum {LEFTTORIGHTAUTOROTATION, RIGHTTOLEFTAUTOROTATION, TOPTOBOTTOMAUTOR
 - (IBAction)toggleAutorotation:(id)sender;
 - (CVReturn)handleAutorotationTimer:(const CVTimeStamp *)currentTimeStamp;
 
+// Visualization modes
+- (IBAction)switchToSpacefillingMode:(id)sender;
+- (IBAction)switchToBallAndStickMode:(id)sender;
+
 // Leap gesture interaction styles
 - (void)useFingersToRotateLikeOniOS:(LeapFrame *)currentLeapFrame;
 - (void)useHandsToRotateLikeOniOS:(LeapFrame *)currentLeapFrame;

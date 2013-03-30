@@ -133,11 +133,12 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 	{
         switch(currentAutorotationType)
         {
-            case LEFTTORIGHTAUTOROTATION:[self rotateModelFromScreenDisplacementInX:1.0f inY:0.0f]; break;
-            case RIGHTTOLEFTAUTOROTATION:[self rotateModelFromScreenDisplacementInX:-1.0f inY:0.0f]; break;
-            case TOPTOBOTTOMAUTOROTATION:[self rotateModelFromScreenDisplacementInX:0.0f inY:1.0f]; break;
-            case BOTTOMTOTOPAUTOROTATION:[self rotateModelFromScreenDisplacementInX:0.0f inY:-1.0f]; break;
+            case LEFTTORIGHTAUTOROTATION:[openGLRenderer rotateModelFromScreenDisplacementInX:1.0f inY:0.0f]; break;
+            case RIGHTTOLEFTAUTOROTATION:[openGLRenderer rotateModelFromScreenDisplacementInX:-1.0f inY:0.0f]; break;
+            case TOPTOBOTTOMAUTOROTATION:[openGLRenderer rotateModelFromScreenDisplacementInX:0.0f inY:1.0f]; break;
+            case BOTTOMTOTOPAUTOROTATION:[openGLRenderer rotateModelFromScreenDisplacementInX:0.0f inY:-1.0f]; break;
         }
+        [openGLRenderer renderFrameForMolecule:molecule];
 	}
 	else
 	{
@@ -149,6 +150,33 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 //	previousTimestamp = displayLink.timestamp;
     
     return kCVReturnSuccess;
+}
+
+#pragma mark -
+#pragma mark Visualization modes
+
+- (IBAction)switchToSpacefillingMode:(id)sender;
+{
+    if (molecule.currentVisualizationType == SPACEFILLING)
+    {
+        return;
+    }
+    
+    molecule.currentVisualizationType = SPACEFILLING;
+    [openGLRenderer freeVertexBuffers];
+    [molecule performSelectorInBackground:@selector(renderMolecule:) withObject:openGLRenderer];
+}
+
+- (IBAction)switchToBallAndStickMode:(id)sender;
+{
+    if (molecule.currentVisualizationType == BALLANDSTICK)
+    {
+        return;
+    }
+
+    molecule.currentVisualizationType = BALLANDSTICK;
+    [openGLRenderer freeVertexBuffers];
+    [molecule performSelectorInBackground:@selector(renderMolecule:) withObject:openGLRenderer];
 }
 
 #pragma mark -
@@ -361,7 +389,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
     NSArray *gestures = [currentLeapFrame gestures:nil];
     if ([gestures count] > 0)
     {
-        NSLog(@"Gestures detected");
+//        NSLog(@"Gestures detected");
         for (LeapGesture *currentGesture in gestures)
         {
             LeapSwipeGesture *swipeGesture = (LeapSwipeGesture *)currentGesture;
@@ -399,7 +427,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
                     [self toggleAutorotation:self];
                 }
             }
-            NSLog(@"Swipe pos: %f, %f, %f start: %f, %f, %f, speed: %f", swipePosition.x, swipePosition.y, swipePosition.z, swipeStartPosition.x, swipeStartPosition.y, swipeStartPosition.z, [swipeGesture speed]);
+//            NSLog(@"Swipe pos: %f, %f, %f start: %f, %f, %f, speed: %f", swipePosition.x, swipePosition.y, swipePosition.z, swipeStartPosition.x, swipeStartPosition.y, swipeStartPosition.z, [swipeGesture speed]);
         }
 
         previousLeapFrame = nil;
@@ -425,8 +453,9 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
             
             LeapVector *handTranslation = [firstHand translation:previousLeapFrame];
             
-            [self scaleModelByFactor:1.0 + (handTranslation.z * 0.007)];
-            [self rotateModelFromScreenDisplacementInX:handTranslation.x inY:-handTranslation.y];
+            [openGLRenderer scaleModelByFactor:1.0 + (handTranslation.z * 0.007)];
+            [openGLRenderer rotateModelFromScreenDisplacementInX:handTranslation.x inY:-handTranslation.y];
+            [openGLRenderer renderFrameForMolecule:molecule];
         }
         else
         {
@@ -441,22 +470,9 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
         }
 
         LeapVector *multiHandTranslation = [currentLeapFrame translation:previousLeapFrame];
-        [self translateModelByScreenDisplacementInX:3.0 * multiHandTranslation.x inY:3.0 * multiHandTranslation.y];
-        [self scaleModelByFactor:1.0 + (multiHandTranslation.z * 0.007)];
-//
-//        LeapHand *firstHand = [[currentLeapFrame hands] objectAtIndex:0];
-//        
-//        if ([[firstHand fingers] count] > 1)
-//        {
-//            LeapVector *handTranslation = [firstHand translation:previousLeapFrame];
-//            
-//            [self scaleModelByFactor:1.0 + (handTranslation.z * 0.007)];
-//            [self rotateModelFromScreenDisplacementInX:handTranslation.x inY:-handTranslation.y];
-//        }
-//        else
-//        {
-//            previousLeapFrame = nil;
-//        }
+        [openGLRenderer translateModelByScreenDisplacementInX:3.0 * multiHandTranslation.x inY:3.0 * multiHandTranslation.y];
+        [openGLRenderer scaleModelByFactor:1.0 + (multiHandTranslation.z * 0.007)];
+        [openGLRenderer renderFrameForMolecule:molecule];
     }
 }
 
@@ -546,18 +562,33 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 
 - (void)rotateModelFromScreenDisplacementInX:(float)xRotation inY:(float)yRotation;
 {
+    if (isAutorotating)
+    {
+        [self toggleAutorotation:self];
+    }
+
     [openGLRenderer rotateModelFromScreenDisplacementInX:xRotation inY:yRotation];
     [openGLRenderer renderFrameForMolecule:molecule];
 }
 
 - (void)scaleModelByFactor:(float)scaleFactor;
 {
+    if (isAutorotating)
+    {
+        [self toggleAutorotation:self];
+    }
+
     [openGLRenderer scaleModelByFactor:scaleFactor];
     [openGLRenderer renderFrameForMolecule:molecule];
 }
 
 - (void)translateModelByScreenDisplacementInX:(float)xTranslation inY:(float)yTranslation;
 {
+    if (isAutorotating)
+    {
+        [self toggleAutorotation:self];
+    }
+
     [openGLRenderer translateModelByScreenDisplacementInX:xTranslation inY:yTranslation];
     [openGLRenderer renderFrameForMolecule:molecule];
 }
@@ -584,7 +615,6 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 
 - (void)onExit:(NSNotification *)notification;
 {
-    NSLog(@"Exited");
 }
 
 - (void)onFrame:(NSNotification *)notification;
@@ -666,6 +696,37 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 - (void)windowDidExitFullScreen:(NSNotification *)notification
 {
     [openGLRenderer renderFrameForMolecule:molecule];
+}
+
+- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem
+{
+    SEL theAction = [anItem action];
+    
+    if (theAction == @selector(switchToBallAndStickMode:))
+    {
+        if (molecule.numberOfBonds > 0)
+        {
+            return YES;
+        }
+        return NO;
+    }
+    else if (theAction == @selector(toggleAutorotation:))
+    {
+        NSMenuItem *currentMenuItem = (NSMenuItem *)anItem;
+        if ([currentMenuItem respondsToSelector:@selector(setState:)])
+        {
+            if (isAutorotating)
+            {
+                [currentMenuItem setState:NSOnState];
+            }
+            else
+            {
+                [currentMenuItem setState:NSOffState];
+            }
+        }
+
+    }
+    return [super validateUserInterfaceItem:anItem];
 }
 
 #pragma mark -
