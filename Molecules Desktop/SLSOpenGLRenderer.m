@@ -47,7 +47,7 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
 	[[self openGLContext] makeCurrentContext];
     GLint maxTextureSize;
     glGetIntegerv(GL_MAX_TEXTURE_SIZE, &maxTextureSize);
-    NSLog(@"Max texture size: %d", maxTextureSize);
+//    NSLog(@"Max texture size: %d", maxTextureSize);
     
     // Use higher-resolution textures on the A5 and higher GPUs, because they can support it
     ambientOcclusionTextureWidth = 1024;

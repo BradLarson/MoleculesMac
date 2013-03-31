@@ -1,0 +1,45 @@
+body {
+	line-height: 1.3em;
+	font-family: Lucida Grande, verdana, arial, helvetica, sans-serif;
+	font-size: 0.75em;
+ 	}
+.note {
+	background-color: #F0F3FF;
+	line-height: 1.3em;
+	color: #060606;
+	padding-right: 8px;
+	padding-bottom: 5px;
+	padding-left: 8px;
+	padding-top: 3px;
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-style: solid;
+	border-color: #C0C3CF;
+	margin-left: 1em;
+	margin-right: 5em;
+	}
+.uiname {
+	font-weight: bold;
+	color: #3366AA;
+	}
+.menuPath {
+	font-weight: bold;
+	color: #993300;
+	}
+code {
+	color: #006600;
+	}
+h1, h2, h3, h4 {
+	color: #032588;
+	}
+.screenshot {
+	margin-left: 1em;
+	}
+
+dl { margin-left:2em; }
+	
+dt { font-weight:bold; }
+
+dd { display:inline; }

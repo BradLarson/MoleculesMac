@@ -453,6 +453,12 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
             
             LeapVector *handTranslation = [firstHand translation:previousLeapFrame];
             
+            if ((abs(handTranslation.x) > 40.0) || (abs(handTranslation.x) > 40.0) || (abs(handTranslation.z) > 40.0))
+            {
+                previousLeapFrame = nil;
+                return;
+            }
+            
             [openGLRenderer scaleModelByFactor:1.0 + (handTranslation.z * 0.007)];
             [openGLRenderer rotateModelFromScreenDisplacementInX:handTranslation.x inY:-handTranslation.y];
             [openGLRenderer renderFrameForMolecule:molecule];
@@ -468,11 +474,15 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
         {
             [self toggleAutorotation:self];
         }
-
-        LeapVector *multiHandTranslation = [currentLeapFrame translation:previousLeapFrame];
-        [openGLRenderer translateModelByScreenDisplacementInX:3.0 * multiHandTranslation.x inY:3.0 * multiHandTranslation.y];
-        [openGLRenderer scaleModelByFactor:1.0 + (multiHandTranslation.z * 0.007)];
-        [openGLRenderer renderFrameForMolecule:molecule];
+        LeapHand *firstHand = [[currentLeapFrame hands] objectAtIndex:0];
+        LeapHand *secondHand = [[currentLeapFrame hands] objectAtIndex:1];
+        if ( ([[firstHand fingers] count] > 1) && ([[secondHand fingers] count] > 1) )
+        {
+            LeapVector *multiHandTranslation = [currentLeapFrame translation:previousLeapFrame];
+            [openGLRenderer translateModelByScreenDisplacementInX:3.0 * multiHandTranslation.x inY:3.0 * multiHandTranslation.y];
+            [openGLRenderer scaleModelByFactor:1.0 + (multiHandTranslation.z * 0.007)];
+            [openGLRenderer renderFrameForMolecule:molecule];
+        }
     }
 }
 

@@ -67,6 +67,10 @@
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleHelpBookFolder</key>
+	<string>Molecules Help</string>
+	<key>CFBundleHelpBookName</key>
+	<string>Molecules Help</string>
 	<key>CFBundleIconFile</key>
 	<string>MoleculesDesktop</string>
 	<key>CFBundleIdentifier</key>
