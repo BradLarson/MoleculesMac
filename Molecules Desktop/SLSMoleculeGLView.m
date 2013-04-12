@@ -92,6 +92,9 @@
 	// Show the zoom options in a menu here
 }
 
-
+- (void)scrollWheel:(NSEvent *)theEvent
+{
+    [self.renderingDelegate scaleModelByFactor:(1.0 + [theEvent deltaY] / 40.0)];
+}
 
 @end

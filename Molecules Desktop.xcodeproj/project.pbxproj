@@ -52,10 +52,25 @@
 		BCCF950316EEC7FA00871775 /* MoleculesDesktop.iconset in Resources */ = {isa = PBXBuildFile; fileRef = BCCF950216EEC7FA00871775 /* MoleculesDesktop.iconset */; };
 		BCCF951516EF7D1800871775 /* libLeap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BCCF951416EF7D1700871775 /* libLeap.dylib */; };
 		BCCF951616EF7DF600871775 /* libLeap.dylib in Resources */ = {isa = PBXBuildFile; fileRef = BCCF951416EF7D1700871775 /* libLeap.dylib */; };
+		BCDBDE321718A4D900C4C2FA /* SLSInitialHelpWindowController2.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE311718A4D900C4C2FA /* SLSInitialHelpWindowController2.xib */; };
+		BCDBDE371718C1F100C4C2FA /* CaffeineImage.png in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE331718C1F100C4C2FA /* CaffeineImage.png */; };
+		BCDBDE381718C1F100C4C2FA /* DNAImage.png in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE341718C1F100C4C2FA /* DNAImage.png */; };
+		BCDBDE391718C1F100C4C2FA /* PumpImage.png in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE351718C1F100C4C2FA /* PumpImage.png */; };
+		BCDBDE3A1718C1F100C4C2FA /* TRNAImage.png in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE361718C1F100C4C2FA /* TRNAImage.png */; };
+		BCDBDE421718C62B00C4C2FA /* Caffeine.pdb in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE3B1718C62B00C4C2FA /* Caffeine.pdb */; };
+		BCDBDE431718C62B00C4C2FA /* CaffeineImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE3C1718C62B00C4C2FA /* CaffeineImage@2x.png */; };
+		BCDBDE441718C62B00C4C2FA /* DNAImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE3D1718C62B00C4C2FA /* DNAImage@2x.png */; };
+		BCDBDE451718C62B00C4C2FA /* PumpImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE3E1718C62B00C4C2FA /* PumpImage@2x.png */; };
+		BCDBDE461718C62B00C4C2FA /* TheoreticalAtomicPump.pdb in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE3F1718C62B00C4C2FA /* TheoreticalAtomicPump.pdb */; };
+		BCDBDE471718C62B00C4C2FA /* TransferRNA.pdb in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE401718C62B00C4C2FA /* TransferRNA.pdb */; };
+		BCDBDE481718C62B00C4C2FA /* TRNAImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE411718C62B00C4C2FA /* TRNAImage@2x.png */; };
 		BCE7796116F9453500FFB749 /* SLSPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE7795F16F9453500FFB749 /* SLSPreferencesWindowController.m */; };
 		BCE7796216F9453500FFB749 /* SLSPreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCE7796016F9453500FFB749 /* SLSPreferencesWindowController.xib */; };
 		BCFE5DAB1703D0D1004C4EF3 /* MoleculesDocumentIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BCFE5DAA1703D0D1004C4EF3 /* MoleculesDocumentIcon.icns */; };
 		BCFE5DB51707B7A8004C4EF3 /* Molecules Help in Resources */ = {isa = PBXBuildFile; fileRef = BCFE5DB41707B7A8004C4EF3 /* Molecules Help */; };
+		BCFE5DBC1708BC93004C4EF3 /* SLSInitialHelpWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFE5DBA1708BC93004C4EF3 /* SLSInitialHelpWindowController.m */; };
+		BCFE5DBD1708BC93004C4EF3 /* SLSInitialHelpWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCFE5DBB1708BC93004C4EF3 /* SLSInitialHelpWindowController.xib */; };
+		BCFE5DBF1708CF18004C4EF3 /* DNA.pdb in Resources */ = {isa = PBXBuildFile; fileRef = BCFE5DBE1708CF18004C4EF3 /* DNA.pdb */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -126,11 +141,27 @@
 		BCCF951116EF7BAB00871775 /* LeapObjectiveC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeapObjectiveC.h; path = ../../LeapSDK/include/LeapObjectiveC.h; sourceTree = "<group>"; };
 		BCCF951216EF7BAB00871775 /* LeapObjectiveC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = LeapObjectiveC.mm; path = ../../LeapSDK/include/LeapObjectiveC.mm; sourceTree = "<group>"; };
 		BCCF951416EF7D1700871775 /* libLeap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libLeap.dylib; path = ../LeapSDK/lib/libLeap.dylib; sourceTree = "<group>"; };
+		BCDBDE311718A4D900C4C2FA /* SLSInitialHelpWindowController2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SLSInitialHelpWindowController2.xib; sourceTree = "<group>"; };
+		BCDBDE331718C1F100C4C2FA /* CaffeineImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CaffeineImage.png; sourceTree = "<group>"; };
+		BCDBDE341718C1F100C4C2FA /* DNAImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DNAImage.png; sourceTree = "<group>"; };
+		BCDBDE351718C1F100C4C2FA /* PumpImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PumpImage.png; sourceTree = "<group>"; };
+		BCDBDE361718C1F100C4C2FA /* TRNAImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TRNAImage.png; sourceTree = "<group>"; };
+		BCDBDE3B1718C62B00C4C2FA /* Caffeine.pdb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Caffeine.pdb; sourceTree = "<group>"; };
+		BCDBDE3C1718C62B00C4C2FA /* CaffeineImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CaffeineImage@2x.png"; sourceTree = "<group>"; };
+		BCDBDE3D1718C62B00C4C2FA /* DNAImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DNAImage@2x.png"; sourceTree = "<group>"; };
+		BCDBDE3E1718C62B00C4C2FA /* PumpImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PumpImage@2x.png"; sourceTree = "<group>"; };
+		BCDBDE3F1718C62B00C4C2FA /* TheoreticalAtomicPump.pdb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TheoreticalAtomicPump.pdb; sourceTree = "<group>"; };
+		BCDBDE401718C62B00C4C2FA /* TransferRNA.pdb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TransferRNA.pdb; sourceTree = "<group>"; };
+		BCDBDE411718C62B00C4C2FA /* TRNAImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TRNAImage@2x.png"; sourceTree = "<group>"; };
 		BCE7795E16F9453500FFB749 /* SLSPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSPreferencesWindowController.h; sourceTree = "<group>"; };
 		BCE7795F16F9453500FFB749 /* SLSPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSPreferencesWindowController.m; sourceTree = "<group>"; };
 		BCE7796016F9453500FFB749 /* SLSPreferencesWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SLSPreferencesWindowController.xib; sourceTree = "<group>"; };
 		BCFE5DAA1703D0D1004C4EF3 /* MoleculesDocumentIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MoleculesDocumentIcon.icns; sourceTree = "<group>"; };
 		BCFE5DB41707B7A8004C4EF3 /* Molecules Help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Molecules Help"; sourceTree = "<group>"; };
+		BCFE5DB91708BC93004C4EF3 /* SLSInitialHelpWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSInitialHelpWindowController.h; sourceTree = "<group>"; };
+		BCFE5DBA1708BC93004C4EF3 /* SLSInitialHelpWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSInitialHelpWindowController.m; sourceTree = "<group>"; };
+		BCFE5DBB1708BC93004C4EF3 /* SLSInitialHelpWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SLSInitialHelpWindowController.xib; sourceTree = "<group>"; };
+		BCFE5DBE1708CF18004C4EF3 /* DNA.pdb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DNA.pdb; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +252,18 @@
 		BCBF619716E83DCF00E2784A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BCDBDE3B1718C62B00C4C2FA /* Caffeine.pdb */,
+				BCDBDE3C1718C62B00C4C2FA /* CaffeineImage@2x.png */,
+				BCDBDE3D1718C62B00C4C2FA /* DNAImage@2x.png */,
+				BCDBDE3E1718C62B00C4C2FA /* PumpImage@2x.png */,
+				BCDBDE3F1718C62B00C4C2FA /* TheoreticalAtomicPump.pdb */,
+				BCDBDE401718C62B00C4C2FA /* TransferRNA.pdb */,
+				BCDBDE411718C62B00C4C2FA /* TRNAImage@2x.png */,
+				BCDBDE331718C1F100C4C2FA /* CaffeineImage.png */,
+				BCDBDE341718C1F100C4C2FA /* DNAImage.png */,
+				BCDBDE351718C1F100C4C2FA /* PumpImage.png */,
+				BCDBDE361718C1F100C4C2FA /* TRNAImage.png */,
+				BCFE5DBE1708CF18004C4EF3 /* DNA.pdb */,
 				BCFE5DAA1703D0D1004C4EF3 /* MoleculesDocumentIcon.icns */,
 				BCCF950216EEC7FA00871775 /* MoleculesDesktop.iconset */,
 				BCBF619816E83DCF00E2784A /* Molecules Desktop-Info.plist */,
@@ -336,6 +379,10 @@
 			isa = PBXGroup;
 			children = (
 				BCFE5DB41707B7A8004C4EF3 /* Molecules Help */,
+				BCFE5DB91708BC93004C4EF3 /* SLSInitialHelpWindowController.h */,
+				BCFE5DBA1708BC93004C4EF3 /* SLSInitialHelpWindowController.m */,
+				BCFE5DBB1708BC93004C4EF3 /* SLSInitialHelpWindowController.xib */,
+				BCDBDE311718A4D900C4C2FA /* SLSInitialHelpWindowController2.xib */,
 			);
 			name = Help;
 			sourceTree = "<group>";
@@ -421,6 +468,20 @@
 				BC56CFE8170149FD00CA05BE /* SLSMoleculeOverlayWindowController.xib in Resources */,
 				BCFE5DAB1703D0D1004C4EF3 /* MoleculesDocumentIcon.icns in Resources */,
 				BCFE5DB51707B7A8004C4EF3 /* Molecules Help in Resources */,
+				BCFE5DBD1708BC93004C4EF3 /* SLSInitialHelpWindowController.xib in Resources */,
+				BCFE5DBF1708CF18004C4EF3 /* DNA.pdb in Resources */,
+				BCDBDE321718A4D900C4C2FA /* SLSInitialHelpWindowController2.xib in Resources */,
+				BCDBDE371718C1F100C4C2FA /* CaffeineImage.png in Resources */,
+				BCDBDE381718C1F100C4C2FA /* DNAImage.png in Resources */,
+				BCDBDE391718C1F100C4C2FA /* PumpImage.png in Resources */,
+				BCDBDE3A1718C1F100C4C2FA /* TRNAImage.png in Resources */,
+				BCDBDE421718C62B00C4C2FA /* Caffeine.pdb in Resources */,
+				BCDBDE431718C62B00C4C2FA /* CaffeineImage@2x.png in Resources */,
+				BCDBDE441718C62B00C4C2FA /* DNAImage@2x.png in Resources */,
+				BCDBDE451718C62B00C4C2FA /* PumpImage@2x.png in Resources */,
+				BCDBDE461718C62B00C4C2FA /* TheoreticalAtomicPump.pdb in Resources */,
+				BCDBDE471718C62B00C4C2FA /* TransferRNA.pdb in Resources */,
+				BCDBDE481718C62B00C4C2FA /* TRNAImage@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,6 +524,7 @@
 				BC56CFE7170149FD00CA05BE /* SLSMoleculeOverlayWindowController.m in Sources */,
 				BC56CFEB170150B300CA05BE /* SLSTransparentWindow.m in Sources */,
 				BC56CFF21702A12A00CA05BE /* SLSMolecule+XYZ.m in Sources */,
+				BCFE5DBC1708BC93004C4EF3 /* SLSInitialHelpWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

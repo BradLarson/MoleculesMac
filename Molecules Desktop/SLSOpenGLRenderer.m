@@ -1802,12 +1802,12 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
     
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glBlendEquation(GL_MIN_EXT);
-    glDepthMask(GL_TRUE);
-    glDepthFunc(GL_LEQUAL);
+//    glDepthMask(GL_TRUE);
+//    glDepthFunc(GL_LEQUAL);
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    [self writeDepthValuesForOpaqueAreasForModelViewMatrix:depthModelViewMatrix translation:modelTranslation scale:scaleFactor];
+//    [self writeDepthValuesForOpaqueAreasForModelViewMatrix:depthModelViewMatrix translation:modelTranslation scale:scaleFactor];
     glDepthMask(GL_FALSE);
     
     // Draw the spheres
@@ -2204,6 +2204,9 @@ static float ambientOcclusionRotationAngles[AMBIENTOCCLUSIONSAMPLINGPOINTS][2] =
     dispatch_semaphore_wait(frameRenderingSemaphore, DISPATCH_TIME_FOREVER);
     
     dispatch_sync(openGLESContextQueue, ^{
+        
+        CFAbsoluteTime elapsedTime, startTime = CFAbsoluteTimeGetCurrent();
+
         [[self openGLContext] makeCurrentContext];
         [self loadOrthoMatrix:orthographicMatrix left:-1.0 right:1.0 bottom:(-1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) top:(1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) near:-1.0 far:1.0];
         
@@ -2302,6 +2305,10 @@ static float ambientOcclusionRotationAngles[AMBIENTOCCLUSIONSAMPLINGPOINTS][2] =
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
 
         [self loadOrthoMatrix:orthographicMatrix left:-1.0 right:1.0 bottom:(-1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) top:(1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) near:-4.0 far:4.0];
+
+        elapsedTime = CFAbsoluteTimeGetCurrent() - startTime;
+        // ElapsedTime contains seconds (or fractions thereof as decimals)
+        NSLog(@"Total AO time: %f", elapsedTime);
 
         dispatch_semaphore_signal(frameRenderingSemaphore);
     });

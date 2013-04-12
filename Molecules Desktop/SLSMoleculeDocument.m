@@ -386,54 +386,6 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 
 - (void)useOpenHandToScaleAndRotate:(LeapFrame *)currentLeapFrame;
 {
-    NSArray *gestures = [currentLeapFrame gestures:nil];
-    if ([gestures count] > 0)
-    {
-//        NSLog(@"Gestures detected");
-        for (LeapGesture *currentGesture in gestures)
-        {
-            LeapSwipeGesture *swipeGesture = (LeapSwipeGesture *)currentGesture;
-            LeapVector *swipePosition = [swipeGesture position];
-            LeapVector *swipeStartPosition = [swipeGesture startPosition];
-            
-            if (!isAutorotating)
-            {
-                CGFloat displacementInX = swipePosition.x - swipeStartPosition.x;
-                CGFloat displacementInY = swipePosition.y - swipeStartPosition.y;
-                BOOL shouldAutorotate = NO;
-                if (displacementInX > 50.0)
-                {
-                    shouldAutorotate = YES;
-                    currentAutorotationType = LEFTTORIGHTAUTOROTATION;
-                }
-                else if (displacementInX < -50.0)
-                {
-                    shouldAutorotate = YES;
-                    currentAutorotationType = RIGHTTOLEFTAUTOROTATION;
-                }
-                else if (displacementInY > 50.0)
-                {
-                    shouldAutorotate = YES;
-                    currentAutorotationType = BOTTOMTOTOPAUTOROTATION;
-                }
-                else if (displacementInY < -50.0)
-                {
-                    shouldAutorotate = YES;
-                    currentAutorotationType = TOPTOBOTTOMAUTOROTATION;
-                }
-                
-                if (shouldAutorotate)
-                {
-                    [self toggleAutorotation:self];
-                }
-            }
-//            NSLog(@"Swipe pos: %f, %f, %f start: %f, %f, %f, speed: %f", swipePosition.x, swipePosition.y, swipePosition.z, swipeStartPosition.x, swipeStartPosition.y, swipeStartPosition.z, [swipeGesture speed]);
-        }
-
-        previousLeapFrame = nil;
-        return;
-    }
-
     // Only rotate, scale, or translate when an open hand is detected
     if ([[currentLeapFrame hands] count] < 1)
     {
@@ -444,7 +396,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
     {
         LeapHand *firstHand = [[currentLeapFrame hands] objectAtIndex:0];
         
-        if ([[firstHand fingers] count] > 1)
+        if ([[firstHand fingers] count] > 2)
         {
             if (isAutorotating)
             {
@@ -459,12 +411,38 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
                 return;
             }
             
+//            LeapVector *verticalAxis = [[LeapVector alloc] initWithX:1.0 y:0.0 z:0.0];
+//            CGFloat verticalAngle = [firstHand rotationAngle:previousLeapFrame axis:verticalAxis];
+//            
+//            LeapVector *horizontalAxis = [[LeapVector alloc] initWithX:0.0 y:1.0 z:0.0];
+//            CGFloat horizontalAngle = [firstHand rotationAngle:previousLeapFrame axis:horizontalAxis];
+            
+//            NSLog(@"Horizontal angle: %f. vertical angle: %f", horizontalAngle, verticalAngle);
+            
             [openGLRenderer scaleModelByFactor:1.0 + (handTranslation.z * 0.007)];
+            
+//            if ( (abs(horizontalAngle) < 0.15) && (abs(verticalAngle) < 0.15) )
+//            {
+//                [openGLRenderer rotateModelFromScreenDisplacementInX:-horizontalAngle * 200.0 inY:-verticalAngle * 200.0];
+//            }
             [openGLRenderer rotateModelFromScreenDisplacementInX:handTranslation.x inY:-handTranslation.y];
+            [openGLRenderer translateModelByScreenDisplacementInX:3.0*handTranslation.x inY:3.0*handTranslation.y];
             [openGLRenderer renderFrameForMolecule:molecule];
         }
         else
         {
+//            LeapVector *verticalAxis = [[LeapVector alloc] initWithX:1.0 y:0.0 z:0.0];
+//            CGFloat verticalAngle = [firstHand rotationAngle:previousLeapFrame axis:verticalAxis];
+//            
+//            LeapVector *horizontalAxis = [[LeapVector alloc] initWithX:0.0 y:1.0 z:0.0];
+//            CGFloat horizontalAngle = [firstHand rotationAngle:previousLeapFrame axis:horizontalAxis];
+//            if ( (abs(horizontalAngle) < 0.15) && (abs(verticalAngle) < 0.15) )
+//            {
+//                [openGLRenderer rotateModelFromScreenDisplacementInX:-horizontalAngle * 200.0 inY:-verticalAngle * 200.0];
+//            }
+//            //            [openGLRenderer rotateModelFromScreenDisplacementInX:handTranslation.x inY:-handTranslation.y];
+//            [openGLRenderer renderFrameForMolecule:molecule];
+
             previousLeapFrame = nil;
         }
     }
