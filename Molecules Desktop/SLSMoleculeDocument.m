@@ -1,5 +1,6 @@
 #import "SLSMoleculeDocument.h"
 #import "SLSMoleculeOverlayWindowController.h"
+#import "TransparentWindow.h"
 
 #pragma mark -
 #pragma mark Core Video callback function
@@ -19,6 +20,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 @synthesize glView = _glView;
 @synthesize overlayWindowController = _overlayWindowController;
 @synthesize glWindow = _glWindow;
+@synthesize rotationInstructionView = _rotationInstructionView, scalingInstructionView = _scalingInstructionView, translationInstructionView = _translationInstructionView, stopInstructionView = _stopInstructionView;
 
 - (id)init
 {
@@ -90,6 +92,49 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 
 - (void)hideScanningIndicator:(NSNotification *)note;
 {
+}
+
+#pragma mark -
+#pragma mark Tutorial
+
+- (void)displayTutorialPanel:(SLSInstructionViewType)tutorialInstructionType;
+{
+	NSView *tutorialInstructionView = nil;
+	
+	switch (tutorialInstructionType)
+	{
+		case ROTATIONINSTRUCTIONVIEW:
+		{
+			tutorialInstructionView = _rotationInstructionView;
+		}; break;
+		case SCALINGINSTRUCTIONVIEW:
+		{
+			tutorialInstructionView = _scalingInstructionView;
+		}; break;
+		case TRANSLATIONINSTRUCTIONVIEW:
+		{
+			tutorialInstructionView = _translationInstructionView;
+		}; break;
+		case STOPINSTRUCTIONVIEW:
+		{
+			tutorialInstructionView = _stopInstructionView;
+		}; break;
+	}
+	
+	NSSize popupSize = [tutorialInstructionView frame].size;
+	
+//	NSArray *screensAttachedToSystem = [NSScreen screens];
+//	NSRect primaryScreenFrame = [(NSScreen *)[screensAttachedToSystem objectAtIndex:0] frame];
+	
+//	NSPoint popupOrigin = NSMakePoint(round(primaryScreenFrame.size.width / 2.0 - popupSize.width / 2.0), round(primaryScreenFrame.size.height / 2.0 - popupSize.height / 2.0));
+	NSPoint popupOrigin = NSMakePoint(round( self.glWindow.frame.origin.x + self.glWindow.frame.size.width / 2.0 - popupSize.width / 2.0), round(self.glWindow.frame.origin.y + self.glWindow.frame.size.height / 2.0 - popupSize.height / 2.0));
+	
+	currentTutorialInstructionPopup = [[TransparentWindow alloc] initWithContentRect:NSMakeRect(popupOrigin.x, popupOrigin.y, popupSize.width, popupSize.height) styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+	[currentTutorialInstructionPopup setContentView:tutorialInstructionView];
+	
+	[currentTutorialInstructionPopup setAlphaValue:0.0];
+	[currentTutorialInstructionPopup makeKeyAndOrderFront:self];
+	[currentTutorialInstructionPopup.animator setAlphaValue:1.0];
 }
 
 #pragma mark -
@@ -411,22 +456,41 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
                 return;
             }
             
-//            LeapVector *verticalAxis = [[LeapVector alloc] initWithX:1.0 y:0.0 z:0.0];
-//            CGFloat verticalAngle = [firstHand rotationAngle:previousLeapFrame axis:verticalAxis];
-//            
-//            LeapVector *horizontalAxis = [[LeapVector alloc] initWithX:0.0 y:1.0 z:0.0];
-//            CGFloat horizontalAngle = [firstHand rotationAngle:previousLeapFrame axis:horizontalAxis];
-            
-//            NSLog(@"Horizontal angle: %f. vertical angle: %f", horizontalAngle, verticalAngle);
+            if (isRunningRotationTutorial)
+            {
+                totalMovementSinceStartOfTutorial += abs(handTranslation.x) + abs(handTranslation.y);
+                NSLog(@"Total rotation movement: %f", totalMovementSinceStartOfTutorial);
+                
+                if (totalMovementSinceStartOfTutorial > 50)
+                {
+                    [currentTutorialInstructionPopup.animator setAlphaValue:0.0];
+                    
+                    [self displayTutorialPanel:SCALINGINSTRUCTIONVIEW];
+                    isRunningRotationTutorial = NO;
+                    isRunningScalingTutorial = YES;
+                    isRunningTranslationTutorial = NO;
+                    totalMovementSinceStartOfTutorial = 0.0;
+                }
+            }
+            else if (isRunningScalingTutorial)
+            {
+                totalMovementSinceStartOfTutorial += abs(handTranslation.z);
+                NSLog(@"Total scaling movement: %f", totalMovementSinceStartOfTutorial);
+                
+                if (totalMovementSinceStartOfTutorial > 50)
+                {
+                    [currentTutorialInstructionPopup.animator setAlphaValue:0.0];
+                    
+                    [self displayTutorialPanel:TRANSLATIONINSTRUCTIONVIEW];
+                    isRunningRotationTutorial = NO;
+                    isRunningScalingTutorial = NO;
+                    isRunningTranslationTutorial = YES;
+                    totalMovementSinceStartOfTutorial = 0.0;
+                }
+            }
             
             [openGLRenderer scaleModelByFactor:1.0 + (handTranslation.z * 0.007)];
-            
-//            if ( (abs(horizontalAngle) < 0.15) && (abs(verticalAngle) < 0.15) )
-//            {
-//                [openGLRenderer rotateModelFromScreenDisplacementInX:-horizontalAngle * 200.0 inY:-verticalAngle * 200.0];
-//            }
             [openGLRenderer rotateModelFromScreenDisplacementInX:handTranslation.x inY:-handTranslation.y];
-            [openGLRenderer translateModelByScreenDisplacementInX:3.0*handTranslation.x inY:3.0*handTranslation.y];
             [openGLRenderer renderFrameForMolecule:molecule];
         }
         else
@@ -460,6 +524,31 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
             [openGLRenderer translateModelByScreenDisplacementInX:3.0 * multiHandTranslation.x inY:3.0 * multiHandTranslation.y];
             [openGLRenderer scaleModelByFactor:1.0 + (multiHandTranslation.z * 0.007)];
             [openGLRenderer renderFrameForMolecule:molecule];
+            
+            if (isRunningTranslationTutorial)
+            {
+                totalMovementSinceStartOfTutorial += abs(multiHandTranslation.x) + abs(multiHandTranslation.y) + abs(multiHandTranslation.z);
+                NSLog(@"Total translation movement: %f", totalMovementSinceStartOfTutorial);
+                
+                if (totalMovementSinceStartOfTutorial > 20)
+                {
+                    [currentTutorialInstructionPopup.animator setAlphaValue:0.0];
+                    
+                    [self displayTutorialPanel:STOPINSTRUCTIONVIEW];
+                    isRunningRotationTutorial = NO;
+                    isRunningScalingTutorial = NO;
+                    isRunningTranslationTutorial = NO;
+                    totalMovementSinceStartOfTutorial = 0.0;
+                    double delayInSeconds = 2.5;
+                    
+                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                        [currentTutorialInstructionPopup.animator setAlphaValue:0.0];
+                    });
+
+                }
+            }
+
         }
     }
 }
@@ -593,7 +682,14 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
     NSLog(@"Connected to Leap");
     LeapController *aController = (LeapController *)[notification object];
     [aController enableGesture:LEAP_GESTURE_TYPE_SWIPE enable:YES];
+    
+    [self displayTutorialPanel:ROTATIONINSTRUCTIONVIEW];
+    isRunningRotationTutorial = YES;
+    isRunningScalingTutorial = NO;
+    isRunningTranslationTutorial = NO;
+    totalMovementSinceStartOfTutorial = 0.0;
 }
+
 
 - (void)onDisconnect:(NSNotification *)notification;
 {

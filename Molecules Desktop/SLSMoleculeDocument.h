@@ -14,6 +14,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 @class SLSMoleculeOverlayWindowController;
 
 typedef enum {LEFTTORIGHTAUTOROTATION, RIGHTTOLEFTAUTOROTATION, TOPTOBOTTOMAUTOROTATION, BOTTOMTOTOPAUTOROTATION } SLSAutorotationType;
+typedef enum {ROTATIONINSTRUCTIONVIEW, SCALINGINSTRUCTIONVIEW, TRANSLATIONINSTRUCTIONVIEW, STOPINSTRUCTIONVIEW} SLSInstructionViewType;
 
 @interface SLSMoleculeDocument : NSDocument<SLSGLViewDelegate, LeapListener, SLSMoleculeRenderingDelegate>
 {
@@ -32,16 +33,24 @@ typedef enum {LEFTTORIGHTAUTOROTATION, RIGHTTOLEFTAUTOROTATION, TOPTOBOTTOMAUTOR
     BOOL isRotating;
     BOOL isZooming;
     
+    BOOL isRunningRotationTutorial, isRunningScalingTutorial, isRunningTranslationTutorial;
+    NSWindow *currentTutorialInstructionPopup;
+    CGFloat totalMovementSinceStartOfTutorial;
+    
     SLSAutorotationType currentAutorotationType;
 }
 
 @property(readwrite, weak) IBOutlet SLSMoleculeGLView *glView;
 @property(readonly, retain) SLSMoleculeOverlayWindowController *overlayWindowController;
 @property(readwrite, retain) IBOutlet NSWindow *glWindow;
+@property(readwrite, strong, nonatomic) IBOutlet NSView *rotationInstructionView, *scalingInstructionView, *translationInstructionView, *stopInstructionView;
 
 // Autorotation
 - (IBAction)toggleAutorotation:(id)sender;
 - (CVReturn)handleAutorotationTimer:(const CVTimeStamp *)currentTimeStamp;
+
+// Tutorial
+- (void)displayTutorialPanel:(SLSInstructionViewType)tutorialInstructionType;
 
 // Visualization modes
 - (IBAction)switchToSpacefillingMode:(id)sender;

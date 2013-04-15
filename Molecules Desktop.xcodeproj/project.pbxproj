@@ -64,6 +64,12 @@
 		BCDBDE461718C62B00C4C2FA /* TheoreticalAtomicPump.pdb in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE3F1718C62B00C4C2FA /* TheoreticalAtomicPump.pdb */; };
 		BCDBDE471718C62B00C4C2FA /* TransferRNA.pdb in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE401718C62B00C4C2FA /* TransferRNA.pdb */; };
 		BCDBDE481718C62B00C4C2FA /* TRNAImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE411718C62B00C4C2FA /* TRNAImage@2x.png */; };
+		BCDBDE4B1718FB5700C4C2FA /* RoundedView.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDBDE4A1718FB5700C4C2FA /* RoundedView.m */; };
+		BCDBDE4E171A411F00C4C2FA /* TransparentWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDBDE4D171A411F00C4C2FA /* TransparentWindow.m */; };
+		BCDBDE50171B84ED00C4C2FA /* TutorialRotation.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE4F171B84ED00C4C2FA /* TutorialRotation.pdf */; };
+		BCDBDE52171B871E00C4C2FA /* TutorialScaling.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE51171B871E00C4C2FA /* TutorialScaling.pdf */; };
+		BCDBDE54171B880600C4C2FA /* TutorialTranslation.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE53171B880600C4C2FA /* TutorialTranslation.pdf */; };
+		BCDBDE56171B890600C4C2FA /* TurorialLocking.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE55171B890600C4C2FA /* TurorialLocking.pdf */; };
 		BCE7796116F9453500FFB749 /* SLSPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE7795F16F9453500FFB749 /* SLSPreferencesWindowController.m */; };
 		BCE7796216F9453500FFB749 /* SLSPreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCE7796016F9453500FFB749 /* SLSPreferencesWindowController.xib */; };
 		BCFE5DAB1703D0D1004C4EF3 /* MoleculesDocumentIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BCFE5DAA1703D0D1004C4EF3 /* MoleculesDocumentIcon.icns */; };
@@ -153,6 +159,14 @@
 		BCDBDE3F1718C62B00C4C2FA /* TheoreticalAtomicPump.pdb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TheoreticalAtomicPump.pdb; sourceTree = "<group>"; };
 		BCDBDE401718C62B00C4C2FA /* TransferRNA.pdb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TransferRNA.pdb; sourceTree = "<group>"; };
 		BCDBDE411718C62B00C4C2FA /* TRNAImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TRNAImage@2x.png"; sourceTree = "<group>"; };
+		BCDBDE491718FB5700C4C2FA /* RoundedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundedView.h; sourceTree = "<group>"; };
+		BCDBDE4A1718FB5700C4C2FA /* RoundedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundedView.m; sourceTree = "<group>"; };
+		BCDBDE4C171A411E00C4C2FA /* TransparentWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentWindow.h; sourceTree = "<group>"; };
+		BCDBDE4D171A411F00C4C2FA /* TransparentWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentWindow.m; sourceTree = "<group>"; };
+		BCDBDE4F171B84ED00C4C2FA /* TutorialRotation.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = TutorialRotation.pdf; sourceTree = "<group>"; };
+		BCDBDE51171B871E00C4C2FA /* TutorialScaling.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = TutorialScaling.pdf; sourceTree = "<group>"; };
+		BCDBDE53171B880600C4C2FA /* TutorialTranslation.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = TutorialTranslation.pdf; sourceTree = "<group>"; };
+		BCDBDE55171B890600C4C2FA /* TurorialLocking.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = TurorialLocking.pdf; sourceTree = "<group>"; };
 		BCE7795E16F9453500FFB749 /* SLSPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSPreferencesWindowController.h; sourceTree = "<group>"; };
 		BCE7795F16F9453500FFB749 /* SLSPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSPreferencesWindowController.m; sourceTree = "<group>"; };
 		BCE7796016F9453500FFB749 /* SLSPreferencesWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SLSPreferencesWindowController.xib; sourceTree = "<group>"; };
@@ -252,6 +266,10 @@
 		BCBF619716E83DCF00E2784A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BCDBDE55171B890600C4C2FA /* TurorialLocking.pdf */,
+				BCDBDE53171B880600C4C2FA /* TutorialTranslation.pdf */,
+				BCDBDE51171B871E00C4C2FA /* TutorialScaling.pdf */,
+				BCDBDE4F171B84ED00C4C2FA /* TutorialRotation.pdf */,
 				BCDBDE3B1718C62B00C4C2FA /* Caffeine.pdb */,
 				BCDBDE3C1718C62B00C4C2FA /* CaffeineImage@2x.png */,
 				BCDBDE3D1718C62B00C4C2FA /* DNAImage@2x.png */,
@@ -278,11 +296,15 @@
 		BCBF61B316E83FE500E2784A /* Molecule Documents */ = {
 			isa = PBXGroup;
 			children = (
+				BCDBDE4C171A411E00C4C2FA /* TransparentWindow.h */,
+				BCDBDE4D171A411F00C4C2FA /* TransparentWindow.m */,
 				BCBF61A216E83DCF00E2784A /* SLSMoleculeDocument.h */,
 				BCBF61A316E83DCF00E2784A /* SLSMoleculeDocument.m */,
 				BCBF61A516E83DCF00E2784A /* SLSMoleculeDocument.xib */,
 				BCCF94AF16ED4BE400871775 /* SLSMolecule.h */,
 				BCCF94B016ED4BE400871775 /* SLSMolecule.m */,
+				BCDBDE491718FB5700C4C2FA /* RoundedView.h */,
+				BCDBDE4A1718FB5700C4C2FA /* RoundedView.m */,
 				BC56CFF41702A18000CA05BE /* File Formats */,
 				BCCF94C916ED609C00871775 /* VCTitleCase.h */,
 				BCCF94CA16ED609C00871775 /* VCTitleCase.m */,
@@ -482,6 +504,10 @@
 				BCDBDE461718C62B00C4C2FA /* TheoreticalAtomicPump.pdb in Resources */,
 				BCDBDE471718C62B00C4C2FA /* TransferRNA.pdb in Resources */,
 				BCDBDE481718C62B00C4C2FA /* TRNAImage@2x.png in Resources */,
+				BCDBDE50171B84ED00C4C2FA /* TutorialRotation.pdf in Resources */,
+				BCDBDE52171B871E00C4C2FA /* TutorialScaling.pdf in Resources */,
+				BCDBDE54171B880600C4C2FA /* TutorialTranslation.pdf in Resources */,
+				BCDBDE56171B890600C4C2FA /* TurorialLocking.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,6 +551,8 @@
 				BC56CFEB170150B300CA05BE /* SLSTransparentWindow.m in Sources */,
 				BC56CFF21702A12A00CA05BE /* SLSMolecule+XYZ.m in Sources */,
 				BCFE5DBC1708BC93004C4EF3 /* SLSInitialHelpWindowController.m in Sources */,
+				BCDBDE4B1718FB5700C4C2FA /* RoundedView.m in Sources */,
+				BCDBDE4E171A411F00C4C2FA /* TransparentWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
