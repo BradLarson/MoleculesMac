@@ -14,7 +14,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 @class SLSMoleculeOverlayWindowController;
 
 typedef enum {LEFTTORIGHTAUTOROTATION, RIGHTTOLEFTAUTOROTATION, TOPTOBOTTOMAUTOROTATION, BOTTOMTOTOPAUTOROTATION } SLSAutorotationType;
-typedef enum {ROTATIONINSTRUCTIONVIEW, SCALINGINSTRUCTIONVIEW, TRANSLATIONINSTRUCTIONVIEW, STOPINSTRUCTIONVIEW} SLSInstructionViewType;
+typedef enum {ROTATIONINSTRUCTIONVIEW, SCALINGINSTRUCTIONVIEW, TRANSLATIONINSTRUCTIONVIEW, STOPINSTRUCTIONVIEW, MOUSEROTATIONINSTRUCTIONVIEW, MOUSESCALINGINSTRUCTIONVIEW, MOUSETRANSLATIONINSTRUCTIONVIEW} SLSInstructionViewType;
 
 @interface SLSMoleculeDocument : NSDocument<SLSGLViewDelegate, LeapListener, SLSMoleculeRenderingDelegate>
 {
@@ -34,6 +34,7 @@ typedef enum {ROTATIONINSTRUCTIONVIEW, SCALINGINSTRUCTIONVIEW, TRANSLATIONINSTRU
     BOOL isZooming;
     
     BOOL isRunningRotationTutorial, isRunningScalingTutorial, isRunningTranslationTutorial;
+    BOOL isRunningMouseRotationTutorial, isRunningMouseScalingTutorial, isRunningMouseTranslationTutorial;
     NSWindow *currentTutorialInstructionPopup;
     CGFloat totalMovementSinceStartOfTutorial;
     
@@ -44,6 +45,7 @@ typedef enum {ROTATIONINSTRUCTIONVIEW, SCALINGINSTRUCTIONVIEW, TRANSLATIONINSTRU
 @property(readonly, retain) SLSMoleculeOverlayWindowController *overlayWindowController;
 @property(readwrite, retain) IBOutlet NSWindow *glWindow;
 @property(readwrite, strong, nonatomic) IBOutlet NSView *rotationInstructionView, *scalingInstructionView, *translationInstructionView, *stopInstructionView;
+@property(readwrite, strong, nonatomic) IBOutlet NSView *mouseRotationInstructionView, *mouseScalingInstructionView, *mouseTranslationInstructionView;
 
 // Autorotation
 - (IBAction)toggleAutorotation:(id)sender;

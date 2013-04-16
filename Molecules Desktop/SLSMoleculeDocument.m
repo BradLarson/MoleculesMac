@@ -21,6 +21,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 @synthesize overlayWindowController = _overlayWindowController;
 @synthesize glWindow = _glWindow;
 @synthesize rotationInstructionView = _rotationInstructionView, scalingInstructionView = _scalingInstructionView, translationInstructionView = _translationInstructionView, stopInstructionView = _stopInstructionView;
+@synthesize mouseRotationInstructionView = _mouseRotationInstructionView, mouseScalingInstructionView = _mouseScalingInstructionView, mouseTranslationInstructionView = _mouseTranslationInstructionView;
 
 - (id)init
 {
@@ -60,6 +61,20 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
     
     controller = [[LeapController alloc] init];
     [controller addListener:self];
+    
+    double delayInSeconds = 2.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        if (!isRunningRotationTutorial)
+        {
+            [self displayTutorialPanel:MOUSEROTATIONINSTRUCTIONVIEW];
+            isRunningMouseRotationTutorial = YES;
+            isRunningMouseScalingTutorial = NO;
+            isRunningMouseTranslationTutorial = NO;
+            totalMovementSinceStartOfTutorial = 0.0;
+        }
+    });
+
 }
 
 - (void)windowDidResize:(NSNotification *)notification
@@ -68,6 +83,13 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 	NSPoint originOnScreen = [self.glWindow convertBaseToScreen:overlayRect.origin];
 	overlayRect.origin = originOnScreen;
 	[self.overlayWindowController.window setFrame:overlayRect display:YES];
+    
+    if (currentTutorialInstructionPopup != nil)
+    {
+        NSSize popupSize = [currentTutorialInstructionPopup frame].size;
+        NSPoint popupOrigin = NSMakePoint(round( self.glWindow.frame.origin.x + self.glWindow.frame.size.width / 2.0 - popupSize.width / 2.0), round(self.glWindow.frame.origin.y + self.glWindow.frame.size.height / 2.0 - popupSize.height / 2.0));
+        [currentTutorialInstructionPopup setFrame:NSMakeRect(popupOrigin.x, popupOrigin.y, popupSize.width, popupSize.height) display:YES];
+    }
 }
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
@@ -119,6 +141,18 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 		{
 			tutorialInstructionView = _stopInstructionView;
 		}; break;
+		case MOUSEROTATIONINSTRUCTIONVIEW:
+		{
+			tutorialInstructionView = _mouseRotationInstructionView;
+		}; break;
+		case MOUSESCALINGINSTRUCTIONVIEW:
+		{
+			tutorialInstructionView = _mouseScalingInstructionView;
+		}; break;
+		case MOUSETRANSLATIONINSTRUCTIONVIEW:
+		{
+			tutorialInstructionView = _mouseTranslationInstructionView;
+		}; break;
 	}
 	
 	NSSize popupSize = [tutorialInstructionView frame].size;
@@ -135,6 +169,8 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 	[currentTutorialInstructionPopup setAlphaValue:0.0];
 	[currentTutorialInstructionPopup makeKeyAndOrderFront:self];
 	[currentTutorialInstructionPopup.animator setAlphaValue:1.0];
+    
+    [self.glWindow addChildWindow:currentTutorialInstructionPopup ordered:NSWindowAbove];
 }
 
 #pragma mark -
@@ -459,7 +495,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
             if (isRunningRotationTutorial)
             {
                 totalMovementSinceStartOfTutorial += abs(handTranslation.x) + abs(handTranslation.y);
-                NSLog(@"Total rotation movement: %f", totalMovementSinceStartOfTutorial);
+//                NSLog(@"Total rotation movement: %f", totalMovementSinceStartOfTutorial);
                 
                 if (totalMovementSinceStartOfTutorial > 50)
                 {
@@ -475,7 +511,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
             else if (isRunningScalingTutorial)
             {
                 totalMovementSinceStartOfTutorial += abs(handTranslation.z);
-                NSLog(@"Total scaling movement: %f", totalMovementSinceStartOfTutorial);
+//                NSLog(@"Total scaling movement: %f", totalMovementSinceStartOfTutorial);
                 
                 if (totalMovementSinceStartOfTutorial > 50)
                 {
@@ -528,7 +564,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
             if (isRunningTranslationTutorial)
             {
                 totalMovementSinceStartOfTutorial += abs(multiHandTranslation.x) + abs(multiHandTranslation.y) + abs(multiHandTranslation.z);
-                NSLog(@"Total translation movement: %f", totalMovementSinceStartOfTutorial);
+//                NSLog(@"Total translation movement: %f", totalMovementSinceStartOfTutorial);
                 
                 if (totalMovementSinceStartOfTutorial > 20)
                 {
@@ -566,6 +602,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
     [self.overlayWindowController showOverlay];
 	[self.overlayWindowController.window setFrame:overlayRect display:YES];
 	[self.glWindow addChildWindow:self.overlayWindowController.window ordered:NSWindowAbove];
+    
 
 //    [self switchToDisplayFramebuffer];
 //    
@@ -644,6 +681,23 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
         [self toggleAutorotation:self];
     }
 
+    if (isRunningMouseRotationTutorial)
+    {
+        totalMovementSinceStartOfTutorial += abs(xRotation) + abs(yRotation);
+        //                NSLog(@"Total rotation movement: %f", totalMovementSinceStartOfTutorial);
+        
+        if (totalMovementSinceStartOfTutorial > 50)
+        {
+            [currentTutorialInstructionPopup.animator setAlphaValue:0.0];
+            
+            [self displayTutorialPanel:MOUSESCALINGINSTRUCTIONVIEW];
+            isRunningMouseRotationTutorial = NO;
+            isRunningMouseScalingTutorial = YES;
+            isRunningMouseTranslationTutorial = NO;
+            totalMovementSinceStartOfTutorial = 0.0;
+        }
+    }
+
     [openGLRenderer rotateModelFromScreenDisplacementInX:xRotation inY:yRotation];
     [openGLRenderer renderFrameForMolecule:molecule];
 }
@@ -653,6 +707,23 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
     if (isAutorotating)
     {
         [self toggleAutorotation:self];
+    }
+
+    if (isRunningMouseScalingTutorial)
+    {
+        totalMovementSinceStartOfTutorial += scaleFactor;
+        //                NSLog(@"Total rotation movement: %f", totalMovementSinceStartOfTutorial);
+        
+        if (totalMovementSinceStartOfTutorial > 50)
+        {
+            [currentTutorialInstructionPopup.animator setAlphaValue:0.0];
+            
+            [self displayTutorialPanel:MOUSETRANSLATIONINSTRUCTIONVIEW];
+            isRunningMouseRotationTutorial = NO;
+            isRunningMouseScalingTutorial = NO;
+            isRunningMouseTranslationTutorial = YES;
+            totalMovementSinceStartOfTutorial = 0.0;
+        }
     }
 
     [openGLRenderer scaleModelByFactor:scaleFactor];
@@ -665,6 +736,22 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
     {
         [self toggleAutorotation:self];
     }
+    
+    if (isRunningMouseTranslationTutorial)
+    {
+        totalMovementSinceStartOfTutorial += abs(xTranslation) + abs(yTranslation);
+        //                NSLog(@"Total rotation movement: %f", totalMovementSinceStartOfTutorial);
+        
+        if (totalMovementSinceStartOfTutorial > 50)
+        {
+            [currentTutorialInstructionPopup.animator setAlphaValue:0.0];
+            isRunningMouseRotationTutorial = NO;
+            isRunningMouseScalingTutorial = NO;
+            isRunningMouseTranslationTutorial = NO;
+            totalMovementSinceStartOfTutorial = 0.0;
+        }
+    }
+
 
     [openGLRenderer translateModelByScreenDisplacementInX:xTranslation inY:yTranslation];
     [openGLRenderer renderFrameForMolecule:molecule];
