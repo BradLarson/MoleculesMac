@@ -911,7 +911,7 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
     [sphereAOLookupPrecalculationProgram use];
     glEnableVertexAttribArray(sphereAOLookupImpostorSpaceAttribute);
     
-    [self generateSphereDepthMapTexture];
+//    [self generateSphereDepthMapTexture];
     
     //    glDisable(GL_DEPTH_TEST);
     glEnable(GL_DEPTH_TEST);
@@ -1212,7 +1212,7 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
         
         GLfloat currentScaleFactor = currentModelScaleFactor;
         
-        [self precalculateAOLookupTextureForInverseMatrix:inverseModelViewMatrix];
+//        [self precalculateAOLookupTextureForInverseMatrix:inverseModelViewMatrix];
 //        [self renderDepthTextureForModelViewMatrix:currentModelViewMatrix translation:currentTranslation scale:currentScaleFactor];
         //        [self displayTextureToScreen:sphereAOLookupTexture];
         //        [self displayTextureToScreen:depthPassTexture];
@@ -2205,7 +2205,7 @@ static float ambientOcclusionRotationAngles[AMBIENTOCCLUSIONSAMPLINGPOINTS][2] =
     
     dispatch_sync(openGLESContextQueue, ^{
         
-        CFAbsoluteTime elapsedTime, startTime = CFAbsoluteTimeGetCurrent();
+//        CFAbsoluteTime elapsedTime, startTime = CFAbsoluteTimeGetCurrent();
 
         [[self openGLContext] makeCurrentContext];
         [self loadOrthoMatrix:orthographicMatrix left:-1.0 right:1.0 bottom:(-1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) top:(1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) near:-1.0 far:1.0];
@@ -2306,9 +2306,9 @@ static float ambientOcclusionRotationAngles[AMBIENTOCCLUSIONSAMPLINGPOINTS][2] =
 
         [self loadOrthoMatrix:orthographicMatrix left:-1.0 right:1.0 bottom:(-1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) top:(1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) near:-4.0 far:4.0];
 
-        elapsedTime = CFAbsoluteTimeGetCurrent() - startTime;
+//        elapsedTime = CFAbsoluteTimeGetCurrent() - startTime;
         // ElapsedTime contains seconds (or fractions thereof as decimals)
-        NSLog(@"Total AO time: %f", elapsedTime);
+//        NSLog(@"Total AO time: %f", elapsedTime);
 
         dispatch_semaphore_signal(frameRenderingSemaphore);
     });

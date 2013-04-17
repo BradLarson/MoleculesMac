@@ -12,18 +12,6 @@
 	[[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
 															 [NSNumber numberWithInt:3], @"leapControlStyle",
 															 nil]];
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"hasStartedOnce"])
-    {
-        NSLog(@"Doing initialization");
-        [self.initialHelpWindowController showWindow:self];
-        NSDocumentController *controller = [NSDocumentController sharedDocumentController];
-        
-        NSError *error = nil;
-        [controller openDocumentWithContentsOfURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"DNA" ofType:@"pdb"]] display:YES error:&error];
-        
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasStartedOnce"];
-    }
-    
 }
 
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
@@ -35,7 +23,7 @@
 {
     [self.initialHelpWindowController showWindow:self];
     
-    return NO;
+    return YES;
 }
 
 - (IBAction)showPreferences:(id)sender;

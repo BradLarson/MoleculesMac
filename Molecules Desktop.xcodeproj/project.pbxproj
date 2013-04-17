@@ -78,7 +78,6 @@
 		BCFE5DAB1703D0D1004C4EF3 /* MoleculesDocumentIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BCFE5DAA1703D0D1004C4EF3 /* MoleculesDocumentIcon.icns */; };
 		BCFE5DB51707B7A8004C4EF3 /* Molecules Help in Resources */ = {isa = PBXBuildFile; fileRef = BCFE5DB41707B7A8004C4EF3 /* Molecules Help */; };
 		BCFE5DBC1708BC93004C4EF3 /* SLSInitialHelpWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFE5DBA1708BC93004C4EF3 /* SLSInitialHelpWindowController.m */; };
-		BCFE5DBD1708BC93004C4EF3 /* SLSInitialHelpWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCFE5DBB1708BC93004C4EF3 /* SLSInitialHelpWindowController.xib */; };
 		BCFE5DBF1708CF18004C4EF3 /* DNA.pdb in Resources */ = {isa = PBXBuildFile; fileRef = BCFE5DBE1708CF18004C4EF3 /* DNA.pdb */; };
 /* End PBXBuildFile section */
 
@@ -180,7 +179,6 @@
 		BCFE5DB41707B7A8004C4EF3 /* Molecules Help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Molecules Help"; sourceTree = "<group>"; };
 		BCFE5DB91708BC93004C4EF3 /* SLSInitialHelpWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSInitialHelpWindowController.h; sourceTree = "<group>"; };
 		BCFE5DBA1708BC93004C4EF3 /* SLSInitialHelpWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSInitialHelpWindowController.m; sourceTree = "<group>"; };
-		BCFE5DBB1708BC93004C4EF3 /* SLSInitialHelpWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SLSInitialHelpWindowController.xib; sourceTree = "<group>"; };
 		BCFE5DBE1708CF18004C4EF3 /* DNA.pdb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DNA.pdb; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -200,6 +198,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC0BFB44171E3163008E5D0D /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				BCDBDE4C171A411E00C4C2FA /* TransparentWindow.h */,
+				BCDBDE4D171A411F00C4C2FA /* TransparentWindow.m */,
+				BCDBDE491718FB5700C4C2FA /* RoundedView.h */,
+				BCDBDE4A1718FB5700C4C2FA /* RoundedView.m */,
+			);
+			name = Tutorial;
+			sourceTree = "<group>";
+		};
 		BC56CFF41702A18000CA05BE /* File Formats */ = {
 			isa = PBXGroup;
 			children = (
@@ -209,6 +218,10 @@
 				BCCF94B416ED4BE400871775 /* SLSMolecule+SDF.m */,
 				BC56CFF01702A12900CA05BE /* SLSMolecule+XYZ.h */,
 				BC56CFF11702A12A00CA05BE /* SLSMolecule+XYZ.m */,
+				BCCF94C916ED609C00871775 /* VCTitleCase.h */,
+				BCCF94CA16ED609C00871775 /* VCTitleCase.m */,
+				BCCF94C616ED603900871775 /* NSData+Gzip.h */,
+				BCCF94C716ED603900871775 /* NSData+Gzip.m */,
 			);
 			name = "File Formats";
 			sourceTree = "<group>";
@@ -305,20 +318,13 @@
 		BCBF61B316E83FE500E2784A /* Molecule Documents */ = {
 			isa = PBXGroup;
 			children = (
-				BCDBDE4C171A411E00C4C2FA /* TransparentWindow.h */,
-				BCDBDE4D171A411F00C4C2FA /* TransparentWindow.m */,
 				BCBF61A216E83DCF00E2784A /* SLSMoleculeDocument.h */,
 				BCBF61A316E83DCF00E2784A /* SLSMoleculeDocument.m */,
 				BCBF61A516E83DCF00E2784A /* SLSMoleculeDocument.xib */,
 				BCCF94AF16ED4BE400871775 /* SLSMolecule.h */,
 				BCCF94B016ED4BE400871775 /* SLSMolecule.m */,
-				BCDBDE491718FB5700C4C2FA /* RoundedView.h */,
-				BCDBDE4A1718FB5700C4C2FA /* RoundedView.m */,
 				BC56CFF41702A18000CA05BE /* File Formats */,
-				BCCF94C916ED609C00871775 /* VCTitleCase.h */,
-				BCCF94CA16ED609C00871775 /* VCTitleCase.m */,
-				BCCF94C616ED603900871775 /* NSData+Gzip.h */,
-				BCCF94C716ED603900871775 /* NSData+Gzip.m */,
+				BC0BFB44171E3163008E5D0D /* Tutorial */,
 				BCFE5DB2170779DD004C4EF3 /* Overlay Window */,
 			);
 			name = "Molecule Documents";
@@ -412,7 +418,6 @@
 				BCFE5DB41707B7A8004C4EF3 /* Molecules Help */,
 				BCFE5DB91708BC93004C4EF3 /* SLSInitialHelpWindowController.h */,
 				BCFE5DBA1708BC93004C4EF3 /* SLSInitialHelpWindowController.m */,
-				BCFE5DBB1708BC93004C4EF3 /* SLSInitialHelpWindowController.xib */,
 				BCDBDE311718A4D900C4C2FA /* SLSInitialHelpWindowController2.xib */,
 			);
 			name = Help;
@@ -499,7 +504,6 @@
 				BC56CFE8170149FD00CA05BE /* SLSMoleculeOverlayWindowController.xib in Resources */,
 				BCFE5DAB1703D0D1004C4EF3 /* MoleculesDocumentIcon.icns in Resources */,
 				BCFE5DB51707B7A8004C4EF3 /* Molecules Help in Resources */,
-				BCFE5DBD1708BC93004C4EF3 /* SLSInitialHelpWindowController.xib in Resources */,
 				BCFE5DBF1708CF18004C4EF3 /* DNA.pdb in Resources */,
 				BCDBDE321718A4D900C4C2FA /* SLSInitialHelpWindowController2.xib in Resources */,
 				BCDBDE371718C1F100C4C2FA /* CaffeineImage.png in Resources */,

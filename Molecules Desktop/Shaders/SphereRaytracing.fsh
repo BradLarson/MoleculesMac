@@ -20,30 +20,77 @@ float depthFromEncodedColor(vec3 encodedColor)
     return (encodedColor.r + encodedColor.g + encodedColor.b) * oneThird;
 }
 
+vec2 ambientOcclusionLookupCoordinate(float distanceFromCenter)
+{
+    vec3 aoNormal;
+    
+    if (distanceFromCenter > 1.0)
+    {
+        distanceFromCenter = 1.0;
+        aoNormal = vec3(normalize(impostorSpaceCoordinate), 0.0);
+    }
+    else
+    {
+        float precalculatedDepth = sqrt(1.0 - distanceFromCenter * distanceFromCenter);
+        aoNormal = vec3(impostorSpaceCoordinate, -precalculatedDepth);
+    }
+    
+    // Ambient occlusion factor
+    aoNormal = inverseModelViewProjMatrix * aoNormal;
+    aoNormal.z = -aoNormal.z;
+    
+    vec3 absoluteSphereSurfacePosition = abs(aoNormal);
+    float d = absoluteSphereSurfacePosition.x + absoluteSphereSurfacePosition.y + absoluteSphereSurfacePosition.z;
+    
+    vec2 lookupTextureCoordinate;
+    if (aoNormal.z <= 0.0)
+    {
+        lookupTextureCoordinate = aoNormal.xy / d;
+    }
+    else
+    {
+        vec2 theSign = aoNormal.xy / absoluteSphereSurfacePosition.xy;
+        //vec2 aSign = sign(aoNormal.xy);
+        lookupTextureCoordinate =  theSign  - absoluteSphereSurfacePosition.yx * (theSign / d);
+    }
+    
+    return (lookupTextureCoordinate / 2.0) + 0.5;
+}
+
 void main()
 {
-    vec4 precalculatedDepthAndLighting = texture2D(sphereDepthMap, depthLookupCoordinate);
-    float alphaComponent = 1.0;
-  
-    alphaComponent = step(0.5, precalculatedDepthAndLighting.a);
-
-    float currentDepthValue = normalizedViewCoordinate.z - adjustedSphereRadius * precalculatedDepthAndLighting.r;
-    gl_FragDepth = currentDepthValue + (1.0 - alphaComponent);
+    float distanceFromCenter = length(impostorSpaceCoordinate);
+    distanceFromCenter = min(distanceFromCenter, 1.0);
+    float normalizedDepth = sqrt(1.0 - distanceFromCenter * distanceFromCenter);
+    float alphaComponent = step(distanceFromCenter, 0.99);
     
-    vec2 lookupTextureCoordinate = texture2D(precalculatedAOLookupTexture, depthLookupCoordinate).st;
+    float currentDepthValue = normalizedViewCoordinate.z - adjustedSphereRadius * normalizedDepth;
+    gl_FragDepth = currentDepthValue + (1.0 - alphaComponent);
+
+    vec2 lookupTextureCoordinate = ambientOcclusionLookupCoordinate(distanceFromCenter);
+
+//    vec2 lookupTextureCoordinate = texture2D(precalculatedAOLookupTexture, depthLookupCoordinate).st;
     lookupTextureCoordinate = (lookupTextureCoordinate * 2.0) - 1.0;
     
     vec2 textureCoordinateForAOLookup = ambientOcclusionTextureBase + ambientOcclusionTexturePatchWidth * lookupTextureCoordinate;
     float ambientOcclusionIntensity = texture2D(ambientOcclusionTexture, textureCoordinateForAOLookup).r;
     
     // Ambient lighting            
-//   float lightingIntensity = 0.2 + 1.7 * precalculatedDepthAndLighting.g * ambientOcclusionIntensity;
-    float lightingIntensity = 0.1 + precalculatedDepthAndLighting.g * ambientOcclusionIntensity;
-//   float lightingIntensity = precalculatedDepthAndLighting.g;
+//    float lightingIntensity = 0.1 + precalculatedDepthAndLighting.g * ambientOcclusionIntensity;
+    
+    // Specular lighting
+//    finalSphereColor = finalSphereColor + ( (precalculatedDepthAndLighting.b * ambientOcclusionIntensity) * (vec3(1.0) - finalSphereColor));
+        
+    // Ambient lighting
+    vec3 normal = vec3(impostorSpaceCoordinate, normalizedDepth);
+    float ambientLightingIntensityFactor = clamp(dot(lightPosition, normal), 0.0, 1.0);
+    
+    float lightingIntensity = 0.1 + ambientLightingIntensityFactor * ambientOcclusionIntensity;
     vec3 finalSphereColor = sphereColor * lightingIntensity;
     
-    // Specular lighting    
-    finalSphereColor = finalSphereColor + ( (precalculatedDepthAndLighting.b * ambientOcclusionIntensity) * (vec3(1.0) - finalSphereColor));
-    
+    // Specular lighting
+    float specularLightingIntensityFactor = pow(ambientLightingIntensityFactor, 60.0) * 0.6;
+    finalSphereColor = finalSphereColor + ((specularLightingIntensityFactor * ambientOcclusionIntensity)  * (vec3(1.0) - finalSphereColor));
+
     gl_FragColor = vec4(finalSphereColor * alphaComponent, 1.0); // Black background
 }

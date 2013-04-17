@@ -59,9 +59,6 @@ typedef enum {ROTATIONINSTRUCTIONVIEW, SCALINGINSTRUCTIONVIEW, TRANSLATIONINSTRU
 - (IBAction)switchToBallAndStickMode:(id)sender;
 
 // Leap gesture interaction styles
-- (void)useFingersToRotateLikeOniOS:(LeapFrame *)currentLeapFrame;
-- (void)useHandsToRotateLikeOniOS:(LeapFrame *)currentLeapFrame;
-- (void)useGraspingMotionToScaleAndRotate:(LeapFrame *)currentLeapFrame;
 - (void)useOpenHandToScaleAndRotate:(LeapFrame *)currentLeapFrame;
 
 @end
