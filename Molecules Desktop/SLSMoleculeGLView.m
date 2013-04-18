@@ -9,6 +9,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code here.
+        
+        [self setWantsBestResolutionOpenGLSurface:YES];
     }
     
     return self;

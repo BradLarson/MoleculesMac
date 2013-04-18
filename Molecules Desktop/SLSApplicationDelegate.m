@@ -16,11 +16,14 @@
 
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
 {
+    NSLog(@"Should open untitled");
     return YES;
 }
 
 - (BOOL)applicationOpenUntitledFile:(NSApplication *)theApplication
 {
+    NSLog(@"Open untitled");
+
     [self.initialHelpWindowController showWindow:self];
     
     return YES;

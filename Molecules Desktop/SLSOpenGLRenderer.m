@@ -364,8 +364,10 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
          */
         glEnable(GL_TEXTURE_2D);
         
-        backingWidth = glView.frame.size.width;
-        backingHeight = glView.frame.size.height;
+        NSRect backingBounds = [glView convertRectToBacking:[glView bounds]];
+        
+        backingWidth = backingBounds.size.width;
+        backingHeight = backingBounds.size.height;
         
 //        [self createFramebuffer:&viewFramebuffer size:CGSizeZero renderBuffer:&viewRenderbuffer depthBuffer:&viewDepthBuffer texture:NULL layer:glLayer];
 //        [self createFramebuffer:&depthPassFramebuffer size:CGSizeMake(backingWidth, backingHeight) renderBuffer:NULL depthBuffer:&depthPassDepthBuffer texture:&depthPassTexture];
@@ -420,9 +422,10 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
         [[self openGLContext] makeCurrentContext];
         glEnable(GL_TEXTURE_2D);
         
-        backingWidth = glView.frame.size.width;
-        backingHeight = glView.frame.size.height;
-
+        NSRect backingBounds = [glView convertRectToBacking:[glView bounds]];
+        
+        backingWidth = backingBounds.size.width;
+        backingHeight = backingBounds.size.height;
         
         [self switchToDisplayFramebuffer];
         glViewport(0, 0, backingWidth, backingHeight);
