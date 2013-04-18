@@ -1,11 +1,3 @@
-//
-//  SLSInitialHelpWindowController.m
-//  Molecules Desktop
-//
-//  Created by Brad Larson on 3/31/2013.
-//  Copyright (c) 2013 Sunset Lake Software LLC. All rights reserved.
-//
-
 #import "SLSInitialHelpWindowController.h"
 
 @interface SLSInitialHelpWindowController ()

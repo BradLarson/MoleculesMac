@@ -1,11 +1,3 @@
-//
-//  SLSPreferencesWindowController.m
-//  Molecules Desktop
-//
-//  Created by Brad Larson on 3/19/2013.
-//  Copyright (c) 2013 Sunset Lake Software LLC. All rights reserved.
-//
-
 #import "SLSPreferencesWindowController.h"
 
 @interface SLSPreferencesWindowController ()

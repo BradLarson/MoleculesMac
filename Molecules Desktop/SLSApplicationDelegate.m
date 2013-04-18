@@ -12,19 +12,26 @@
 	[[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
 															 [NSNumber numberWithInt:3], @"leapControlStyle",
 															 nil]];
+    
+    // This is a bit of a hack to get the initial panel to open on startup if no documents are loaded
+    double delayInSeconds = 0.2;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        if ([[[NSDocumentController sharedDocumentController] documents] count] < 1)
+        {
+            [self.initialHelpWindowController showWindow:self];
+        }        
+    });
 }
 
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
 {
-    NSLog(@"Should open untitled");
     return YES;
 }
 
 - (BOOL)applicationOpenUntitledFile:(NSApplication *)theApplication
 {
-    NSLog(@"Open untitled");
-
-    [self.initialHelpWindowController showWindow:self];
+    [self showInitialHelp];
     
     return YES;
 }
@@ -32,6 +39,11 @@
 - (IBAction)showPreferences:(id)sender;
 {
 	[self.preferencesWindowController showWindow:self];
+}
+
+- (void)showInitialHelp;
+{
+    [self.initialHelpWindowController showWindow:self];
 }
 
 - (SLSPreferencesWindowController *)preferencesWindowController;

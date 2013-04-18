@@ -9,5 +9,6 @@
 @property(readonly, strong) SLSInitialHelpWindowController *initialHelpWindowController;
 
 - (IBAction)showPreferences:(id)sender;
+- (void)showInitialHelp;
 
 @end

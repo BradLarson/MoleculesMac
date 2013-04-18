@@ -13,6 +13,7 @@
 		BC56CFE8170149FD00CA05BE /* SLSMoleculeOverlayWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC56CFE6170149FD00CA05BE /* SLSMoleculeOverlayWindowController.xib */; };
 		BC56CFEB170150B300CA05BE /* SLSTransparentWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC56CFEA170150B300CA05BE /* SLSTransparentWindow.m */; };
 		BC56CFF21702A12A00CA05BE /* SLSMolecule+XYZ.m in Sources */ = {isa = PBXBuildFile; fileRef = BC56CFF11702A12A00CA05BE /* SLSMolecule+XYZ.m */; };
+		BC67F41A171F98B100B5BF5E /* SLSDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC67F419171F98B100B5BF5E /* SLSDocumentController.m */; };
 		BCBF619116E83DCF00E2784A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCBF619016E83DCF00E2784A /* Cocoa.framework */; };
 		BCBF619B16E83DCF00E2784A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BCBF619916E83DCF00E2784A /* InfoPlist.strings */; };
 		BCBF619D16E83DCF00E2784A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBF619C16E83DCF00E2784A /* main.m */; };
@@ -91,6 +92,8 @@
 		BC56CFEA170150B300CA05BE /* SLSTransparentWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSTransparentWindow.m; sourceTree = "<group>"; };
 		BC56CFF01702A12900CA05BE /* SLSMolecule+XYZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SLSMolecule+XYZ.h"; sourceTree = "<group>"; };
 		BC56CFF11702A12A00CA05BE /* SLSMolecule+XYZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SLSMolecule+XYZ.m"; sourceTree = "<group>"; };
+		BC67F418171F98B100B5BF5E /* SLSDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSDocumentController.h; sourceTree = "<group>"; };
+		BC67F419171F98B100B5BF5E /* SLSDocumentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSDocumentController.m; sourceTree = "<group>"; };
 		BCBF618D16E83DCF00E2784A /* Molecules.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Molecules.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCBF619016E83DCF00E2784A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BCBF619316E83DCF00E2784A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -326,6 +329,8 @@
 				BC56CFF41702A18000CA05BE /* File Formats */,
 				BC0BFB44171E3163008E5D0D /* Tutorial */,
 				BCFE5DB2170779DD004C4EF3 /* Overlay Window */,
+				BC67F418171F98B100B5BF5E /* SLSDocumentController.h */,
+				BC67F419171F98B100B5BF5E /* SLSDocumentController.m */,
 			);
 			name = "Molecule Documents";
 			sourceTree = "<group>";
@@ -569,6 +574,7 @@
 				BCFE5DBC1708BC93004C4EF3 /* SLSInitialHelpWindowController.m in Sources */,
 				BCDBDE4B1718FB5700C4C2FA /* RoundedView.m in Sources */,
 				BCDBDE4E171A411F00C4C2FA /* TransparentWindow.m in Sources */,
+				BC67F41A171F98B100B5BF5E /* SLSDocumentController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
