@@ -94,7 +94,7 @@
 		BC56CFF11702A12A00CA05BE /* SLSMolecule+XYZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SLSMolecule+XYZ.m"; sourceTree = "<group>"; };
 		BC67F418171F98B100B5BF5E /* SLSDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSDocumentController.h; sourceTree = "<group>"; };
 		BC67F419171F98B100B5BF5E /* SLSDocumentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSDocumentController.m; sourceTree = "<group>"; };
-		BCBF618D16E83DCF00E2784A /* Molecules.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Molecules.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCBF618D16E83DCF00E2784A /* Molecules_LM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Molecules_LM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCBF619016E83DCF00E2784A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BCBF619316E83DCF00E2784A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		BCBF619416E83DCF00E2784A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -241,7 +241,7 @@
 		BCBF618E16E83DCF00E2784A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BCBF618D16E83DCF00E2784A /* Molecules.app */,
+				BCBF618D16E83DCF00E2784A /* Molecules_LM.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -431,9 +431,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BCBF618C16E83DCF00E2784A /* Molecules */ = {
+		BCBF618C16E83DCF00E2784A /* Molecules_LM */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BCBF61AD16E83DCF00E2784A /* Build configuration list for PBXNativeTarget "Molecules" */;
+			buildConfigurationList = BCBF61AD16E83DCF00E2784A /* Build configuration list for PBXNativeTarget "Molecules_LM" */;
 			buildPhases = (
 				BCBF618916E83DCF00E2784A /* Sources */,
 				BCBF618A16E83DCF00E2784A /* Frameworks */,
@@ -444,9 +444,9 @@
 			);
 			dependencies = (
 			);
-			name = Molecules;
+			name = Molecules_LM;
 			productName = "Molecules Desktop";
-			productReference = BCBF618D16E83DCF00E2784A /* Molecules.app */;
+			productReference = BCBF618D16E83DCF00E2784A /* Molecules_LM.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -471,7 +471,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BCBF618C16E83DCF00E2784A /* Molecules */,
+				BCBF618C16E83DCF00E2784A /* Molecules_LM */,
 			);
 		};
 /* End PBXProject section */
@@ -694,7 +694,7 @@
 					"\"$(SRCROOT)/../LeapSDK/lib\"",
 					"\"$(SRCROOT)\"",
 				);
-				PRODUCT_NAME = Molecules;
+				PRODUCT_NAME = Molecules_LM;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -712,7 +712,7 @@
 					"\"$(SRCROOT)/../LeapSDK/lib\"",
 					"\"$(SRCROOT)\"",
 				);
-				PRODUCT_NAME = Molecules;
+				PRODUCT_NAME = Molecules_LM;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -729,7 +729,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BCBF61AD16E83DCF00E2784A /* Build configuration list for PBXNativeTarget "Molecules" */ = {
+		BCBF61AD16E83DCF00E2784A /* Build configuration list for PBXNativeTarget "Molecules_LM" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BCBF61AE16E83DCF00E2784A /* Debug */,
