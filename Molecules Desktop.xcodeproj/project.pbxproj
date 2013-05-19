@@ -14,6 +14,21 @@
 		BC56CFEB170150B300CA05BE /* SLSTransparentWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC56CFEA170150B300CA05BE /* SLSTransparentWindow.m */; };
 		BC56CFF21702A12A00CA05BE /* SLSMolecule+XYZ.m in Sources */ = {isa = PBXBuildFile; fileRef = BC56CFF11702A12A00CA05BE /* SLSMolecule+XYZ.m */; };
 		BC67F41A171F98B100B5BF5E /* SLSDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC67F419171F98B100B5BF5E /* SLSDocumentController.m */; };
+		BC983CF317498EDF00A8A581 /* Cholesterol.pdb in Resources */ = {isa = PBXBuildFile; fileRef = BC983CEA17498EDF00A8A581 /* Cholesterol.pdb */; };
+		BC983CF417498EDF00A8A581 /* CholesterolImage.png in Resources */ = {isa = PBXBuildFile; fileRef = BC983CEB17498EDF00A8A581 /* CholesterolImage.png */; };
+		BC983CF517498EDF00A8A581 /* CholesterolImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC983CEC17498EDF00A8A581 /* CholesterolImage@2x.png */; };
+		BC983CF617498EDF00A8A581 /* Heme.sdf in Resources */ = {isa = PBXBuildFile; fileRef = BC983CED17498EDF00A8A581 /* Heme.sdf */; };
+		BC983CF717498EDF00A8A581 /* HemeImage.png in Resources */ = {isa = PBXBuildFile; fileRef = BC983CEE17498EDF00A8A581 /* HemeImage.png */; };
+		BC983CF817498EDF00A8A581 /* HemeImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC983CEF17498EDF00A8A581 /* HemeImage@2x.png */; };
+		BC983CF917498EDF00A8A581 /* TheoreticalBearing.pdb in Resources */ = {isa = PBXBuildFile; fileRef = BC983CF017498EDF00A8A581 /* TheoreticalBearing.pdb */; };
+		BC983CFA17498EDF00A8A581 /* TheoreticalBearingImage.png in Resources */ = {isa = PBXBuildFile; fileRef = BC983CF117498EDF00A8A581 /* TheoreticalBearingImage.png */; };
+		BC983CFB17498EDF00A8A581 /* TheoreticalBearingImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC983CF217498EDF00A8A581 /* TheoreticalBearingImage@2x.png */; };
+		BC983D0217498F2900A8A581 /* Insulin.pdb in Resources */ = {isa = PBXBuildFile; fileRef = BC983CFC17498F2900A8A581 /* Insulin.pdb */; };
+		BC983D0317498F2900A8A581 /* InsulinImage.png in Resources */ = {isa = PBXBuildFile; fileRef = BC983CFD17498F2900A8A581 /* InsulinImage.png */; };
+		BC983D0417498F2900A8A581 /* InsulinImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC983CFE17498F2900A8A581 /* InsulinImage@2x.png */; };
+		BC983D0517498F2900A8A581 /* Nanotube.pdb in Resources */ = {isa = PBXBuildFile; fileRef = BC983CFF17498F2900A8A581 /* Nanotube.pdb */; };
+		BC983D0617498F2900A8A581 /* NanotubeImage.png in Resources */ = {isa = PBXBuildFile; fileRef = BC983D0017498F2900A8A581 /* NanotubeImage.png */; };
+		BC983D0717498F2900A8A581 /* NanotubeImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC983D0117498F2900A8A581 /* NanotubeImage@2x.png */; };
 		BCBF619116E83DCF00E2784A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCBF619016E83DCF00E2784A /* Cocoa.framework */; };
 		BCBF619B16E83DCF00E2784A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BCBF619916E83DCF00E2784A /* InfoPlist.strings */; };
 		BCBF619D16E83DCF00E2784A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBF619C16E83DCF00E2784A /* main.m */; };
@@ -94,6 +109,21 @@
 		BC56CFF11702A12A00CA05BE /* SLSMolecule+XYZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SLSMolecule+XYZ.m"; sourceTree = "<group>"; };
 		BC67F418171F98B100B5BF5E /* SLSDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSDocumentController.h; sourceTree = "<group>"; };
 		BC67F419171F98B100B5BF5E /* SLSDocumentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSDocumentController.m; sourceTree = "<group>"; };
+		BC983CEA17498EDF00A8A581 /* Cholesterol.pdb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cholesterol.pdb; sourceTree = "<group>"; };
+		BC983CEB17498EDF00A8A581 /* CholesterolImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CholesterolImage.png; sourceTree = "<group>"; };
+		BC983CEC17498EDF00A8A581 /* CholesterolImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CholesterolImage@2x.png"; sourceTree = "<group>"; };
+		BC983CED17498EDF00A8A581 /* Heme.sdf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Heme.sdf; sourceTree = "<group>"; };
+		BC983CEE17498EDF00A8A581 /* HemeImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HemeImage.png; sourceTree = "<group>"; };
+		BC983CEF17498EDF00A8A581 /* HemeImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HemeImage@2x.png"; sourceTree = "<group>"; };
+		BC983CF017498EDF00A8A581 /* TheoreticalBearing.pdb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TheoreticalBearing.pdb; sourceTree = "<group>"; };
+		BC983CF117498EDF00A8A581 /* TheoreticalBearingImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TheoreticalBearingImage.png; sourceTree = "<group>"; };
+		BC983CF217498EDF00A8A581 /* TheoreticalBearingImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TheoreticalBearingImage@2x.png"; sourceTree = "<group>"; };
+		BC983CFC17498F2900A8A581 /* Insulin.pdb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Insulin.pdb; sourceTree = "<group>"; };
+		BC983CFD17498F2900A8A581 /* InsulinImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InsulinImage.png; sourceTree = "<group>"; };
+		BC983CFE17498F2900A8A581 /* InsulinImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "InsulinImage@2x.png"; sourceTree = "<group>"; };
+		BC983CFF17498F2900A8A581 /* Nanotube.pdb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Nanotube.pdb; sourceTree = "<group>"; };
+		BC983D0017498F2900A8A581 /* NanotubeImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NanotubeImage.png; sourceTree = "<group>"; };
+		BC983D0117498F2900A8A581 /* NanotubeImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NanotubeImage@2x.png"; sourceTree = "<group>"; };
 		BCBF618D16E83DCF00E2784A /* Molecules_LM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Molecules_LM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCBF619016E83DCF00E2784A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BCBF619316E83DCF00E2784A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -288,6 +318,21 @@
 		BCBF619716E83DCF00E2784A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BC983CFC17498F2900A8A581 /* Insulin.pdb */,
+				BC983CFD17498F2900A8A581 /* InsulinImage.png */,
+				BC983CFE17498F2900A8A581 /* InsulinImage@2x.png */,
+				BC983CFF17498F2900A8A581 /* Nanotube.pdb */,
+				BC983D0017498F2900A8A581 /* NanotubeImage.png */,
+				BC983D0117498F2900A8A581 /* NanotubeImage@2x.png */,
+				BC983CEA17498EDF00A8A581 /* Cholesterol.pdb */,
+				BC983CEB17498EDF00A8A581 /* CholesterolImage.png */,
+				BC983CEC17498EDF00A8A581 /* CholesterolImage@2x.png */,
+				BC983CED17498EDF00A8A581 /* Heme.sdf */,
+				BC983CEE17498EDF00A8A581 /* HemeImage.png */,
+				BC983CEF17498EDF00A8A581 /* HemeImage@2x.png */,
+				BC983CF017498EDF00A8A581 /* TheoreticalBearing.pdb */,
+				BC983CF117498EDF00A8A581 /* TheoreticalBearingImage.png */,
+				BC983CF217498EDF00A8A581 /* TheoreticalBearingImage@2x.png */,
 				BCDBDE5B171CE12E00C4C2FA /* TutorialMouseTranslation.pdf */,
 				BCDBDE59171CDD8300C4C2FA /* TutorialMouseScaling.pdf */,
 				BCDBDE57171CD6FC00C4C2FA /* TutorialMouseRotation.pdf */,
@@ -529,6 +574,21 @@
 				BCDBDE58171CD6FC00C4C2FA /* TutorialMouseRotation.pdf in Resources */,
 				BCDBDE5A171CDD8300C4C2FA /* TutorialMouseScaling.pdf in Resources */,
 				BCDBDE5C171CE12E00C4C2FA /* TutorialMouseTranslation.pdf in Resources */,
+				BC983CF317498EDF00A8A581 /* Cholesterol.pdb in Resources */,
+				BC983CF417498EDF00A8A581 /* CholesterolImage.png in Resources */,
+				BC983CF517498EDF00A8A581 /* CholesterolImage@2x.png in Resources */,
+				BC983CF617498EDF00A8A581 /* Heme.sdf in Resources */,
+				BC983CF717498EDF00A8A581 /* HemeImage.png in Resources */,
+				BC983CF817498EDF00A8A581 /* HemeImage@2x.png in Resources */,
+				BC983CF917498EDF00A8A581 /* TheoreticalBearing.pdb in Resources */,
+				BC983CFA17498EDF00A8A581 /* TheoreticalBearingImage.png in Resources */,
+				BC983CFB17498EDF00A8A581 /* TheoreticalBearingImage@2x.png in Resources */,
+				BC983D0217498F2900A8A581 /* Insulin.pdb in Resources */,
+				BC983D0317498F2900A8A581 /* InsulinImage.png in Resources */,
+				BC983D0417498F2900A8A581 /* InsulinImage@2x.png in Resources */,
+				BC983D0517498F2900A8A581 /* Nanotube.pdb in Resources */,
+				BC983D0617498F2900A8A581 /* NanotubeImage.png in Resources */,
+				BC983D0717498F2900A8A581 /* NanotubeImage@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

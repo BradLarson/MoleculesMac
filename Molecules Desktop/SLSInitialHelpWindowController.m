@@ -27,40 +27,58 @@
     [self close];
 }
 
-- (IBAction)openDNA:(id)sender;
+- (void)openFileWithPath:(NSString *)filePath;
 {
     NSDocumentController *controller = [NSDocumentController sharedDocumentController];
     
     NSError *error = nil;
-    [controller openDocumentWithContentsOfURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"DNA" ofType:@"pdb"]] display:YES error:&error];
+    [controller openDocumentWithContentsOfURL:[NSURL fileURLWithPath:filePath] display:YES error:&error];
     [self close];
+}
+
+- (IBAction)openDNA:(id)sender;
+{
+    [self openFileWithPath:[[NSBundle mainBundle] pathForResource:@"DNA" ofType:@"pdb"]];
 }
 
 - (IBAction)openTRNA:(id)sender;
 {
-    NSDocumentController *controller = [NSDocumentController sharedDocumentController];
-    
-    NSError *error = nil;
-    [controller openDocumentWithContentsOfURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"TransferRNA" ofType:@"pdb"]] display:YES error:&error];
-    [self close];
+    [self openFileWithPath:[[NSBundle mainBundle] pathForResource:@"TransferRNA" ofType:@"pdb"]];
 }
 
 - (IBAction)openPump:(id)sender;
 {
-    NSDocumentController *controller = [NSDocumentController sharedDocumentController];
-    
-    NSError *error = nil;
-    [controller openDocumentWithContentsOfURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"TheoreticalAtomicPump" ofType:@"pdb"]] display:YES error:&error];    
-    [self close];
+    [self openFileWithPath:[[NSBundle mainBundle] pathForResource:@"TheoreticalAtomicPump" ofType:@"pdb"]];
 }
 
 - (IBAction)openCaffeine:(id)sender;
 {
-    NSDocumentController *controller = [NSDocumentController sharedDocumentController];
-    
-    NSError *error = nil;
-    [controller openDocumentWithContentsOfURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Caffeine" ofType:@"pdb"]] display:YES error:&error];
-    [self close];
+    [self openFileWithPath:[[NSBundle mainBundle] pathForResource:@"Caffeine" ofType:@"pdb"]];
+}
+
+- (IBAction)openHeme:(id)sender;
+{
+    [self openFileWithPath:[[NSBundle mainBundle] pathForResource:@"Heme" ofType:@"sdf"]];
+}
+
+- (IBAction)openNanotube:(id)sender;
+{
+    [self openFileWithPath:[[NSBundle mainBundle] pathForResource:@"Nanotube" ofType:@"pdb"]];
+}
+
+- (IBAction)openCholesterol:(id)sender;
+{
+    [self openFileWithPath:[[NSBundle mainBundle] pathForResource:@"Cholesterol" ofType:@"pdb"]];
+}
+
+- (IBAction)openInsulin:(id)sender;
+{
+    [self openFileWithPath:[[NSBundle mainBundle] pathForResource:@"Insulin" ofType:@"pdb"]];
+}
+
+- (IBAction)openTheoreticalBearing:(id)sender;
+{
+    [self openFileWithPath:[[NSBundle mainBundle] pathForResource:@"TheoreticalBearing" ofType:@"pdb"]];
 }
 
 - (IBAction)openOther:(id)sender;
