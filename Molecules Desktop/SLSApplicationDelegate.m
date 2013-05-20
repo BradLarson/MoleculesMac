@@ -1,11 +1,13 @@
 #import "SLSApplicationDelegate.h"
 #import "SLSPreferencesWindowController.h"
 #import "SLSInitialHelpWindowController.h"
+#import "SLSColorKeyWindowController.h"
 
 @implementation SLSApplicationDelegate
 
 @synthesize preferencesWindowController = _preferencesWindowController;
 @synthesize initialHelpWindowController = _initialHelpWindowController;
+@synthesize colorKeyWindowController = _colorKeyWindowController;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -41,6 +43,11 @@
 	[self.preferencesWindowController showWindow:self];
 }
 
+- (IBAction)showColorKey:(id)sender;
+{
+	[self.colorKeyWindowController showWindow:self];
+}
+
 - (void)showInitialHelp;
 {
     [self.initialHelpWindowController showWindow:self];
@@ -64,6 +71,16 @@
 	}
 	
 	return _initialHelpWindowController;
+}
+
+- (SLSColorKeyWindowController *)colorKeyWindowController;
+{
+	if (_colorKeyWindowController == nil)
+	{
+		_colorKeyWindowController = [[SLSColorKeyWindowController alloc] initWithWindowNibName:@"SLSColorKeyWindowController"];
+	}
+	
+	return _colorKeyWindowController;
 }
 
 @end

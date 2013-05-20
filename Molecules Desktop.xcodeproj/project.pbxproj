@@ -29,6 +29,9 @@
 		BC983D0517498F2900A8A581 /* Nanotube.pdb in Resources */ = {isa = PBXBuildFile; fileRef = BC983CFF17498F2900A8A581 /* Nanotube.pdb */; };
 		BC983D0617498F2900A8A581 /* NanotubeImage.png in Resources */ = {isa = PBXBuildFile; fileRef = BC983D0017498F2900A8A581 /* NanotubeImage.png */; };
 		BC983D0717498F2900A8A581 /* NanotubeImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC983D0117498F2900A8A581 /* NanotubeImage@2x.png */; };
+		BC983D0C1749C35B00A8A581 /* SLSColorKeyWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC983D0A1749C35B00A8A581 /* SLSColorKeyWindowController.m */; };
+		BC983D0D1749C35B00A8A581 /* SLSColorKeyWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC983D0B1749C35B00A8A581 /* SLSColorKeyWindowController.xib */; };
+		BC983D101749C3CA00A8A581 /* SLSAtomColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC983D0F1749C3CA00A8A581 /* SLSAtomColorView.m */; };
 		BCBF619116E83DCF00E2784A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCBF619016E83DCF00E2784A /* Cocoa.framework */; };
 		BCBF619B16E83DCF00E2784A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BCBF619916E83DCF00E2784A /* InfoPlist.strings */; };
 		BCBF619D16E83DCF00E2784A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBF619C16E83DCF00E2784A /* main.m */; };
@@ -124,6 +127,11 @@
 		BC983CFF17498F2900A8A581 /* Nanotube.pdb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Nanotube.pdb; sourceTree = "<group>"; };
 		BC983D0017498F2900A8A581 /* NanotubeImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NanotubeImage.png; sourceTree = "<group>"; };
 		BC983D0117498F2900A8A581 /* NanotubeImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NanotubeImage@2x.png"; sourceTree = "<group>"; };
+		BC983D091749C35B00A8A581 /* SLSColorKeyWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSColorKeyWindowController.h; sourceTree = "<group>"; };
+		BC983D0A1749C35B00A8A581 /* SLSColorKeyWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSColorKeyWindowController.m; sourceTree = "<group>"; };
+		BC983D0B1749C35B00A8A581 /* SLSColorKeyWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SLSColorKeyWindowController.xib; sourceTree = "<group>"; };
+		BC983D0E1749C3CA00A8A581 /* SLSAtomColorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSAtomColorView.h; sourceTree = "<group>"; };
+		BC983D0F1749C3CA00A8A581 /* SLSAtomColorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSAtomColorView.m; sourceTree = "<group>"; };
 		BCBF618D16E83DCF00E2784A /* Molecules_LM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Molecules_LM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCBF619016E83DCF00E2784A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BCBF619316E83DCF00E2784A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -259,6 +267,18 @@
 			name = "File Formats";
 			sourceTree = "<group>";
 		};
+		BC983D081749C33100A8A581 /* Color Key */ = {
+			isa = PBXGroup;
+			children = (
+				BC983D091749C35B00A8A581 /* SLSColorKeyWindowController.h */,
+				BC983D0A1749C35B00A8A581 /* SLSColorKeyWindowController.m */,
+				BC983D0B1749C35B00A8A581 /* SLSColorKeyWindowController.xib */,
+				BC983D0E1749C3CA00A8A581 /* SLSAtomColorView.h */,
+				BC983D0F1749C3CA00A8A581 /* SLSAtomColorView.m */,
+			);
+			name = "Color Key";
+			sourceTree = "<group>";
+		};
 		BCBF618416E83DCF00E2784A = {
 			isa = PBXGroup;
 			children = (
@@ -306,6 +326,7 @@
 				BCBF61B516E83FFF00E2784A /* Main Interface */,
 				BCE7795D16F944CA00FFB749 /* Preferences */,
 				BCBF61B316E83FE500E2784A /* Molecule Documents */,
+				BC983D081749C33100A8A581 /* Color Key */,
 				BCCF950E16EF7ADB00871775 /* Leap Motion */,
 				BCBF61B416E83FEE00E2784A /* 3D Molecule Display */,
 				BCFE5DB31707B78A004C4EF3 /* Help */,
@@ -589,6 +610,7 @@
 				BC983D0517498F2900A8A581 /* Nanotube.pdb in Resources */,
 				BC983D0617498F2900A8A581 /* NanotubeImage.png in Resources */,
 				BC983D0717498F2900A8A581 /* NanotubeImage@2x.png in Resources */,
+				BC983D0D1749C35B00A8A581 /* SLSColorKeyWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -635,6 +657,8 @@
 				BCDBDE4B1718FB5700C4C2FA /* RoundedView.m in Sources */,
 				BCDBDE4E171A411F00C4C2FA /* TransparentWindow.m in Sources */,
 				BC67F41A171F98B100B5BF5E /* SLSDocumentController.m in Sources */,
+				BC983D0C1749C35B00A8A581 /* SLSColorKeyWindowController.m in Sources */,
+				BC983D101749C3CA00A8A581 /* SLSAtomColorView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
