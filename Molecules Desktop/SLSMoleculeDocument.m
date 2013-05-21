@@ -586,7 +586,6 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
     }
 }
 
-
 - (void)onDisconnect:(NSNotification *)notification;
 {
     previousLeapFrame = nil;
