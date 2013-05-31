@@ -84,7 +84,7 @@ typedef struct {
 @property (readwrite, strong) NSValue *previousTerminalAtomValue;
 @property (readwrite, nonatomic) SLSVisualizationType currentVisualizationType;
 @property (readwrite) unsigned int numberOfStructureBeingDisplayed;
-@property (readwrite, weak) id<SLSMoleculeRenderingDelegate> renderingDelegate;
+@property (readwrite, unsafe_unretained) id<SLSMoleculeRenderingDelegate> renderingDelegate;
 
 - (id)initWithData:(NSData *)fileData extension:(NSString *)fileExtension renderingDelegate:(id<SLSMoleculeRenderingDelegate>)newRenderingDelegate;
 

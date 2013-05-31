@@ -214,32 +214,33 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
         [molecule switchToDefaultVisualizationMode];
         molecule.isBeingDisplayed = YES;
         [molecule performSelectorInBackground:@selector(renderMolecule:) withObject:openGLRenderer];
-        double delayInSeconds = 2.0;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            if ( (!isRunningRotationTutorial) && (![[NSUserDefaults standardUserDefaults] boolForKey:@"hasShownTutorial"]) )
-            {
-                if (hasConnectedToLeap)
-                {
-                    [self displayTutorialPanel:ROTATIONINSTRUCTIONVIEW];
-                    isRunningRotationTutorial = YES;
-                    isRunningScalingTutorial = NO;
-                    isRunningTranslationTutorial = NO;
-                    totalMovementSinceStartOfTutorial = 0.0;
-                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasShownTutorial"];
-                }
-                else
-                {
-                    [self displayTutorialPanel:MOUSEROTATIONINSTRUCTIONVIEW];
-                    isRunningMouseRotationTutorial = YES;
-                    isRunningMouseScalingTutorial = NO;
-                    isRunningMouseTranslationTutorial = NO;
-                    totalMovementSinceStartOfTutorial = 0.0;
-                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasShownTutorial"];
-                }
-            }
-        });
     }
+
+    double delayInSeconds = 2.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        if ( (!isRunningRotationTutorial) && (![[NSUserDefaults standardUserDefaults] boolForKey:@"hasShownTutorial"]) )
+        {
+            if (hasConnectedToLeap)
+            {
+                [self displayTutorialPanel:ROTATIONINSTRUCTIONVIEW];
+                isRunningRotationTutorial = YES;
+                isRunningScalingTutorial = NO;
+                isRunningTranslationTutorial = NO;
+                totalMovementSinceStartOfTutorial = 0.0;
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasShownTutorial"];
+            }
+            else
+            {
+                [self displayTutorialPanel:MOUSEROTATIONINSTRUCTIONVIEW];
+                isRunningMouseRotationTutorial = YES;
+                isRunningMouseScalingTutorial = NO;
+                isRunningMouseTranslationTutorial = NO;
+                totalMovementSinceStartOfTutorial = 0.0;
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasShownTutorial"];
+            }
+        }
+    });
 
     return YES;
 }
@@ -264,6 +265,14 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 
 - (void)displayTutorialPanel:(SLSInstructionViewType)tutorialInstructionType;
 {
+    if (currentTutorialInstructionPopup)
+    {
+        [self.glWindow removeChildWindow:currentTutorialInstructionPopup];
+        [currentTutorialInstructionPopup setReleasedWhenClosed:NO];
+        [currentTutorialInstructionPopup close];
+        currentTutorialInstructionPopup = nil;
+    }
+    
 	NSView *tutorialInstructionView = nil;
 	
 	switch (tutorialInstructionType)
@@ -592,8 +601,8 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 
 - (void)openFileWithPath:(NSString *)filePath extension:(NSString *)fileExtension;
 {
-    NSDocumentController *controller = [NSDocumentController sharedDocumentController];
-    [controller noteNewRecentDocumentURL:[NSURL URLWithString:[NSString stringWithFormat:@"file://%@", filePath]]];
+    NSDocumentController *documentController = [NSDocumentController sharedDocumentController];
+    [documentController noteNewRecentDocumentURL:[NSURL URLWithString:[NSString stringWithFormat:@"file://%@", filePath]]];
     
     [[NSUserDefaults standardUserDefaults] setObject:filePath forKey:@"lastLoadedMolecule"];
     NSData *fileData = [NSData dataWithContentsOfFile:filePath];
@@ -1057,12 +1066,35 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 
 - (void)windowWillClose:(NSNotification *)notification;
 {
-    [self.overlayWindowController close];
-    
+    [controller removeListener:self];
+    controller = nil;
+
     if(isAutorotating)
     {
         CVDisplayLinkStop(displayLink);
+        [openGLRenderer waitForLastFrameToFinishRendering];
+        
         CVDisplayLinkRelease(displayLink);
+    }
+    
+    molecule.renderingDelegate = nil;
+    self.glView.renderingDelegate = nil;
+    [self.overlayWindowController close];
+
+    if (currentTutorialInstructionPopup)
+    {
+        [self.glWindow removeChildWindow:currentTutorialInstructionPopup];
+        [currentTutorialInstructionPopup setReleasedWhenClosed:NO];
+        [currentTutorialInstructionPopup close];
+        currentTutorialInstructionPopup = nil;
+    }
+    
+    if (currentLeapConnectionPopup)
+    {
+        [self.glWindow removeChildWindow:currentLeapConnectionPopup];
+        [currentLeapConnectionPopup setReleasedWhenClosed:NO];
+        [currentLeapConnectionPopup close];
+        currentLeapConnectionPopup = nil;
     }
 }
 
