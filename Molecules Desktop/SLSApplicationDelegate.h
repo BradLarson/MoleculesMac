@@ -1,17 +1,17 @@
 #import <Foundation/Foundation.h>
 
 @class SLSPreferencesWindowController;
-@class SLSInitialHelpWindowController;
-@class SLSColorKeyWindowController;
+@class SLSMoleculeWindowController;
 
 @interface SLSApplicationDelegate : NSObject
 
 @property(readonly, strong) SLSPreferencesWindowController *preferencesWindowController;
-@property(readonly, strong) SLSInitialHelpWindowController *initialHelpWindowController;
-@property(readonly, strong) SLSColorKeyWindowController *colorKeyWindowController;
+@property(readonly, strong) SLSMoleculeWindowController *moleculeWindowController;
+@property(readwrite, weak) IBOutlet NSMenuItem *controlPanelMenuItem, *colorKeyPanelMenuItem;
 
 - (IBAction)showPreferences:(id)sender;
-- (IBAction)showColorKey:(id)sender;
-- (void)showInitialHelp;
+
+- (void)toggleControlPanelMenu:(NSNotification *)note;
+- (void)toggleColorKeyPanelMenu:(NSNotification *)note;
 
 @end

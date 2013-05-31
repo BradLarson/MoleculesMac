@@ -10,19 +10,9 @@
 
 @implementation SLSBlackSplitView
 
-- (id)initWithFrame:(NSRect)frame
+- (NSColor *)dividerColor
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code here.
-    }
-    
-    return self;
-}
-
-- (void)drawRect:(NSRect)dirtyRect
-{
-    // Drawing code here.
+    return [NSColor colorWithCalibratedRed:0.0 green:0.0 blue:0.0 alpha:1.0];
 }
 
 @end

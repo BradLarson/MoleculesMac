@@ -1,6 +1,10 @@
-#import "SLSMoleculeDocument.h"
+#import "SLSMoleculeWindowController.h"
 #import "SLSMoleculeOverlayWindowController.h"
 #import "TransparentWindow.h"
+#import "SLSAtomColorView.h"
+
+NSString *const kSLSMoleculeControlPanelNotification = @"MoleculeControlPanelNotification";
+NSString *const kSLSMoleculeColorKeyPanelNotification = @"MoleculeColorKeyPanelNotification";
 
 #pragma mark -
 #pragma mark Core Video callback function
@@ -12,16 +16,37 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 							   CVOptionFlags *flagsOut,
 							   void *displayLinkContext)
 {
-    return [(__bridge SLSMoleculeDocument *)displayLinkContext handleAutorotationTimer:inOutputTime];
+    return [(__bridge SLSMoleculeWindowController *)displayLinkContext handleAutorotationTimer:inOutputTime];
 }
 
-@implementation SLSMoleculeDocument
+@implementation SLSMoleculeWindowController
 
 @synthesize glView = _glView;
 @synthesize overlayWindowController = _overlayWindowController;
 @synthesize glWindow = _glWindow;
 @synthesize rotationInstructionView = _rotationInstructionView, scalingInstructionView = _scalingInstructionView, translationInstructionView = _translationInstructionView, stopInstructionView = _stopInstructionView;
 @synthesize mouseRotationInstructionView = _mouseRotationInstructionView, mouseScalingInstructionView = _mouseScalingInstructionView, mouseTranslationInstructionView = _mouseTranslationInstructionView;
+@synthesize applicationControlSplitView = _applicationControlSplitView, colorCodeSplitView = _colorCodeSplitView;
+@synthesize controlsView = _controlsView, colorCodeView = _colorCodeView;
+@synthesize leapMotionConnectedView = _leapMotionConnectedView, leapMotionDisconnectedView = _leapMotionDisconnectedView;
+@synthesize carbonColorView = _carbonColorView;
+@synthesize hydrogenColorView = _hydrogenColorView;
+@synthesize nitrogenColorView = _nitrogenColorView;
+@synthesize oxygenColorView = _oxygenColorView;
+@synthesize fluorineColorView = _fluorineColorView;
+@synthesize sodiumColorView = _sodiumColorView;
+@synthesize magnesiumColorView = _magnesiumColorView;
+@synthesize siliconColorView = _siliconColorView;
+@synthesize phosphorousColorView = _phosphorousColorView;
+@synthesize sulfurColorView = _sulfurColorView;
+@synthesize chlorineColorView = _chlorineColorView;
+@synthesize calciumColorView = _calciumColorView;
+@synthesize ironColorView =_ironColorView;
+@synthesize zincColorView = _zincColorView;
+@synthesize bromineColorView = _bromineColorView;
+@synthesize cadmiumColorView = _cadmiumColorView;
+@synthesize iodineColorView = _iodineColorView;
+@synthesize unknownColorView = _unknownColorView;
 
 - (id)init
 {
@@ -32,6 +57,8 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 		[nc addObserver:self selector:@selector(showScanningIndicator:) name:@"FileLoadingStarted" object:nil];
 		[nc addObserver:self selector:@selector(updateScanningIndicator:) name:@"FileLoadingUpdate" object:nil];
 		[nc addObserver:self selector:@selector(hideScanningIndicator:) name:@"FileLoadingEnded" object:nil];
+        
+        hasConnectedToLeap = NO;
     }
     return self;
 }
@@ -40,15 +67,91 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 {
     // Override returning the nib file name of the document
     // If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
-    return @"SLSMoleculeDocument";
+    return @"SLSMoleculeWindowController";
 }
 
-- (void)windowControllerDidLoadNib:(NSWindowController *)aController
+- (void)windowDidLoad
 {
-    [super windowControllerDidLoadNib:aController];
+    [super windowDidLoad];
     currentAutorotationType = LEFTTORIGHTAUTOROTATION;
     
+    [_hydrogenColorView setAtomColorRed:0.902 green:0.902 blue:0.902];
+    [_carbonColorView setAtomColorRed:0.4706 green:0.4706 blue:0.4706];
+    [_nitrogenColorView setAtomColorRed:0.1882 green:0.3137 blue:0.9725];
+    [_oxygenColorView setAtomColorRed:0.9412 green:0.1569 blue:0.1569];
+    [_fluorineColorView setAtomColorRed:0.5647 green:0.8784 blue:0.3137];
+    [_sodiumColorView setAtomColorRed:0.6706 green:0.3608 blue:0.9490];
+    [_magnesiumColorView setAtomColorRed:0.5411 green:1.0 blue:0.0];
+    [_siliconColorView setAtomColorRed:0.7843 green:0.7843 blue:0.3429];
+    [_phosphorousColorView setAtomColorRed:1.0 green:0.5 blue:0.0];
+    [_sulfurColorView setAtomColorRed:1.0 green:1.0 blue:0.1882];
+    [_chlorineColorView setAtomColorRed:0.1216 green:0.9411 blue:0.1216];
+    [_calciumColorView setAtomColorRed:0.2392 green:1.0 blue:0.0];
+    [_ironColorView setAtomColorRed:0.8784 green:0.4 blue:0.2];
+    [_zincColorView setAtomColorRed:0.4902 green:0.5 blue:0.6902];
+    [_bromineColorView setAtomColorRed:0.6510 green:0.1608 blue:0.1608];
+    [_cadmiumColorView setAtomColorRed:1.0 green:0.8510 blue:0.5608];
+    [_iodineColorView setAtomColorRed:0.5804 green:0.0 blue:0.5804];
+    [_unknownColorView setAtomColorRed:0.0 green:1.0 blue:0.0];
+
+    isShowingControlPanel = YES;
+    isShowingColorKey = YES;
+
+    CALayer *viewLayer = [CALayer layer];
+    [viewLayer setBackgroundColor:CGColorCreateGenericRGB(0.0, 0.0, 0.0, 1.0)]; //RGB plus Alpha Channel
+    [_colorCodeView setLayer:viewLayer];
+    [_colorCodeView setWantsLayer:YES]; // view's backing store is using a Core Animation Layer
+    
     _glView.renderingDelegate = self;
+    
+    if (molecule == nil)
+    {
+        NSString *lastLoadedMolecule = [[NSUserDefaults standardUserDefaults] stringForKey:@"lastLoadedMolecule"];
+        NSData *storedSecureBookmark = [[NSUserDefaults standardUserDefaults] objectForKey:@"previousMoleculeBookmark"];
+        if (storedSecureBookmark != nil)
+        {
+            NSError *error;
+            NSURL *bookmarkURL = [NSURL URLByResolvingBookmarkData:storedSecureBookmark
+                                                      options:NSURLBookmarkCreationSecurityScopeAllowOnlyReadAccess
+                                                relativeToURL:nil
+                                          bookmarkDataIsStale:nil
+                                                        error:&error];
+            if([bookmarkURL respondsToSelector:@selector(startAccessingSecurityScopedResource)])
+            {
+                [bookmarkURL startAccessingSecurityScopedResource];
+            }
+            
+            [self openFileWithPath:lastLoadedMolecule extension:[[lastLoadedMolecule pathExtension] lowercaseString]];
+            
+            if([bookmarkURL respondsToSelector:@selector(stopAccessingSecurityScopedResource)])
+            {
+                [bookmarkURL stopAccessingSecurityScopedResource];
+            }
+        }
+        else if (lastLoadedMolecule == nil)
+        {
+            [self openFileWithPath:[[NSBundle mainBundle] pathForResource:@"DNA" ofType:@"pdb"] extension:@"pdb"];
+        }
+        else
+        {
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            if ([fileManager fileExistsAtPath:lastLoadedMolecule])
+            {
+                [self openFileWithPath:lastLoadedMolecule extension:[[lastLoadedMolecule pathExtension] lowercaseString]];
+            }
+            else
+            {
+                [self openFileWithPath:[[NSBundle mainBundle] pathForResource:@"DNA" ofType:@"pdb"] extension:@"pdb"];
+            }
+        }
+    }
+    else
+    {
+        [self.glWindow setTitle:filenameFromLoad];
+    }
+
+    controller = [[LeapController alloc] init];
+    [controller addListener:self];
 
     openGLRenderer = [[SLSOpenGLRenderer alloc] initWithContext:[_glView openGLContext]];
     
@@ -57,30 +160,12 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
     
     [molecule switchToDefaultVisualizationMode];
     molecule.isBeingDisplayed = YES;
-    [molecule performSelectorInBackground:@selector(renderMolecule:) withObject:openGLRenderer];
-    
-    controller = [[LeapController alloc] init];
-    [controller addListener:self];
-    
-    double delayInSeconds = 2.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        if ( (!isRunningRotationTutorial) && (![[NSUserDefaults standardUserDefaults] boolForKey:@"hasShownTutorial"]) )
-        {
-            [self displayTutorialPanel:MOUSEROTATIONINSTRUCTIONVIEW];
-            isRunningMouseRotationTutorial = YES;
-            isRunningMouseScalingTutorial = NO;
-            isRunningMouseTranslationTutorial = NO;
-            totalMovementSinceStartOfTutorial = 0.0;
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasShownTutorial"];
-        }
-    });
-
+    [molecule performSelectorInBackground:@selector(renderMolecule:) withObject:openGLRenderer];    
 }
 
 - (void)windowDidResize:(NSNotification *)notification
 {
-	NSRect overlayRect = [self.glView frame];
+	NSRect overlayRect = [self.applicationControlSplitView convertRect:[self.glView frame] fromView:self.glView];
 	NSPoint originOnScreen = [self.glWindow convertBaseToScreen:overlayRect.origin];
 	overlayRect.origin = originOnScreen;
 	[self.overlayWindowController.window setFrame:overlayRect display:YES];
@@ -88,17 +173,74 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
     if (currentTutorialInstructionPopup != nil)
     {
         NSSize popupSize = [currentTutorialInstructionPopup frame].size;
-        NSPoint popupOrigin = NSMakePoint(round( self.glWindow.frame.origin.x + self.glWindow.frame.size.width / 2.0 - popupSize.width / 2.0), round(self.glWindow.frame.origin.y + self.glWindow.frame.size.height / 2.0 - popupSize.height / 2.0));
+        NSPoint popupOrigin = NSMakePoint(round( self.glWindow.frame.origin.x + self.glWindow.frame.size.width / 2.0 - popupSize.width / 2.0), self.glWindow.frame.origin.y + self.glWindow.frame.size.height - popupSize.height - 30.0);
         [currentTutorialInstructionPopup setFrame:NSMakeRect(popupOrigin.x, popupOrigin.y, popupSize.width, popupSize.height) display:YES];
+    }
+
+    if (currentLeapConnectionPopup != nil)
+    {
+        NSSize popupSize = [currentLeapConnectionPopup frame].size;
+        NSPoint popupOrigin = NSMakePoint(round( self.glWindow.frame.origin.x + self.glWindow.frame.size.width / 2.0 - popupSize.width / 2.0), self.glWindow.frame.origin.y + 30.0);
+        [currentLeapConnectionPopup setFrame:NSMakeRect(popupOrigin.x, popupOrigin.y, popupSize.width, popupSize.height) display:YES];
     }
 }
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
 {
-    molecule = [[SLSMolecule alloc] initWithData:data extension:typeName renderingDelegate:self];
-    
-    // Start rendering after callback
-    
+    if (molecule == nil)
+    {
+        molecule = [[SLSMolecule alloc] initWithData:data extension:typeName renderingDelegate:self];
+    }
+    else
+    {
+        if (isAutorotating)
+        {
+            [self toggleAutorotation:self];
+        }
+
+        if (!molecule.isDoneRendering)
+        {
+            molecule.isRenderingCancelled = YES;
+            [NSThread sleepForTimeInterval:0.1];
+        }
+        else
+        {
+            [openGLRenderer freeVertexBuffers];
+        }
+
+        [openGLRenderer clearScreen];
+
+        molecule = [[SLSMolecule alloc] initWithData:data extension:typeName renderingDelegate:self];
+        [molecule switchToDefaultVisualizationMode];
+        molecule.isBeingDisplayed = YES;
+        [molecule performSelectorInBackground:@selector(renderMolecule:) withObject:openGLRenderer];
+        double delayInSeconds = 2.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            if ( (!isRunningRotationTutorial) && (![[NSUserDefaults standardUserDefaults] boolForKey:@"hasShownTutorial"]) )
+            {
+                if (hasConnectedToLeap)
+                {
+                    [self displayTutorialPanel:ROTATIONINSTRUCTIONVIEW];
+                    isRunningRotationTutorial = YES;
+                    isRunningScalingTutorial = NO;
+                    isRunningTranslationTutorial = NO;
+                    totalMovementSinceStartOfTutorial = 0.0;
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasShownTutorial"];
+                }
+                else
+                {
+                    [self displayTutorialPanel:MOUSEROTATIONINSTRUCTIONVIEW];
+                    isRunningMouseRotationTutorial = YES;
+                    isRunningMouseScalingTutorial = NO;
+                    isRunningMouseTranslationTutorial = NO;
+                    totalMovementSinceStartOfTutorial = 0.0;
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasShownTutorial"];
+                }
+            }
+        });
+    }
+
     return YES;
 }
 
@@ -161,8 +303,8 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 //	NSArray *screensAttachedToSystem = [NSScreen screens];
 //	NSRect primaryScreenFrame = [(NSScreen *)[screensAttachedToSystem objectAtIndex:0] frame];
 	
-//	NSPoint popupOrigin = NSMakePoint(round(primaryScreenFrame.size.width / 2.0 - popupSize.width / 2.0), round(primaryScreenFrame.size.height / 2.0 - popupSize.height / 2.0));
-	NSPoint popupOrigin = NSMakePoint(round( self.glWindow.frame.origin.x + self.glWindow.frame.size.width / 2.0 - popupSize.width / 2.0), round(self.glWindow.frame.origin.y + self.glWindow.frame.size.height / 2.0 - popupSize.height / 2.0));
+//	NSPoint popupOrigin = NSMakePoint(round( self.glWindow.frame.origin.x + self.glWindow.frame.size.width / 2.0 - popupSize.width / 2.0), round(self.glWindow.frame.origin.y + self.glWindow.frame.size.height / 2.0 - popupSize.height / 2.0));
+	NSPoint popupOrigin = NSMakePoint(round( self.glWindow.frame.origin.x + self.glWindow.frame.size.width / 2.0 - popupSize.width / 2.0), self.glWindow.frame.origin.y + self.glWindow.frame.size.height - popupSize.height - 30.0);
 	
 	currentTutorialInstructionPopup = [[TransparentWindow alloc] initWithContentRect:NSMakeRect(popupOrigin.x, popupOrigin.y, popupSize.width, popupSize.height) styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
 	[currentTutorialInstructionPopup setContentView:tutorialInstructionView];
@@ -172,6 +314,46 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 	[currentTutorialInstructionPopup.animator setAlphaValue:1.0];
     
     [self.glWindow addChildWindow:currentTutorialInstructionPopup ordered:NSWindowAbove];
+}
+
+- (void)displayLeapConnectionPanel:(SLSLeapConnectionViewType)leapConnectionType;
+{
+	NSView *leapConnectionTypeView = nil;
+	
+	switch (leapConnectionType)
+	{
+		case LEAPCONNECTEDVIEW:
+		{
+			leapConnectionTypeView = _leapMotionConnectedView;
+		}; break;
+		case LEAPDISCONNECTEDVIEW:
+		{
+			leapConnectionTypeView = _leapMotionDisconnectedView;
+		}; break;
+	}
+	
+	NSSize popupSize = [leapConnectionTypeView frame].size;
+	
+    //	NSArray *screensAttachedToSystem = [NSScreen screens];
+    //	NSRect primaryScreenFrame = [(NSScreen *)[screensAttachedToSystem objectAtIndex:0] frame];
+	
+    //	NSPoint popupOrigin = NSMakePoint(round( self.glWindow.frame.origin.x + self.glWindow.frame.size.width / 2.0 - popupSize.width / 2.0), round(self.glWindow.frame.origin.y + self.glWindow.frame.size.height / 2.0 - popupSize.height / 2.0));
+	NSPoint popupOrigin = NSMakePoint(round( self.glWindow.frame.origin.x + self.glWindow.frame.size.width / 2.0 - popupSize.width / 2.0), self.glWindow.frame.origin.y + 30.0);
+	
+	currentLeapConnectionPopup = [[TransparentWindow alloc] initWithContentRect:NSMakeRect(popupOrigin.x, popupOrigin.y, popupSize.width, popupSize.height) styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+	[currentLeapConnectionPopup setContentView:leapConnectionTypeView];
+	
+	[currentLeapConnectionPopup setAlphaValue:0.0];
+	[currentLeapConnectionPopup makeKeyAndOrderFront:self];
+	[currentLeapConnectionPopup.animator setAlphaValue:1.0];
+    
+    [self.glWindow addChildWindow:currentLeapConnectionPopup ordered:NSWindowAbove];
+    
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 2.0 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [currentLeapConnectionPopup.animator setAlphaValue:0.0];
+    });
+
 }
 
 #pragma mark -
@@ -259,6 +441,241 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
     molecule.currentVisualizationType = BALLANDSTICK;
     [openGLRenderer freeVertexBuffers];
     [molecule performSelectorInBackground:@selector(renderMolecule:) withObject:openGLRenderer];
+}
+
+#pragma mark -
+#pragma mark Side panel visibility
+
+- (IBAction)showOrHideColorKey:(id)sender;
+{
+    if ([self.applicationControlSplitView isSubviewCollapsed:self.colorCodeView])
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kSLSMoleculeColorKeyPanelNotification object:[NSNumber numberWithBool:YES]];
+
+        // NSSplitView hides the collapsed subview
+        self.colorCodeView.hidden = NO;
+        
+        NSMutableDictionary *expandMainAnimationDict = [NSMutableDictionary dictionaryWithCapacity:2];
+        [expandMainAnimationDict setObject:self.colorCodeSplitView forKey:NSViewAnimationTargetKey];
+        NSRect newMainFrame = self.colorCodeSplitView.frame;
+        newMainFrame.size.width =  self.colorCodeSplitView.frame.size.width;
+        [expandMainAnimationDict setObject:[NSValue valueWithRect:newMainFrame] forKey:NSViewAnimationEndFrameKey];
+        
+        NSMutableDictionary *expandInspectorAnimationDict = [NSMutableDictionary dictionaryWithCapacity:2];
+        [expandInspectorAnimationDict setObject:self.colorCodeView forKey:NSViewAnimationTargetKey];
+        NSRect newInspectorFrame = self.colorCodeView.frame;
+        newInspectorFrame.size.width = 170.0;
+        newInspectorFrame.origin.x = self.colorCodeSplitView.frame.size.width - 170.0f;
+        [expandInspectorAnimationDict setObject:[NSValue valueWithRect:newInspectorFrame] forKey:NSViewAnimationEndFrameKey];
+        
+        NSViewAnimation *expandAnimation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObjects:expandMainAnimationDict, expandInspectorAnimationDict, nil]];
+        [expandAnimation setDuration:0.25f];
+        [expandAnimation startAnimation];
+        
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.25 * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            isShowingColorKey = YES;
+        });
+    }
+    else
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kSLSMoleculeColorKeyPanelNotification object:[NSNumber numberWithBool:NO]];
+
+        isShowingColorKey = NO;
+        
+        NSMutableDictionary *collapseMainAnimationDict = [NSMutableDictionary dictionaryWithCapacity:2];
+        [collapseMainAnimationDict setObject:self.colorCodeSplitView forKey:NSViewAnimationTargetKey];
+        NSRect newMainFrame = self.colorCodeSplitView.frame;
+        newMainFrame.size.width =  self.colorCodeSplitView.frame.size.width;
+        [collapseMainAnimationDict setObject:[NSValue valueWithRect:newMainFrame] forKey:NSViewAnimationEndFrameKey];
+        
+        NSMutableDictionary *collapseInspectorAnimationDict = [NSMutableDictionary dictionaryWithCapacity:2];
+        [collapseInspectorAnimationDict setObject:self.colorCodeView forKey:NSViewAnimationTargetKey];
+        NSRect newInspectorFrame = self.colorCodeView.frame;
+        newInspectorFrame.size.width = 0.0f;
+        newInspectorFrame.origin.x = self.colorCodeSplitView.frame.size.width;
+        [collapseInspectorAnimationDict setObject:[NSValue valueWithRect:newInspectorFrame] forKey:NSViewAnimationEndFrameKey];
+        
+        NSViewAnimation *collapseAnimation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObjects:collapseMainAnimationDict, collapseInspectorAnimationDict, nil]];
+        [collapseAnimation setDuration:0.25f];
+        [collapseAnimation startAnimation];
+    }
+
+}
+
+- (IBAction)showOrHideControls:(id)sender;
+{
+    if ([self.applicationControlSplitView isSubviewCollapsed:self.controlsView])
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kSLSMoleculeControlPanelNotification object:[NSNumber numberWithBool:YES]];
+
+        // NSSplitView hides the collapsed subview
+        self.controlsView.hidden = NO;
+        
+        NSMutableDictionary *expandMainAnimationDict = [NSMutableDictionary dictionaryWithCapacity:2];
+        [expandMainAnimationDict setObject:self.applicationControlSplitView forKey:NSViewAnimationTargetKey];
+        NSRect newMainFrame = self.applicationControlSplitView.frame;
+        newMainFrame.size.width =  self.applicationControlSplitView.frame.size.width;
+        [expandMainAnimationDict setObject:[NSValue valueWithRect:newMainFrame] forKey:NSViewAnimationEndFrameKey];
+        
+        NSMutableDictionary *expandInspectorAnimationDict = [NSMutableDictionary dictionaryWithCapacity:2];
+        [expandInspectorAnimationDict setObject:self.controlsView forKey:NSViewAnimationTargetKey];
+        NSRect newInspectorFrame = self.controlsView.frame;
+        newInspectorFrame.size.width = 252.0;
+        [expandInspectorAnimationDict setObject:[NSValue valueWithRect:newInspectorFrame] forKey:NSViewAnimationEndFrameKey];
+        
+        NSViewAnimation *expandAnimation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObjects:expandMainAnimationDict, expandInspectorAnimationDict, nil]];
+        [expandAnimation setDuration:0.25f];
+        [expandAnimation startAnimation];
+        
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.25 * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            isShowingControlPanel = YES;
+        });
+    }
+    else
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kSLSMoleculeControlPanelNotification object:[NSNumber numberWithBool:NO]];
+
+        isShowingControlPanel = NO;
+        
+        NSMutableDictionary *collapseMainAnimationDict = [NSMutableDictionary dictionaryWithCapacity:2];
+        [collapseMainAnimationDict setObject:self.applicationControlSplitView forKey:NSViewAnimationTargetKey];
+        NSRect newMainFrame = self.applicationControlSplitView.frame;
+        newMainFrame.size.width =  self.applicationControlSplitView.frame.size.width;
+        [collapseMainAnimationDict setObject:[NSValue valueWithRect:newMainFrame] forKey:NSViewAnimationEndFrameKey];
+        
+        NSMutableDictionary *collapseInspectorAnimationDict = [NSMutableDictionary dictionaryWithCapacity:2];
+        [collapseInspectorAnimationDict setObject:self.controlsView forKey:NSViewAnimationTargetKey];
+        NSRect newInspectorFrame = self.controlsView.frame;
+        newInspectorFrame.size.width = 0.0f;
+        [collapseInspectorAnimationDict setObject:[NSValue valueWithRect:newInspectorFrame] forKey:NSViewAnimationEndFrameKey];
+        
+        NSViewAnimation *collapseAnimation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObjects:collapseMainAnimationDict, collapseInspectorAnimationDict, nil]];
+        [collapseAnimation setDuration:0.25f];
+        [collapseAnimation startAnimation];
+    }
+}
+
+#pragma mark -
+#pragma mark Sample molecule loading
+
+- (void)openDocument:(id)sender;
+{
+    NSOpenPanel *openPanel = [[NSOpenPanel alloc] init];
+    // TODO: find better way to update this with additional filetypes
+    [openPanel setAllowedFileTypes:[NSArray arrayWithObjects:@"sdf", @"pdb", @"xyz", nil]];
+
+    if ([openPanel runModal] == NSOKButton)
+    {
+        NSString *selectedFileName = [openPanel filename];
+
+//        NSString *selectedFileName = [NSString stringWithFormat:@"%@", [openPanel URL]];
+        [self openFileWithPath:selectedFileName extension:[[selectedFileName pathExtension] lowercaseString]];
+
+        NSURL *fileURL = [openPanel URL];
+        if([fileURL respondsToSelector:@selector(startAccessingSecurityScopedResource)])
+        {
+            [fileURL startAccessingSecurityScopedResource];
+        }
+        
+        NSError *error = nil;
+        NSData *bookmark = [[openPanel URL] bookmarkDataWithOptions:NSURLBookmarkCreationSecurityScopeAllowOnlyReadAccess includingResourceValuesForKeys:nil relativeToURL:nil error:&error];
+        [[NSUserDefaults standardUserDefaults] setObject:bookmark forKey:@"previousMoleculeBookmark"];
+        
+        if([fileURL respondsToSelector:@selector(stopAccessingSecurityScopedResource)])
+        {
+            [fileURL stopAccessingSecurityScopedResource];
+        }
+    }
+}
+
+- (void)openFileWithPath:(NSString *)filePath extension:(NSString *)fileExtension;
+{
+    NSDocumentController *controller = [NSDocumentController sharedDocumentController];
+    [controller noteNewRecentDocumentURL:[NSURL URLWithString:[NSString stringWithFormat:@"file://%@", filePath]]];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:filePath forKey:@"lastLoadedMolecule"];
+    NSData *fileData = [NSData dataWithContentsOfFile:filePath];
+
+    NSError *error = nil;
+    [self readFromData:fileData ofType:fileExtension error:&error];
+    
+    filenameFromLoad = [filePath lastPathComponent];
+    [self.glWindow setTitle:[filePath lastPathComponent]];
+}
+
+- (void)openPreloadedFileWithName:(NSString *)preloadedFileName ofType:(NSString *)fileType;
+{
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"previousMoleculeBookmark"];
+    [self openFileWithPath:[[NSBundle mainBundle] pathForResource:preloadedFileName ofType:fileType] extension:fileType];
+}
+
+- (IBAction)openDNA:(id)sender;
+{
+    [self openPreloadedFileWithName:@"DNA" ofType:@"pdb"];
+}
+
+- (IBAction)openTRNA:(id)sender;
+{
+    [self openPreloadedFileWithName:@"TransferRNA" ofType:@"pdb"];
+}
+
+- (IBAction)openPump:(id)sender;
+{
+    [self openPreloadedFileWithName:@"TheoreticalAtomicPump" ofType:@"pdb"];
+}
+
+- (IBAction)openCaffeine:(id)sender;
+{
+    [self openPreloadedFileWithName:@"Caffeine" ofType:@"pdb"];
+}
+
+- (IBAction)openHeme:(id)sender;
+{
+    [self openPreloadedFileWithName:@"Heme" ofType:@"sdf"];
+}
+
+- (IBAction)openNanotube:(id)sender;
+{
+    [self openPreloadedFileWithName:@"Nanotube" ofType:@"pdb"];
+}
+
+- (IBAction)openCholesterol:(id)sender;
+{
+    [self openPreloadedFileWithName:@"Cholesterol" ofType:@"pdb"];
+}
+
+- (IBAction)openInsulin:(id)sender;
+{
+    [self openPreloadedFileWithName:@"Insulin" ofType:@"pdb"];
+}
+
+- (IBAction)openTheoreticalBearing:(id)sender;
+{
+    [self openPreloadedFileWithName:@"TheoreticalBearing" ofType:@"pdb"];
+}
+
+- (IBAction)openOther:(id)sender;
+{
+    [self openDocument:sender];
+}
+
+- (IBAction)visitPDB:(id)sender;
+{
+    NSURL *pdbURL = [NSURL URLWithString:@"http://www.rcsb.org/pdb"];
+    if ([[NSWorkspace sharedWorkspace] openURL:pdbURL])
+    {
+    }
+}
+
+- (IBAction)visitPubChem:(id)sender;
+{
+    NSURL *pubchemURL = [NSURL URLWithString:@"http://pubchem.ncbi.nlm.nih.gov"];
+    if ([[NSWorkspace sharedWorkspace] openURL:pubchemURL])
+    {
+        
+    }    
 }
 
 #pragma mark -
@@ -389,7 +806,6 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                     [currentTutorialInstructionPopup.animator setAlphaValue:0.0];
                 });
-
             }
         }
     }
@@ -401,7 +817,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 - (void)renderingStarted;
 {
     // Create and place the overlay window above the rendering view
-	NSRect overlayRect = [self.glView frame];
+	NSRect overlayRect = [self.applicationControlSplitView convertRect:[self.glView frame] fromView:self.glView];
 	NSPoint originOnScreen = [self.glWindow convertBaseToScreen:overlayRect.origin];
 	overlayRect.origin = originOnScreen;
 	
@@ -574,21 +990,15 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 {
 //    LeapController *aController = (LeapController *)[notification object];
 //    [aController enableGesture:LEAP_GESTURE_TYPE_SWIPE enable:YES];
+    hasConnectedToLeap = YES;
+    [self displayLeapConnectionPanel:LEAPCONNECTEDVIEW];
 
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"hasShownTutorial"])
-    {
-        [self displayTutorialPanel:ROTATIONINSTRUCTIONVIEW];
-        isRunningRotationTutorial = YES;
-        isRunningScalingTutorial = NO;
-        isRunningTranslationTutorial = NO;
-        totalMovementSinceStartOfTutorial = 0.0;
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasShownTutorial"];
-    }
 }
 
 - (void)onDisconnect:(NSNotification *)notification;
 {
     previousLeapFrame = nil;
+    [self displayLeapConnectionPanel:LEAPDISCONNECTEDVIEW];
 }
 
 - (void)onExit:(NSNotification *)notification;
@@ -647,6 +1057,8 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 
 - (void)windowWillClose:(NSNotification *)notification;
 {
+    [self.overlayWindowController close];
+    
     if(isAutorotating)
     {
         CVDisplayLinkStop(displayLink);
@@ -702,9 +1114,109 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
                 [currentMenuItem setState:NSOffState];
             }
         }
-
     }
-    return [super validateUserInterfaceItem:anItem];
+
+    return YES;
+}
+
+#pragma mark -
+#pragma mark NSSplitViewDelegate methods
+
+- (BOOL)splitView:(NSSplitView *)splitView canCollapseSubview:(NSView *)subview
+{
+    BOOL result = NO;
+    if (splitView == self.applicationControlSplitView && subview == self.controlsView)
+    {
+        result = YES;
+    }
+    return result;
+}
+
+- (BOOL)splitView:(NSSplitView *)splitView shouldCollapseSubview:(NSView *)subview forDoubleClickOnDividerAtIndex:(NSInteger)dividerIndex
+{
+    BOOL result = NO;
+    if (splitView == self.applicationControlSplitView && subview == self.controlsView)
+    {
+        result = YES;
+    }
+    return result;
+}
+
+- (void)splitView:(NSSplitView *)splitView resizeSubviewsWithOldSize:(NSSize)oldSize;
+{
+	float dividerThickness = [splitView dividerThickness];
+	NSRect newFrame = [splitView frame];
+    
+	if (splitView == _applicationControlSplitView)
+	{
+        if (!isShowingControlPanel)
+        {
+            NSView *left = [[splitView subviews] objectAtIndex:0];
+            NSView *right = [[splitView subviews] objectAtIndex:1];
+            NSRect leftFrame = [left frame];
+            NSRect rightFrame = [right frame];
+            leftFrame.size.height = newFrame.size.height;
+            leftFrame.origin = NSMakePoint(0,0);
+            rightFrame.size.height = newFrame.size.height;
+            rightFrame.origin.x = leftFrame.size.width + dividerThickness;
+            rightFrame.size.width = newFrame.size.width - (leftFrame.size.width + dividerThickness);
+            [left setFrame:leftFrame];
+            [right setFrame:rightFrame];
+        }
+        else
+        {
+            // Code drawn from http://www.cocoadev.com/index.pl?SplitViewBasics
+            // Have the split view resize the left view, but leave the right one static
+            
+            NSView *left = [[splitView subviews] objectAtIndex:0];
+            NSView *right = [[splitView subviews] objectAtIndex:1];
+            NSRect leftFrame = [left frame];
+            NSRect rightFrame = [right frame];
+            leftFrame.size.height = newFrame.size.height;
+            leftFrame.size.width = 252.0;
+            //		leftFrame.size.width = newFrame.size.width - rightFrame.size.width - dividerThickness;
+            leftFrame.origin = NSMakePoint(0,0);
+            rightFrame.size.height = newFrame.size.height;
+            rightFrame.origin.x = leftFrame.size.width + dividerThickness;
+            rightFrame.size.width = newFrame.size.width - (leftFrame.size.width + dividerThickness);
+            [left setFrame:leftFrame];
+            [right setFrame:rightFrame];
+        }
+	}
+	else if (splitView == _colorCodeSplitView)
+	{
+        if (!isShowingColorKey)
+        {
+            NSView *left = [[splitView subviews] objectAtIndex:0];
+            NSView *right = [[splitView subviews] objectAtIndex:1];
+            NSRect leftFrame = [left frame];
+            NSRect rightFrame = [right frame];
+            leftFrame.size.height = newFrame.size.height;
+            leftFrame.origin = NSMakePoint(0,0);
+            rightFrame.size.height = newFrame.size.height;
+            rightFrame.origin.x = leftFrame.size.width + dividerThickness;
+            leftFrame.size.width = newFrame.size.width - (rightFrame.size.width + dividerThickness);
+            [left setFrame:leftFrame];
+            [right setFrame:rightFrame];
+        }
+        else
+        {
+            // Have the split view resize the bottom view, but leave the bottom one static
+            
+            NSView *left = [[splitView subviews] objectAtIndex:0];
+            NSView *right = [[splitView subviews] objectAtIndex:1];
+            NSRect leftFrame = [left frame];
+            NSRect rightFrame = [right frame];
+            leftFrame.size.height = newFrame.size.height;
+            rightFrame.size.width = 170.0;            
+            leftFrame.size.width = newFrame.size.width - rightFrame.size.width - dividerThickness;
+            rightFrame.origin.x = leftFrame.size.width + dividerThickness;
+            rightFrame.size.height = newFrame.size.height;
+            leftFrame.origin = NSMakePoint(0,0);
+            [left setFrame:leftFrame];
+            [right setFrame:rightFrame];
+        }
+	}
 }
 
 #pragma mark -

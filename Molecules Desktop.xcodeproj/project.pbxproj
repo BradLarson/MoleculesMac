@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC0E8B1B1757B7D200D8511A /* LeapMotionConnected.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BC0E8B191757B7D200D8511A /* LeapMotionConnected.pdf */; };
+		BC0E8B1C1757B7D200D8511A /* LeapMotionDisconnected.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BC0E8B1A1757B7D200D8511A /* LeapMotionDisconnected.pdf */; };
 		BC3D5DC116EF82DC004F2E7B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BC3D5DC016EF82DC004F2E7B /* libz.dylib */; };
 		BC3D5DC216EF8342004F2E7B /* LeapObjectiveC.mm in Sources */ = {isa = PBXBuildFile; fileRef = BCCF951216EF7BAB00871775 /* LeapObjectiveC.mm */; };
 		BC56CFE7170149FD00CA05BE /* SLSMoleculeOverlayWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC56CFE5170149FD00CA05BE /* SLSMoleculeOverlayWindowController.m */; };
@@ -29,15 +31,14 @@
 		BC983D0517498F2900A8A581 /* Nanotube.pdb in Resources */ = {isa = PBXBuildFile; fileRef = BC983CFF17498F2900A8A581 /* Nanotube.pdb */; };
 		BC983D0617498F2900A8A581 /* NanotubeImage.png in Resources */ = {isa = PBXBuildFile; fileRef = BC983D0017498F2900A8A581 /* NanotubeImage.png */; };
 		BC983D0717498F2900A8A581 /* NanotubeImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC983D0117498F2900A8A581 /* NanotubeImage@2x.png */; };
-		BC983D0C1749C35B00A8A581 /* SLSColorKeyWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC983D0A1749C35B00A8A581 /* SLSColorKeyWindowController.m */; };
-		BC983D0D1749C35B00A8A581 /* SLSColorKeyWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC983D0B1749C35B00A8A581 /* SLSColorKeyWindowController.xib */; };
 		BC983D101749C3CA00A8A581 /* SLSAtomColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC983D0F1749C3CA00A8A581 /* SLSAtomColorView.m */; };
+		BC983D2117553BE400A8A581 /* SLSBlackSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC983D2017553BE300A8A581 /* SLSBlackSplitView.m */; };
 		BCBF619116E83DCF00E2784A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCBF619016E83DCF00E2784A /* Cocoa.framework */; };
 		BCBF619B16E83DCF00E2784A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BCBF619916E83DCF00E2784A /* InfoPlist.strings */; };
 		BCBF619D16E83DCF00E2784A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBF619C16E83DCF00E2784A /* main.m */; };
 		BCBF61A116E83DCF00E2784A /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = BCBF619F16E83DCF00E2784A /* Credits.rtf */; };
-		BCBF61A416E83DCF00E2784A /* SLSMoleculeDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBF61A316E83DCF00E2784A /* SLSMoleculeDocument.m */; };
-		BCBF61A716E83DCF00E2784A /* SLSMoleculeDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCBF61A516E83DCF00E2784A /* SLSMoleculeDocument.xib */; };
+		BCBF61A416E83DCF00E2784A /* SLSMoleculeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBF61A316E83DCF00E2784A /* SLSMoleculeWindowController.m */; };
+		BCBF61A716E83DCF00E2784A /* SLSMoleculeWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCBF61A516E83DCF00E2784A /* SLSMoleculeWindowController.xib */; };
 		BCBF61AA16E83DCF00E2784A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCBF61A816E83DCF00E2784A /* MainMenu.xib */; };
 		BCBF61B216E83FBF00E2784A /* SLSMoleculeGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBF61B116E83FBF00E2784A /* SLSMoleculeGLView.m */; };
 		BCC23A4016F94FCF003EA181 /* SLSApplicationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC23A3F16F94FCF003EA181 /* SLSApplicationDelegate.m */; };
@@ -71,7 +72,6 @@
 		BCCF950316EEC7FA00871775 /* MoleculesDesktop.iconset in Resources */ = {isa = PBXBuildFile; fileRef = BCCF950216EEC7FA00871775 /* MoleculesDesktop.iconset */; };
 		BCCF951516EF7D1800871775 /* libLeap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BCCF951416EF7D1700871775 /* libLeap.dylib */; };
 		BCCF951616EF7DF600871775 /* libLeap.dylib in Resources */ = {isa = PBXBuildFile; fileRef = BCCF951416EF7D1700871775 /* libLeap.dylib */; };
-		BCDBDE321718A4D900C4C2FA /* SLSInitialHelpWindowController2.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE311718A4D900C4C2FA /* SLSInitialHelpWindowController2.xib */; };
 		BCDBDE371718C1F100C4C2FA /* CaffeineImage.png in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE331718C1F100C4C2FA /* CaffeineImage.png */; };
 		BCDBDE381718C1F100C4C2FA /* DNAImage.png in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE341718C1F100C4C2FA /* DNAImage.png */; };
 		BCDBDE391718C1F100C4C2FA /* PumpImage.png in Resources */ = {isa = PBXBuildFile; fileRef = BCDBDE351718C1F100C4C2FA /* PumpImage.png */; };
@@ -96,11 +96,12 @@
 		BCE7796216F9453500FFB749 /* SLSPreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCE7796016F9453500FFB749 /* SLSPreferencesWindowController.xib */; };
 		BCFE5DAB1703D0D1004C4EF3 /* MoleculesDocumentIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BCFE5DAA1703D0D1004C4EF3 /* MoleculesDocumentIcon.icns */; };
 		BCFE5DB51707B7A8004C4EF3 /* Molecules Help in Resources */ = {isa = PBXBuildFile; fileRef = BCFE5DB41707B7A8004C4EF3 /* Molecules Help */; };
-		BCFE5DBC1708BC93004C4EF3 /* SLSInitialHelpWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFE5DBA1708BC93004C4EF3 /* SLSInitialHelpWindowController.m */; };
 		BCFE5DBF1708CF18004C4EF3 /* DNA.pdb in Resources */ = {isa = PBXBuildFile; fileRef = BCFE5DBE1708CF18004C4EF3 /* DNA.pdb */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BC0E8B191757B7D200D8511A /* LeapMotionConnected.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = LeapMotionConnected.pdf; sourceTree = "<group>"; };
+		BC0E8B1A1757B7D200D8511A /* LeapMotionDisconnected.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = LeapMotionDisconnected.pdf; sourceTree = "<group>"; };
 		BC3D5DC016EF82DC004F2E7B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BC56CFE31701442C00CA05BE /* Molecules.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Molecules.entitlements; sourceTree = SOURCE_ROOT; };
 		BC56CFE4170149FD00CA05BE /* SLSMoleculeOverlayWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSMoleculeOverlayWindowController.h; sourceTree = "<group>"; };
@@ -127,11 +128,10 @@
 		BC983CFF17498F2900A8A581 /* Nanotube.pdb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Nanotube.pdb; sourceTree = "<group>"; };
 		BC983D0017498F2900A8A581 /* NanotubeImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NanotubeImage.png; sourceTree = "<group>"; };
 		BC983D0117498F2900A8A581 /* NanotubeImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NanotubeImage@2x.png"; sourceTree = "<group>"; };
-		BC983D091749C35B00A8A581 /* SLSColorKeyWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSColorKeyWindowController.h; sourceTree = "<group>"; };
-		BC983D0A1749C35B00A8A581 /* SLSColorKeyWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSColorKeyWindowController.m; sourceTree = "<group>"; };
-		BC983D0B1749C35B00A8A581 /* SLSColorKeyWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SLSColorKeyWindowController.xib; sourceTree = "<group>"; };
 		BC983D0E1749C3CA00A8A581 /* SLSAtomColorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSAtomColorView.h; sourceTree = "<group>"; };
 		BC983D0F1749C3CA00A8A581 /* SLSAtomColorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSAtomColorView.m; sourceTree = "<group>"; };
+		BC983D1F17553BE300A8A581 /* SLSBlackSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSBlackSplitView.h; sourceTree = "<group>"; };
+		BC983D2017553BE300A8A581 /* SLSBlackSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSBlackSplitView.m; sourceTree = "<group>"; };
 		BCBF618D16E83DCF00E2784A /* Molecules_LM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Molecules_LM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCBF619016E83DCF00E2784A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BCBF619316E83DCF00E2784A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -142,9 +142,9 @@
 		BCBF619C16E83DCF00E2784A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BCBF619E16E83DCF00E2784A /* Molecules Desktop-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Molecules Desktop-Prefix.pch"; sourceTree = "<group>"; };
 		BCBF61A016E83DCF00E2784A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		BCBF61A216E83DCF00E2784A /* SLSMoleculeDocument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLSMoleculeDocument.h; sourceTree = "<group>"; };
-		BCBF61A316E83DCF00E2784A /* SLSMoleculeDocument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLSMoleculeDocument.m; sourceTree = "<group>"; };
-		BCBF61A616E83DCF00E2784A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SLSMoleculeDocument.xib; sourceTree = "<group>"; };
+		BCBF61A216E83DCF00E2784A /* SLSMoleculeWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLSMoleculeWindowController.h; sourceTree = "<group>"; };
+		BCBF61A316E83DCF00E2784A /* SLSMoleculeWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLSMoleculeWindowController.m; sourceTree = "<group>"; };
+		BCBF61A616E83DCF00E2784A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SLSMoleculeWindowController.xib; sourceTree = "<group>"; };
 		BCBF61A916E83DCF00E2784A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		BCBF61B016E83FBF00E2784A /* SLSMoleculeGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSMoleculeGLView.h; sourceTree = "<group>"; };
 		BCBF61B116E83FBF00E2784A /* SLSMoleculeGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSMoleculeGLView.m; sourceTree = "<group>"; };
@@ -190,7 +190,6 @@
 		BCCF951116EF7BAB00871775 /* LeapObjectiveC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeapObjectiveC.h; path = ../../LeapSDK/include/LeapObjectiveC.h; sourceTree = "<group>"; };
 		BCCF951216EF7BAB00871775 /* LeapObjectiveC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = LeapObjectiveC.mm; path = ../../LeapSDK/include/LeapObjectiveC.mm; sourceTree = "<group>"; };
 		BCCF951416EF7D1700871775 /* libLeap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libLeap.dylib; path = ../LeapSDK/lib/libLeap.dylib; sourceTree = "<group>"; };
-		BCDBDE311718A4D900C4C2FA /* SLSInitialHelpWindowController2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SLSInitialHelpWindowController2.xib; sourceTree = "<group>"; };
 		BCDBDE331718C1F100C4C2FA /* CaffeineImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CaffeineImage.png; sourceTree = "<group>"; };
 		BCDBDE341718C1F100C4C2FA /* DNAImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DNAImage.png; sourceTree = "<group>"; };
 		BCDBDE351718C1F100C4C2FA /* PumpImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PumpImage.png; sourceTree = "<group>"; };
@@ -218,8 +217,6 @@
 		BCE7796016F9453500FFB749 /* SLSPreferencesWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SLSPreferencesWindowController.xib; sourceTree = "<group>"; };
 		BCFE5DAA1703D0D1004C4EF3 /* MoleculesDocumentIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MoleculesDocumentIcon.icns; sourceTree = "<group>"; };
 		BCFE5DB41707B7A8004C4EF3 /* Molecules Help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Molecules Help"; sourceTree = "<group>"; };
-		BCFE5DB91708BC93004C4EF3 /* SLSInitialHelpWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSInitialHelpWindowController.h; sourceTree = "<group>"; };
-		BCFE5DBA1708BC93004C4EF3 /* SLSInitialHelpWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSInitialHelpWindowController.m; sourceTree = "<group>"; };
 		BCFE5DBE1708CF18004C4EF3 /* DNA.pdb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DNA.pdb; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -270,9 +267,6 @@
 		BC983D081749C33100A8A581 /* Color Key */ = {
 			isa = PBXGroup;
 			children = (
-				BC983D091749C35B00A8A581 /* SLSColorKeyWindowController.h */,
-				BC983D0A1749C35B00A8A581 /* SLSColorKeyWindowController.m */,
-				BC983D0B1749C35B00A8A581 /* SLSColorKeyWindowController.xib */,
 				BC983D0E1749C3CA00A8A581 /* SLSAtomColorView.h */,
 				BC983D0F1749C3CA00A8A581 /* SLSAtomColorView.m */,
 			);
@@ -325,7 +319,7 @@
 				BC56CFE31701442C00CA05BE /* Molecules.entitlements */,
 				BCBF61B516E83FFF00E2784A /* Main Interface */,
 				BCE7795D16F944CA00FFB749 /* Preferences */,
-				BCBF61B316E83FE500E2784A /* Molecule Documents */,
+				BCBF61B316E83FE500E2784A /* Molecule Window */,
 				BC983D081749C33100A8A581 /* Color Key */,
 				BCCF950E16EF7ADB00871775 /* Leap Motion */,
 				BCBF61B416E83FEE00E2784A /* 3D Molecule Display */,
@@ -339,6 +333,8 @@
 		BCBF619716E83DCF00E2784A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BC0E8B191757B7D200D8511A /* LeapMotionConnected.pdf */,
+				BC0E8B1A1757B7D200D8511A /* LeapMotionDisconnected.pdf */,
 				BC983CFC17498F2900A8A581 /* Insulin.pdb */,
 				BC983CFD17498F2900A8A581 /* InsulinImage.png */,
 				BC983CFE17498F2900A8A581 /* InsulinImage@2x.png */,
@@ -384,12 +380,12 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		BCBF61B316E83FE500E2784A /* Molecule Documents */ = {
+		BCBF61B316E83FE500E2784A /* Molecule Window */ = {
 			isa = PBXGroup;
 			children = (
-				BCBF61A216E83DCF00E2784A /* SLSMoleculeDocument.h */,
-				BCBF61A316E83DCF00E2784A /* SLSMoleculeDocument.m */,
-				BCBF61A516E83DCF00E2784A /* SLSMoleculeDocument.xib */,
+				BCBF61A216E83DCF00E2784A /* SLSMoleculeWindowController.h */,
+				BCBF61A316E83DCF00E2784A /* SLSMoleculeWindowController.m */,
+				BCBF61A516E83DCF00E2784A /* SLSMoleculeWindowController.xib */,
 				BCCF94AF16ED4BE400871775 /* SLSMolecule.h */,
 				BCCF94B016ED4BE400871775 /* SLSMolecule.m */,
 				BC56CFF41702A18000CA05BE /* File Formats */,
@@ -397,8 +393,10 @@
 				BCFE5DB2170779DD004C4EF3 /* Overlay Window */,
 				BC67F418171F98B100B5BF5E /* SLSDocumentController.h */,
 				BC67F419171F98B100B5BF5E /* SLSDocumentController.m */,
+				BC983D1F17553BE300A8A581 /* SLSBlackSplitView.h */,
+				BC983D2017553BE300A8A581 /* SLSBlackSplitView.m */,
 			);
-			name = "Molecule Documents";
+			name = "Molecule Window";
 			sourceTree = "<group>";
 		};
 		BCBF61B416E83FEE00E2784A /* 3D Molecule Display */ = {
@@ -487,9 +485,6 @@
 			isa = PBXGroup;
 			children = (
 				BCFE5DB41707B7A8004C4EF3 /* Molecules Help */,
-				BCFE5DB91708BC93004C4EF3 /* SLSInitialHelpWindowController.h */,
-				BCFE5DBA1708BC93004C4EF3 /* SLSInitialHelpWindowController.m */,
-				BCDBDE311718A4D900C4C2FA /* SLSInitialHelpWindowController2.xib */,
 			);
 			name = Help;
 			sourceTree = "<group>";
@@ -550,7 +545,7 @@
 				BCCF951616EF7DF600871775 /* libLeap.dylib in Resources */,
 				BCBF619B16E83DCF00E2784A /* InfoPlist.strings in Resources */,
 				BCBF61A116E83DCF00E2784A /* Credits.rtf in Resources */,
-				BCBF61A716E83DCF00E2784A /* SLSMoleculeDocument.xib in Resources */,
+				BCBF61A716E83DCF00E2784A /* SLSMoleculeWindowController.xib in Resources */,
 				BCBF61AA16E83DCF00E2784A /* MainMenu.xib in Resources */,
 				BCCF94E416ED7A9100871775 /* CylinderAmbientOcclusion.fsh in Resources */,
 				BCCF94E516ED7A9100871775 /* CylinderAmbientOcclusion.vsh in Resources */,
@@ -576,7 +571,6 @@
 				BCFE5DAB1703D0D1004C4EF3 /* MoleculesDocumentIcon.icns in Resources */,
 				BCFE5DB51707B7A8004C4EF3 /* Molecules Help in Resources */,
 				BCFE5DBF1708CF18004C4EF3 /* DNA.pdb in Resources */,
-				BCDBDE321718A4D900C4C2FA /* SLSInitialHelpWindowController2.xib in Resources */,
 				BCDBDE371718C1F100C4C2FA /* CaffeineImage.png in Resources */,
 				BCDBDE381718C1F100C4C2FA /* DNAImage.png in Resources */,
 				BCDBDE391718C1F100C4C2FA /* PumpImage.png in Resources */,
@@ -610,7 +604,8 @@
 				BC983D0517498F2900A8A581 /* Nanotube.pdb in Resources */,
 				BC983D0617498F2900A8A581 /* NanotubeImage.png in Resources */,
 				BC983D0717498F2900A8A581 /* NanotubeImage@2x.png in Resources */,
-				BC983D0D1749C35B00A8A581 /* SLSColorKeyWindowController.xib in Resources */,
+				BC0E8B1B1757B7D200D8511A /* LeapMotionConnected.pdf in Resources */,
+				BC0E8B1C1757B7D200D8511A /* LeapMotionDisconnected.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -638,7 +633,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCBF619D16E83DCF00E2784A /* main.m in Sources */,
-				BCBF61A416E83DCF00E2784A /* SLSMoleculeDocument.m in Sources */,
+				BCBF61A416E83DCF00E2784A /* SLSMoleculeWindowController.m in Sources */,
 				BCBF61B216E83FBF00E2784A /* SLSMoleculeGLView.m in Sources */,
 				BCCF94B516ED4BE400871775 /* SLSMolecule.m in Sources */,
 				BCCF94B616ED4BE400871775 /* SLSMolecule+PDB.m in Sources */,
@@ -653,12 +648,11 @@
 				BC56CFE7170149FD00CA05BE /* SLSMoleculeOverlayWindowController.m in Sources */,
 				BC56CFEB170150B300CA05BE /* SLSTransparentWindow.m in Sources */,
 				BC56CFF21702A12A00CA05BE /* SLSMolecule+XYZ.m in Sources */,
-				BCFE5DBC1708BC93004C4EF3 /* SLSInitialHelpWindowController.m in Sources */,
 				BCDBDE4B1718FB5700C4C2FA /* RoundedView.m in Sources */,
 				BCDBDE4E171A411F00C4C2FA /* TransparentWindow.m in Sources */,
 				BC67F41A171F98B100B5BF5E /* SLSDocumentController.m in Sources */,
-				BC983D0C1749C35B00A8A581 /* SLSColorKeyWindowController.m in Sources */,
 				BC983D101749C3CA00A8A581 /* SLSAtomColorView.m in Sources */,
+				BC983D2117553BE400A8A581 /* SLSBlackSplitView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,12 +675,12 @@
 			name = Credits.rtf;
 			sourceTree = "<group>";
 		};
-		BCBF61A516E83DCF00E2784A /* SLSMoleculeDocument.xib */ = {
+		BCBF61A516E83DCF00E2784A /* SLSMoleculeWindowController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				BCBF61A616E83DCF00E2784A /* en */,
 			);
-			name = SLSMoleculeDocument.xib;
+			name = SLSMoleculeWindowController.xib;
 			sourceTree = "<group>";
 		};
 		BCBF61A816E83DCF00E2784A /* MainMenu.xib */ = {

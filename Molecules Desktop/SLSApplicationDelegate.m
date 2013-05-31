@@ -1,29 +1,25 @@
 #import "SLSApplicationDelegate.h"
 #import "SLSPreferencesWindowController.h"
-#import "SLSInitialHelpWindowController.h"
-#import "SLSColorKeyWindowController.h"
+#import "SLSMoleculeWindowController.h"
 
 @implementation SLSApplicationDelegate
 
 @synthesize preferencesWindowController = _preferencesWindowController;
-@synthesize initialHelpWindowController = _initialHelpWindowController;
-@synthesize colorKeyWindowController = _colorKeyWindowController;
+@synthesize moleculeWindowController = _moleculeWindowController;
+@synthesize controlPanelMenuItem = _controlPanelMenuItem, colorKeyPanelMenuItem = _colorKeyPanelMenuItem;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	[[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
 															 [NSNumber numberWithInt:3], @"leapControlStyle",
-															 nil]];
+															 nil]];    
+
+    [self.moleculeWindowController showWindow:self];
     
-    // This is a bit of a hack to get the initial panel to open on startup if no documents are loaded
-    double delayInSeconds = 0.2;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        if ([[[NSDocumentController sharedDocumentController] documents] count] < 1)
-        {
-            [self.initialHelpWindowController showWindow:self];
-        }        
-    });
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];    
+    [nc addObserver:self selector:@selector(toggleControlPanelMenu:) name:kSLSMoleculeControlPanelNotification object:nil];
+    [nc addObserver:self selector:@selector(toggleColorKeyPanelMenu:) name:kSLSMoleculeColorKeyPanelNotification object:nil];
+
 }
 
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
@@ -33,8 +29,18 @@
 
 - (BOOL)applicationOpenUntitledFile:(NSApplication *)theApplication
 {
-    [self showInitialHelp];
-    
+    return YES;
+}
+
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication
+{
+	return YES;
+}
+
+- (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename
+{
+    [self.moleculeWindowController openFileWithPath:filename extension:[[filename pathExtension] lowercaseString]];
+     
     return YES;
 }
 
@@ -43,14 +49,30 @@
 	[self.preferencesWindowController showWindow:self];
 }
 
-- (IBAction)showColorKey:(id)sender;
+- (void)toggleControlPanelMenu:(NSNotification *)note;
 {
-	[self.colorKeyWindowController showWindow:self];
+    BOOL isControlPanelShown = [[note object] boolValue];
+    if (isControlPanelShown)
+    {
+        [self.controlPanelMenuItem setTitle:@"Hide Controls"];
+    }
+    else
+    {
+        [self.controlPanelMenuItem setTitle:@"Show Controls"];
+    }
 }
 
-- (void)showInitialHelp;
+- (void)toggleColorKeyPanelMenu:(NSNotification *)note;
 {
-    [self.initialHelpWindowController showWindow:self];
+    BOOL isColorKeyPanelShown = [[note object] boolValue];
+    if (isColorKeyPanelShown)
+    {
+        [self.colorKeyPanelMenuItem setTitle:@"Hide Color Key"];
+    }
+    else
+    {
+        [self.colorKeyPanelMenuItem setTitle:@"Show Color Key"];
+    }
 }
 
 - (SLSPreferencesWindowController *)preferencesWindowController;
@@ -63,24 +85,14 @@
 	return _preferencesWindowController;
 }
 
-- (SLSInitialHelpWindowController *)initialHelpWindowController;
+- (SLSMoleculeWindowController *)moleculeWindowController;
 {
-	if (_initialHelpWindowController == nil)
+	if (_moleculeWindowController == nil)
 	{
-		_initialHelpWindowController = [[SLSInitialHelpWindowController alloc] initWithWindowNibName:@"SLSInitialHelpWindowController2"];
+		_moleculeWindowController = [[SLSMoleculeWindowController alloc] initWithWindowNibName:@"SLSMoleculeWindowController"];
 	}
 	
-	return _initialHelpWindowController;
-}
-
-- (SLSColorKeyWindowController *)colorKeyWindowController;
-{
-	if (_colorKeyWindowController == nil)
-	{
-		_colorKeyWindowController = [[SLSColorKeyWindowController alloc] initWithWindowNibName:@"SLSColorKeyWindowController"];
-	}
-	
-	return _colorKeyWindowController;
+	return _moleculeWindowController;
 }
 
 @end

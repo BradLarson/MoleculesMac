@@ -9,7 +9,7 @@
     
     if ([[self documents] count] < 1)
     {
-        [(SLSApplicationDelegate *)[[NSApplication sharedApplication] delegate] showInitialHelp];
+//        [(SLSApplicationDelegate *)[[NSApplication sharedApplication] delegate] showInitialHelp];
     }
 }
 @end
