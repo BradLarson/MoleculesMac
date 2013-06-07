@@ -16,6 +16,7 @@ void main()
     if ( (impostorSpaceCoordinate.t <= (-1.0 + displacementFromCurvature)) || (impostorSpaceCoordinate.t >= (1.0 + displacementFromCurvature)))
     {
         gl_FragColor = vec4(1.0);
+        gl_FragDepth = 1.0;
     }
 
 //    if ( impostorSpaceCoordinate.t <= (-1.0 + displacementFromCurvature))
@@ -25,6 +26,7 @@ void main()
 
     // Use a little fudge factor to account for rounding errors when zoomed out on the ball and stick mode
     float calculatedDepth = normalizedDepth - depthOffset + 0.0025;
+    gl_FragDepth = calculatedDepth;
 
     calculatedDepth = calculatedDepth * 3.0;
 

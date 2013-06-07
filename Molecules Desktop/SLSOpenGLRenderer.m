@@ -104,30 +104,33 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
 	
     [self freeVertexBuffers];
     
-    if (ambientOcclusionFramebuffer)
-    {
-        glDeleteFramebuffers(1, &ambientOcclusionFramebuffer);
-        ambientOcclusionFramebuffer = 0;
-    }
-    
-    if (ambientOcclusionTexture)
-    {
-        glDeleteTextures(1, &ambientOcclusionTexture);
-        ambientOcclusionTexture = 0;
-    }
-    
-    if (sphereAOLookupFramebuffer)
-    {
-        glDeleteFramebuffers(1, &sphereAOLookupFramebuffer);
-        sphereAOLookupFramebuffer = 0;
-    }
-    
-    if (sphereAOLookupTexture)
-    {
-        glDeleteTextures(1, &sphereAOLookupTexture);
-        sphereAOLookupTexture = 0;
-    }
+    dispatch_sync(openGLESContextQueue, ^{
+        [[self openGLContext] makeCurrentContext];
 
+        if (ambientOcclusionFramebuffer)
+        {
+            glDeleteFramebuffers(1, &ambientOcclusionFramebuffer);
+            ambientOcclusionFramebuffer = 0;
+        }
+        
+        if (ambientOcclusionTexture)
+        {
+            glDeleteTextures(1, &ambientOcclusionTexture);
+            ambientOcclusionTexture = 0;
+        }
+        
+        if (sphereAOLookupFramebuffer)
+        {
+            glDeleteFramebuffers(1, &sphereAOLookupFramebuffer);
+            sphereAOLookupFramebuffer = 0;
+        }
+        
+        if (sphereAOLookupTexture)
+        {
+            glDeleteTextures(1, &sphereAOLookupTexture);
+            sphereAOLookupTexture = 0;
+        }
+    });
 //    dispatch_release(openGLESContextQueue);
 //    dispatch_release(frameRenderingSemaphore);
 }
@@ -371,7 +374,7 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
         
 //        [self createFramebuffer:&viewFramebuffer size:CGSizeZero renderBuffer:&viewRenderbuffer depthBuffer:&viewDepthBuffer texture:NULL layer:glLayer];
 //        [self createFramebuffer:&depthPassFramebuffer size:CGSizeMake(backingWidth, backingHeight) renderBuffer:NULL depthBuffer:&depthPassDepthBuffer texture:&depthPassTexture];
-        [self createFramebuffer:&depthPassFramebuffer size:CGSizeMake(0.75* ambientOcclusionTextureWidth, ambientOcclusionTextureWidth) renderBuffer:NULL depthBuffer:&depthPassDepthBuffer texture:&depthPassTexture];
+        [self createFramebuffer:&depthPassFramebuffer size:CGSizeMake(ambientOcclusionTextureWidth, ambientOcclusionTextureWidth) renderBuffer:NULL depthBuffer:&depthPassDepthBuffer texture:&depthPassTexture];
         
         if (!ambientOcclusionFramebuffer)
         {
@@ -601,7 +604,6 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
     if (status != GL_FRAMEBUFFER_COMPLETE) 
 	{
 		NSLog(@"Incomplete FBO: %d", status);
-        assert(false);
     }
     
     return YES;
@@ -965,7 +967,7 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
 - (void)switchToDepthPassFramebuffer;
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, depthPassFramebuffer);
-    CGSize newViewportSize = CGSizeMake(0.75* ambientOcclusionTextureWidth, ambientOcclusionTextureWidth);
+    CGSize newViewportSize = CGSizeMake(ambientOcclusionTextureWidth, ambientOcclusionTextureWidth);
     glViewport(0, 0, newViewportSize.width, newViewportSize.height);
     currentViewportSize = newViewportSize;    
 }
@@ -1100,7 +1102,7 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
 
 - (void)destroyFramebuffers;
 {
-    dispatch_async(openGLESContextQueue, ^{
+    dispatch_sync(openGLESContextQueue, ^{
         [[self openGLContext] makeCurrentContext];
         
         if (viewFramebuffer)
@@ -1599,42 +1601,6 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
 #pragma mark -
 #pragma mark OpenGL drawing routines
 
-- (void)testPrecisionOfConversionCalculation;
-{
-    float stepSize = 1.0 / 20.0;
-    
-    for (float inputFloat = 0.0; inputFloat < 1.0; inputFloat += stepSize)
-    {
-        float ceilInputFloat = ceil(inputFloat * 765.0) / 765.0;
-        
-        float blue = MAX(0.0, ceilInputFloat - (2.0 / 3.0));
-        float green = MAX(0.0, ceilInputFloat - (1.0 / 3.0) - blue);
-        float red = ceilInputFloat - blue - green;
-        
-        unsigned char blueValue = (unsigned char)(blue * 3.0 * 255.0);
-        unsigned char greenValue = (unsigned char)(green * 3.0 * 255.0);
-        unsigned char redValue = (unsigned char)(red * 3.0 * 255.0);
-        
-        float result = ((float)blueValue / 255.0 + (float)greenValue / 255.0 + (float)redValue / 255.0) / 3.0;
-        
-        NSLog(@"1: Input value: %f, converted value: %f", inputFloat, result);
-        
-        
-        int convertedInput = ceil(inputFloat * 765.0);
-        int blueInt = MAX(0, convertedInput - 510);
-        int greenInt = MAX(0, convertedInput - 255 - blueInt);
-        int redInt = convertedInput - blueInt - greenInt;
-        
-        unsigned char blueValue2 = (unsigned char)(blueInt);
-        unsigned char greenValue2 = (unsigned char)(greenInt);
-        unsigned char redValue2 = (unsigned char)(redInt);
-        
-        float result2 = ((float)blueValue2 / 255.0 + (float)greenValue2 / 255.0 + (float)redValue2 / 255.0) / 3.0;
-        NSLog(@"2: Input value: %f, converted value: %f", inputFloat, result2);
-        
-    }
-}
-
 - (void)bindVertexBuffersForMolecule:(SLSMolecule *)molecule;
 {
     dispatch_async(openGLESContextQueue, ^{
@@ -1649,7 +1615,7 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
             if (atomIndexBuffers[currentAtomIndexBufferIndex] != nil)
             {
                 glGenBuffers(1, &atomIndexBufferHandle[currentAtomIndexBufferIndex]);
-                glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, atomIndexBufferHandle[currentAtomIndexBufferIndex]);   
+                glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, atomIndexBufferHandle[currentAtomIndexBufferIndex]);
                 glBufferData(GL_ELEMENT_ARRAY_BUFFER, [atomIndexBuffers[currentAtomIndexBufferIndex] length], (GLushort *)[atomIndexBuffers[currentAtomIndexBufferIndex] bytes], GL_STATIC_DRAW);
                 
                 numberOfIndicesInBuffer[currentAtomIndexBufferIndex] = ([atomIndexBuffers[currentAtomIndexBufferIndex] length] / sizeof(GLushort));
@@ -1668,6 +1634,7 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
             if (atomVBOs[currentAtomVBOIndex] != nil)
             {
                 glGenBuffers(1, &atomVertexBufferHandles[currentAtomVBOIndex]);
+
                 glBindBuffer(GL_ARRAY_BUFFER, atomVertexBufferHandles[currentAtomVBOIndex]);
                 glBufferData(GL_ARRAY_BUFFER, [atomVBOs[currentAtomVBOIndex] length], (void *)[atomVBOs[currentAtomVBOIndex] bytes], GL_STATIC_DRAW);
                 
@@ -1684,7 +1651,8 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
             if (bondVBOs[currentBondVBOIndex] != nil)
             {
                 glGenBuffers(1, &bondIndexBufferHandle[currentBondVBOIndex]);
-                glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bondIndexBufferHandle[currentBondVBOIndex]);   
+
+                glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bondIndexBufferHandle[currentBondVBOIndex]);
                 glBufferData(GL_ELEMENT_ARRAY_BUFFER, [bondIndexBuffers[currentBondVBOIndex] length], (GLushort *)[bondIndexBuffers[currentBondVBOIndex] bytes], GL_STATIC_DRAW);    
                 
                 numberOfBondIndicesInBuffer[currentBondVBOIndex] = ([bondIndexBuffers[currentBondVBOIndex] length] / sizeof(GLushort));
@@ -1692,6 +1660,7 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
                 bondIndexBuffers[currentBondVBOIndex] = nil;
                 
                 glGenBuffers(1, &bondVertexBufferHandle[currentBondVBOIndex]);
+
                 glBindBuffer(GL_ARRAY_BUFFER, bondVertexBufferHandle[currentBondVBOIndex]);
                 glBufferData(GL_ARRAY_BUFFER, [bondVBOs[currentBondVBOIndex] length], (void *)[bondVBOs[currentBondVBOIndex] bytes], GL_STATIC_DRAW); 
                 
@@ -1707,7 +1676,7 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
 
 - (void)freeVertexBuffers;
 {    
-//    dispatch_async(openGLESContextQueue, ^{
+    dispatch_sync(openGLESContextQueue, ^{
         [[self openGLContext] makeCurrentContext];
         
         isSceneReady = NO;
@@ -1740,7 +1709,7 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
         
         totalNumberOfTriangles = 0;
         totalNumberOfVertices = 0;
-//    });
+    });
 }
 
 - (void)initiateMoleculeRendering;
@@ -1808,10 +1777,14 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
 //    glDepthMask(GL_TRUE);
 //    glDepthFunc(GL_LEQUAL);
     
+    glDisable(GL_BLEND);
+    glEnable(GL_DEPTH_TEST);
+    glDepthMask(GL_TRUE);
+    //
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-//    [self writeDepthValuesForOpaqueAreasForModelViewMatrix:depthModelViewMatrix translation:modelTranslation scale:scaleFactor];
-    glDepthMask(GL_FALSE);
+//    glDepthMask(GL_FALSE);
     
     // Draw the spheres
     [sphereDepthProgram use];
@@ -1879,6 +1852,9 @@ NSString *const kSLSMoleculeShadowCalculationEndedNotification = @"MoleculeShado
         }
     }
     
+    glEnable(GL_BLEND);
+    glDisable(GL_DEPTH_TEST);
+
 //    const GLenum discards[]  = {GL_DEPTH_ATTACHMENT};
 //    glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, discards);
 }
@@ -2296,9 +2272,9 @@ static float ambientOcclusionRotationAngles[AMBIENTOCCLUSIONSAMPLINGPOINTS][2] =
                 });
             }
             
-            //            CFTimeInterval frameDuration = CFAbsoluteTimeGetCurrent() - previousTimestamp;
-            
-            //            NSLog(@"Ambient occlusion calculation duration: %f s", frameDuration);
+//            CFTimeInterval frameDuration = CFAbsoluteTimeGetCurrent() - startTime;
+//
+//            NSLog(@"Ambient occlusion calculation duration: %f s", frameDuration);
         }
         
         // Reset depth texture to nearest filtering to prevent some border transparency artifacts
@@ -2310,7 +2286,6 @@ static float ambientOcclusionRotationAngles[AMBIENTOCCLUSIONSAMPLINGPOINTS][2] =
         [self loadOrthoMatrix:orthographicMatrix left:-1.0 right:1.0 bottom:(-1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) top:(1.0 * (GLfloat)backingHeight / (GLfloat)backingWidth) near:-4.0 far:4.0];
 
 //        elapsedTime = CFAbsoluteTimeGetCurrent() - startTime;
-        // ElapsedTime contains seconds (or fractions thereof as decimals)
 //        NSLog(@"Total AO time: %f", elapsedTime);
 
         dispatch_semaphore_signal(frameRenderingSemaphore);

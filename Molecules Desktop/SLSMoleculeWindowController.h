@@ -60,6 +60,7 @@ typedef enum {LEAPCONNECTEDVIEW, LEAPDISCONNECTEDVIEW} SLSLeapConnectionViewType
 @property(readwrite, strong, nonatomic) IBOutlet NSView *leapMotionConnectedView, *leapMotionDisconnectedView;
 @property(readwrite, weak) IBOutlet NSSplitView *applicationControlSplitView, *colorCodeSplitView;
 @property(readwrite, weak) IBOutlet NSView *controlsView, *colorCodeView;
+@property(readwrite, nonatomic) BOOL isDNAButtonPressed, isTRNAButtonPressed, isPumpButtonPressed, isCaffeineButtonPressed, isHemeButtonPressed, isNanotubeButtonPressed, isCholesterolButtonPressed, isInsulinButtonPressed, isTheoreticalBearingButtonPressed;
 
 @property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *hydrogenColorView;
 @property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *carbonColorView;
@@ -101,6 +102,7 @@ typedef enum {LEAPCONNECTEDVIEW, LEAPDISCONNECTEDVIEW} SLSLeapConnectionViewType
 // Sample molecule loading
 - (void)openFileWithPath:(NSString *)filePath extension:(NSString *)fileExtension;
 - (void)openPreloadedFileWithName:(NSString *)preloadedFileName ofType:(NSString *)fileType;
+- (void)clearButtonPresses;
 - (void)openDocument:(id)sender;
 - (IBAction)openDNA:(id)sender;
 - (IBAction)openTRNA:(id)sender;

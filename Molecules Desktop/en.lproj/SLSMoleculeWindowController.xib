@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1080</int>
-		<string key="IBDocument.SystemVersion">12D78</string>
+		<string key="IBDocument.SystemVersion">12E55</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.37</string>
+		<string key="IBDocument.AppKitVersion">1187.39</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -47,7 +47,7 @@
 				<string key="NSWindowClass">NSWindow</string>
 				<string key="NSViewClass">View</string>
 				<nil key="NSUserInterfaceItemIdentifier"/>
-				<string key="NSWindowContentMinSize">{500, 795}</string>
+				<string key="NSWindowContentMinSize">{500, 721}</string>
 				<object class="NSView" key="NSWindowView" id="568628114">
 					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
@@ -63,7 +63,7 @@
 										<object class="NSButton" id="392653931">
 											<reference key="NSNextResponder" ref="193920831"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{18, 191}, {225, 18}}</string>
+											<string key="NSFrame">{{18, 226}, {225, 18}}</string>
 											<reference key="NSSuperview" ref="193920831"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="895863124"/>
@@ -99,7 +99,7 @@
 										<object class="NSButton" id="58267498">
 											<reference key="NSNextResponder" ref="193920831"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{13, 242}, {227, 32}}</string>
+											<string key="NSFrame">{{15, 255}, {226, 32}}</string>
 											<reference key="NSSuperview" ref="193920831"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="392653931"/>
@@ -124,7 +124,7 @@
 										<object class="NSTextField" id="319431268">
 											<reference key="NSNextResponder" ref="193920831"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{17, 344}, {193, 18}}</string>
+											<string key="NSFrame">{{17, 357}, {193, 18}}</string>
 											<reference key="NSSuperview" ref="193920831"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="415403997"/>
@@ -165,7 +165,7 @@
 										<object class="NSButton" id="661290063">
 											<reference key="NSNextResponder" ref="193920831"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{14, 275}, {227, 32}}</string>
+											<string key="NSFrame">{{15, 288}, {226, 32}}</string>
 											<reference key="NSSuperview" ref="193920831"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="58267498"/>
@@ -191,7 +191,7 @@
 										<object class="NSButton" id="415403997">
 											<reference key="NSNextResponder" ref="193920831"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{14, 308}, {227, 32}}</string>
+											<string key="NSFrame">{{15, 321}, {226, 32}}</string>
 											<reference key="NSSuperview" ref="193920831"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="661290063"/>
@@ -245,7 +245,7 @@
 											<string key="NSReuseIdentifierKey">_NS:22</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="466622802">
-												<int key="NSCellFlags">-2080374784</int>
+												<int key="NSCellFlags">67108864</int>
 												<int key="NSCellFlags2">0</int>
 												<string key="NSContents">Carbon nanotube</string>
 												<object class="NSFont" key="NSSupport" id="431984231">
@@ -255,7 +255,7 @@
 												</object>
 												<string key="NSCellIdentifier">_NS:22</string>
 												<reference key="NSControlView" ref="676243833"/>
-												<int key="NSButtonFlags">-2034483200</int>
+												<int key="NSButtonFlags">-1229176832</int>
 												<int key="NSButtonFlags2">130</int>
 												<object class="NSCustomResource" key="NSNormalImage">
 													<string key="NSClassName">NSImage</string>
@@ -278,13 +278,13 @@
 											<string key="NSReuseIdentifierKey">_NS:22</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="474829609">
-												<int key="NSCellFlags">-2080374784</int>
+												<int key="NSCellFlags">67108864</int>
 												<int key="NSCellFlags2">0</int>
 												<string key="NSContents">Insulin</string>
 												<reference key="NSSupport" ref="431984231"/>
 												<string key="NSCellIdentifier">_NS:22</string>
 												<reference key="NSControlView" ref="820907373"/>
-												<int key="NSButtonFlags">-2034483200</int>
+												<int key="NSButtonFlags">-1229176832</int>
 												<int key="NSButtonFlags2">130</int>
 												<object class="NSCustomResource" key="NSNormalImage">
 													<string key="NSClassName">NSImage</string>
@@ -307,13 +307,13 @@
 											<string key="NSReuseIdentifierKey">_NS:22</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="924417262">
-												<int key="NSCellFlags">-2080374784</int>
+												<int key="NSCellFlags">67108864</int>
 												<int key="NSCellFlags2">0</int>
 												<string key="NSContents">Theoretical bearing</string>
 												<reference key="NSSupport" ref="431984231"/>
 												<string key="NSCellIdentifier">_NS:22</string>
 												<reference key="NSControlView" ref="5086963"/>
-												<int key="NSButtonFlags">-2034483200</int>
+												<int key="NSButtonFlags">-1229176832</int>
 												<int key="NSButtonFlags2">130</int>
 												<object class="NSCustomResource" key="NSNormalImage">
 													<string key="NSClassName">NSImage</string>
@@ -336,13 +336,13 @@
 											<string key="NSReuseIdentifierKey">_NS:22</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="240703198">
-												<int key="NSCellFlags">-2080374784</int>
+												<int key="NSCellFlags">67108864</int>
 												<int key="NSCellFlags2">0</int>
 												<string key="NSContents">Transfer RNA</string>
 												<reference key="NSSupport" ref="431984231"/>
 												<string key="NSCellIdentifier">_NS:22</string>
 												<reference key="NSControlView" ref="190181902"/>
-												<int key="NSButtonFlags">-2034483200</int>
+												<int key="NSButtonFlags">-1229176832</int>
 												<int key="NSButtonFlags2">130</int>
 												<object class="NSCustomResource" key="NSNormalImage">
 													<string key="NSClassName">NSImage</string>
@@ -365,13 +365,13 @@
 											<string key="NSReuseIdentifierKey">_NS:22</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="1048208740">
-												<int key="NSCellFlags">-2080374784</int>
+												<int key="NSCellFlags">67108864</int>
 												<int key="NSCellFlags2">134217728</int>
 												<string key="NSContents">Theoretical atom pump</string>
 												<reference key="NSSupport" ref="431984231"/>
 												<string key="NSCellIdentifier">_NS:22</string>
 												<reference key="NSControlView" ref="745488961"/>
-												<int key="NSButtonFlags">-2034483200</int>
+												<int key="NSButtonFlags">-1229176832</int>
 												<int key="NSButtonFlags2">130</int>
 												<object class="NSCustomResource" key="NSNormalImage">
 													<string key="NSClassName">NSImage</string>
@@ -394,13 +394,13 @@
 											<string key="NSReuseIdentifierKey">_NS:22</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="525484553">
-												<int key="NSCellFlags">-2080374784</int>
+												<int key="NSCellFlags">67108864</int>
 												<int key="NSCellFlags2">0</int>
 												<string key="NSContents">Caffeine</string>
 												<reference key="NSSupport" ref="431984231"/>
 												<string key="NSCellIdentifier">_NS:22</string>
 												<reference key="NSControlView" ref="486745473"/>
-												<int key="NSButtonFlags">-2034483200</int>
+												<int key="NSButtonFlags">-1229176832</int>
 												<int key="NSButtonFlags2">130</int>
 												<object class="NSCustomResource" key="NSNormalImage">
 													<string key="NSClassName">NSImage</string>
@@ -423,13 +423,13 @@
 											<string key="NSReuseIdentifierKey">_NS:22</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="73048094">
-												<int key="NSCellFlags">-2080374784</int>
+												<int key="NSCellFlags">67108864</int>
 												<int key="NSCellFlags2">0</int>
 												<string key="NSContents">Simple DNA segment</string>
 												<reference key="NSSupport" ref="431984231"/>
 												<string key="NSCellIdentifier">_NS:22</string>
 												<reference key="NSControlView" ref="662037119"/>
-												<int key="NSButtonFlags">-2034483200</int>
+												<int key="NSButtonFlags">-1229176832</int>
 												<int key="NSButtonFlags2">130</int>
 												<object class="NSCustomResource" key="NSNormalImage">
 													<string key="NSClassName">NSImage</string>
@@ -1403,8 +1403,8 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="754721242"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
-				<string key="NSMinSize">{500, 817}</string>
+				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
+				<string key="NSMinSize">{500, 743}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<int key="NSWindowCollectionBehavior">128</int>
 				<bool key="NSWindowIsRestorable">YES</bool>
@@ -1783,7 +1783,7 @@
 				<string key="NSClassName">RoundedView</string>
 			</object>
 			<object class="NSCustomView" id="980541233">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSTextField" id="609108751">
@@ -1791,7 +1791,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{112, 20}, {77, 47}}</string>
 						<reference key="NSSuperview" ref="980541233"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:1535</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="356933232">
@@ -1841,7 +1840,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{300, 216}</string>
-				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="960199477"/>
 				<string key="NSClassName">RoundedView</string>
 			</object>
@@ -2349,11 +2347,211 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
+						<string key="label">initialFirstResponder</string>
+						<reference key="source" ref="275939982"/>
+						<reference key="destination" ref="662037119"/>
+					</object>
+					<int key="connectionID">100700</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="754721242"/>
 						<reference key="destination" ref="512844837"/>
 					</object>
 					<int key="connectionID">100571</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="662037119"/>
+						<reference key="destination" ref="486745473"/>
+					</object>
+					<int key="connectionID">100701</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: isDNAButtonPressed</string>
+						<reference key="source" ref="662037119"/>
+						<reference key="destination" ref="512844837"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="662037119"/>
+							<reference key="NSDestination" ref="512844837"/>
+							<string key="NSLabel">value: isDNAButtonPressed</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">isDNAButtonPressed</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">100713</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="486745473"/>
+						<reference key="destination" ref="190181902"/>
+					</object>
+					<int key="connectionID">100702</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: isCaffeineButtonPressed</string>
+						<reference key="source" ref="486745473"/>
+						<reference key="destination" ref="512844837"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="486745473"/>
+							<reference key="NSDestination" ref="512844837"/>
+							<string key="NSLabel">value: isCaffeineButtonPressed</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">isCaffeineButtonPressed</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">100716</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="745488961"/>
+						<reference key="destination" ref="676243833"/>
+					</object>
+					<int key="connectionID">100704</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: isPumpButtonPressed</string>
+						<reference key="source" ref="745488961"/>
+						<reference key="destination" ref="512844837"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="745488961"/>
+							<reference key="NSDestination" ref="512844837"/>
+							<string key="NSLabel">value: isPumpButtonPressed</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">isPumpButtonPressed</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">100720</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="190181902"/>
+						<reference key="destination" ref="745488961"/>
+					</object>
+					<int key="connectionID">100703</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: isTRNAButtonPressed</string>
+						<reference key="source" ref="190181902"/>
+						<reference key="destination" ref="512844837"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="190181902"/>
+							<reference key="NSDestination" ref="512844837"/>
+							<string key="NSLabel">value: isTRNAButtonPressed</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">isTRNAButtonPressed</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">100718</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="5086963"/>
+						<reference key="destination" ref="415403997"/>
+					</object>
+					<int key="connectionID">100707</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: isTheoreticalBearingButtonPressed</string>
+						<reference key="source" ref="5086963"/>
+						<reference key="destination" ref="512844837"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="5086963"/>
+							<reference key="NSDestination" ref="512844837"/>
+							<string key="NSLabel">value: isTheoreticalBearingButtonPressed</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">isTheoreticalBearingButtonPressed</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">100727</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="820907373"/>
+						<reference key="destination" ref="5086963"/>
+					</object>
+					<int key="connectionID">100706</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: isInsulinButtonPressed</string>
+						<reference key="source" ref="820907373"/>
+						<reference key="destination" ref="512844837"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="820907373"/>
+							<reference key="NSDestination" ref="512844837"/>
+							<string key="NSLabel">value: isInsulinButtonPressed</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">isInsulinButtonPressed</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">100725</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="676243833"/>
+						<reference key="destination" ref="820907373"/>
+					</object>
+					<int key="connectionID">100705</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: isNanotubeButtonPressed</string>
+						<reference key="source" ref="676243833"/>
+						<reference key="destination" ref="512844837"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="676243833"/>
+							<reference key="NSDestination" ref="512844837"/>
+							<string key="NSLabel">value: isNanotubeButtonPressed</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">isNanotubeButtonPressed</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">100723</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="415403997"/>
+						<reference key="destination" ref="661290063"/>
+					</object>
+					<int key="connectionID">100708</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="661290063"/>
+						<reference key="destination" ref="58267498"/>
+					</object>
+					<int key="connectionID">100709</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="58267498"/>
+						<reference key="destination" ref="392653931"/>
+					</object>
+					<int key="connectionID">100710</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -2374,6 +2572,14 @@
 						</object>
 					</object>
 					<int key="connectionID">100267</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="392653931"/>
+						<reference key="destination" ref="662037119"/>
+					</object>
+					<int key="connectionID">100711</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -2692,7 +2898,6 @@
 						<int key="objectID">100222</int>
 						<reference key="object" ref="193920831"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="605100743"/>
 							<reference ref="662037119"/>
 							<reference ref="486745473"/>
 							<reference ref="745488961"/>
@@ -2700,9 +2905,10 @@
 							<reference ref="676243833"/>
 							<reference ref="5086963"/>
 							<reference ref="820907373"/>
+							<reference ref="605100743"/>
+							<reference ref="319431268"/>
 							<reference ref="415403997"/>
 							<reference ref="661290063"/>
-							<reference ref="319431268"/>
 							<reference ref="58267498"/>
 							<reference ref="392653931"/>
 						</array>
@@ -3662,7 +3868,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">100699</int>
+			<int key="maxID">100727</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

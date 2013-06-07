@@ -47,6 +47,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 @synthesize cadmiumColorView = _cadmiumColorView;
 @synthesize iodineColorView = _iodineColorView;
 @synthesize unknownColorView = _unknownColorView;
+@synthesize isDNAButtonPressed, isTRNAButtonPressed, isPumpButtonPressed, isCaffeineButtonPressed, isHemeButtonPressed, isNanotubeButtonPressed, isCholesterolButtonPressed, isInsulinButtonPressed, isTheoreticalBearingButtonPressed;
 
 - (id)init
 {
@@ -571,6 +572,8 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 
 - (void)openDocument:(id)sender;
 {
+    [self clearButtonPresses];
+    
     NSOpenPanel *openPanel = [[NSOpenPanel alloc] init];
     // TODO: find better way to update this with additional filetypes
     [openPanel setAllowedFileTypes:[NSArray arrayWithObjects:@"sdf", @"pdb", @"xyz", nil]];
@@ -620,48 +623,88 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
     [self openFileWithPath:[[NSBundle mainBundle] pathForResource:preloadedFileName ofType:fileType] extension:fileType];
 }
 
+- (void)clearButtonPresses;
+{
+    self.isDNAButtonPressed = NO;
+    self.isTRNAButtonPressed = NO;
+    self.isPumpButtonPressed = NO;
+    self.isCaffeineButtonPressed = NO;
+    self.isHemeButtonPressed = NO;
+    self.isNanotubeButtonPressed = NO;
+    self.isCholesterolButtonPressed = NO;
+    self.isInsulinButtonPressed = NO;
+    self.isTheoreticalBearingButtonPressed = NO;
+}
+
 - (IBAction)openDNA:(id)sender;
 {
+    [self clearButtonPresses];
+    self.isDNAButtonPressed = YES;
+
     [self openPreloadedFileWithName:@"DNA" ofType:@"pdb"];
 }
 
 - (IBAction)openTRNA:(id)sender;
 {
+    [self clearButtonPresses];
+    self.isTRNAButtonPressed = YES;
+
     [self openPreloadedFileWithName:@"TransferRNA" ofType:@"pdb"];
 }
 
 - (IBAction)openPump:(id)sender;
 {
+    [self clearButtonPresses];
+    self.isPumpButtonPressed = YES;
+
     [self openPreloadedFileWithName:@"TheoreticalAtomicPump" ofType:@"pdb"];
 }
 
 - (IBAction)openCaffeine:(id)sender;
 {
+    [self clearButtonPresses];
+    self.isCaffeineButtonPressed = YES;
+
     [self openPreloadedFileWithName:@"Caffeine" ofType:@"pdb"];
 }
 
 - (IBAction)openHeme:(id)sender;
 {
+    [self clearButtonPresses];
+    self.isHemeButtonPressed = YES;
+
     [self openPreloadedFileWithName:@"Heme" ofType:@"sdf"];
 }
 
 - (IBAction)openNanotube:(id)sender;
 {
+    [self clearButtonPresses];
+    self.isNanotubeButtonPressed = YES;
+
     [self openPreloadedFileWithName:@"Nanotube" ofType:@"pdb"];
 }
 
 - (IBAction)openCholesterol:(id)sender;
 {
+    [self clearButtonPresses];
+    self.isCholesterolButtonPressed = YES;
+
     [self openPreloadedFileWithName:@"Cholesterol" ofType:@"pdb"];
 }
 
 - (IBAction)openInsulin:(id)sender;
 {
+    [self clearButtonPresses];
+    self.isInsulinButtonPressed = YES;
+
     [self openPreloadedFileWithName:@"Insulin" ofType:@"pdb"];
 }
 
 - (IBAction)openTheoreticalBearing:(id)sender;
 {
+    [self clearButtonPresses];
+    self.isTheoreticalBearingButtonPressed = YES;
+
     [self openPreloadedFileWithName:@"TheoreticalBearing" ofType:@"pdb"];
 }
 
@@ -672,19 +715,44 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 
 - (IBAction)visitPDB:(id)sender;
 {
-    NSURL *pdbURL = [NSURL URLWithString:@"http://www.rcsb.org/pdb"];
-    if ([[NSWorkspace sharedWorkspace] openURL:pdbURL])
+    NSAlert *recalibrateAlert = [[NSAlert alloc] init];
+    [recalibrateAlert addButtonWithTitle:NSLocalizedString(@"Open", nil)];
+    [recalibrateAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    recalibrateAlert.messageText = NSLocalizedString(@"Open this link in an external browser?", nil);
+    recalibrateAlert.informativeText = NSLocalizedString(@"This link will open in the default browser, and the content there is not certified in the same manner as this application.", nil);
+    recalibrateAlert.alertStyle = NSInformationalAlertStyle;
+    if ([recalibrateAlert runModal] == NSAlertFirstButtonReturn)
+    {
+        NSURL *pdbURL = [NSURL URLWithString:@"http://www.rcsb.org/pdb"];
+        if ([[NSWorkspace sharedWorkspace] openURL:pdbURL])
+        {
+        }
+    }
+    else
     {
     }
+
 }
 
 - (IBAction)visitPubChem:(id)sender;
 {
-    NSURL *pubchemURL = [NSURL URLWithString:@"http://pubchem.ncbi.nlm.nih.gov"];
-    if ([[NSWorkspace sharedWorkspace] openURL:pubchemURL])
+    NSAlert *recalibrateAlert = [[NSAlert alloc] init];
+    [recalibrateAlert addButtonWithTitle:NSLocalizedString(@"Open", nil)];
+    [recalibrateAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    recalibrateAlert.messageText = NSLocalizedString(@"Open this link in an external browser?", nil);
+    recalibrateAlert.informativeText = NSLocalizedString(@"This link will open in the default browser, and the content there is not certified in the same manner as this application.", nil);
+    recalibrateAlert.alertStyle = NSInformationalAlertStyle;
+    if ([recalibrateAlert runModal] == NSAlertFirstButtonReturn)
     {
-        
-    }    
+        NSURL *pubchemURL = [NSURL URLWithString:@"http://pubchem.ncbi.nlm.nih.gov"];
+        if ([[NSWorkspace sharedWorkspace] openURL:pubchemURL])
+        {
+            
+        }    
+    }
+    else
+    {
+    }
 }
 
 #pragma mark -
@@ -1096,6 +1164,9 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
         [currentLeapConnectionPopup close];
         currentLeapConnectionPopup = nil;
     }
+    
+    openGLRenderer = nil;
+    
 }
 
 //- (void)windowDidBecomeMain:(NSNotification *)notification
