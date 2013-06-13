@@ -1853,7 +1853,7 @@
 					<object class="NSTextField" id="1047851622">
 						<reference key="NSNextResponder" ref="287047938"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{32, 20}, {198, 19}}</string>
+						<string key="NSFrame">{{29, 20}, {286, 19}}</string>
 						<reference key="NSSuperview" ref="287047938"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -1862,7 +1862,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="305069653">
 							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">Leap Motion Connected</string>
+							<string key="NSContents">Leap Motion Controller Connected</string>
 							<object class="NSFont" key="NSSupport" id="700698497">
 								<string key="NSName">LucidaGrande-Bold</string>
 								<double key="NSSize">16</double>
@@ -1889,7 +1889,7 @@
 							<string>NeXT Encapsulated PostScript v1.2 pasteboard type</string>
 							<string>NeXT TIFF v4.0 pasteboard type</string>
 						</set>
-						<string key="NSFrame">{{21, 20}, {220, 110}}</string>
+						<string key="NSFrame">{{21, 12}, {302, 151}}</string>
 						<reference key="NSSuperview" ref="287047938"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1047851622"/>
@@ -1910,7 +1910,7 @@
 						<bool key="NSEditable">YES</bool>
 					</object>
 				</array>
-				<string key="NSFrameSize">{258, 120}</string>
+				<string key="NSFrameSize">{345, 136}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="134543738"/>
@@ -1923,7 +1923,7 @@
 					<object class="NSTextField" id="110851640">
 						<reference key="NSNextResponder" ref="582795797"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{20, 20}, {222, 19}}</string>
+						<string key="NSFrame">{{18, 20}, {310, 19}}</string>
 						<reference key="NSSuperview" ref="582795797"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="298255122"/>
@@ -1932,7 +1932,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="943832857">
 							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">Leap Motion Disconnected</string>
+							<string key="NSContents">Leap Motion Controller Disconnected</string>
 							<reference key="NSSupport" ref="700698497"/>
 							<string key="NSCellIdentifier">_NS:1535</string>
 							<reference key="NSControlView" ref="110851640"/>
@@ -1955,7 +1955,7 @@
 							<string>NeXT Encapsulated PostScript v1.2 pasteboard type</string>
 							<string>NeXT TIFF v4.0 pasteboard type</string>
 						</set>
-						<string key="NSFrame">{{21, 20}, {220, 110}}</string>
+						<string key="NSFrame">{{21, 12}, {302, 151}}</string>
 						<reference key="NSSuperview" ref="582795797"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -1976,7 +1976,7 @@
 						<bool key="NSEditable">YES</bool>
 					</object>
 				</array>
-				<string key="NSFrameSize">{258, 120}</string>
+				<string key="NSFrameSize">{345, 136}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="110851640"/>
@@ -3617,8 +3617,8 @@
 						<int key="objectID">100688</int>
 						<reference key="object" ref="287047938"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="134543738"/>
 							<reference ref="1047851622"/>
+							<reference ref="134543738"/>
 						</array>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Leap Motion Connected</string>

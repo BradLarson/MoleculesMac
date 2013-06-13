@@ -153,7 +153,15 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 
     controller = [[LeapController alloc] init];
     [controller addListener:self];
-
+    
+    double delayInSeconds = 2.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        if (!controller.isConnected)
+        {
+            [self displayLeapConnectionPanel:LEAPDISCONNECTEDVIEW];
+        }
+    });
     openGLRenderer = [[SLSOpenGLRenderer alloc] initWithContext:[_glView openGLContext]];
     
     [openGLRenderer createFramebuffersForView:_glView];
@@ -1074,6 +1082,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 
 - (void)onDisconnect:(NSNotification *)notification;
 {
+    hasConnectedToLeap = NO;
     previousLeapFrame = nil;
     [self displayLeapConnectionPanel:LEAPDISCONNECTEDVIEW];
 }
