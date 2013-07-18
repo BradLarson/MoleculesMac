@@ -313,6 +313,8 @@
 
 - (NSInteger)addAtomToDatabase:(SLSAtomType)atomType atPoint:(SLS3DPoint)newPoint structureNumber:(NSInteger)structureNumber residueKey:(SLSResidueType)residueKey;
 {
+    _elementsPresentInMolecule[atomType] = YES;
+    
     SLSAtomContainer atomContainer;
     atomContainer.atomType = atomType;
     atomContainer.center = newPoint;
@@ -326,6 +328,11 @@
 		numberOfAtoms++;
 
 	return (numberOfAtoms - 1);
+}
+
+- (BOOL *)elementsPresentInMolecule;
+{
+    return _elementsPresentInMolecule;
 }
 
 // Evaluate using atom IDs here for greater rendering flexibility

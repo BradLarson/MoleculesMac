@@ -29,25 +29,8 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 @synthesize applicationControlSplitView = _applicationControlSplitView, colorCodeSplitView = _colorCodeSplitView;
 @synthesize controlsView = _controlsView, colorCodeView = _colorCodeView;
 @synthesize leapMotionConnectedView = _leapMotionConnectedView, leapMotionDisconnectedView = _leapMotionDisconnectedView;
-@synthesize carbonColorView = _carbonColorView;
-@synthesize hydrogenColorView = _hydrogenColorView;
-@synthesize nitrogenColorView = _nitrogenColorView;
-@synthesize oxygenColorView = _oxygenColorView;
-@synthesize fluorineColorView = _fluorineColorView;
-@synthesize sodiumColorView = _sodiumColorView;
-@synthesize magnesiumColorView = _magnesiumColorView;
-@synthesize siliconColorView = _siliconColorView;
-@synthesize phosphorousColorView = _phosphorousColorView;
-@synthesize sulfurColorView = _sulfurColorView;
-@synthesize chlorineColorView = _chlorineColorView;
-@synthesize calciumColorView = _calciumColorView;
-@synthesize ironColorView =_ironColorView;
-@synthesize zincColorView = _zincColorView;
-@synthesize bromineColorView = _bromineColorView;
-@synthesize cadmiumColorView = _cadmiumColorView;
-@synthesize iodineColorView = _iodineColorView;
-@synthesize unknownColorView = _unknownColorView;
 @synthesize isDNAButtonPressed, isTRNAButtonPressed, isPumpButtonPressed, isCaffeineButtonPressed, isHemeButtonPressed, isNanotubeButtonPressed, isCholesterolButtonPressed, isInsulinButtonPressed, isTheoreticalBearingButtonPressed;
+@synthesize colorKeyValueArrayController = _colorKeyValueArrayController;
 
 - (id)init
 {
@@ -76,25 +59,6 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
     [super windowDidLoad];
     currentAutorotationType = LEFTTORIGHTAUTOROTATION;
     
-    [_hydrogenColorView setAtomColorRed:0.902 green:0.902 blue:0.902];
-    [_carbonColorView setAtomColorRed:0.4706 green:0.4706 blue:0.4706];
-    [_nitrogenColorView setAtomColorRed:0.1882 green:0.3137 blue:0.9725];
-    [_oxygenColorView setAtomColorRed:0.9412 green:0.1569 blue:0.1569];
-    [_fluorineColorView setAtomColorRed:0.5647 green:0.8784 blue:0.3137];
-    [_sodiumColorView setAtomColorRed:0.6706 green:0.3608 blue:0.9490];
-    [_magnesiumColorView setAtomColorRed:0.5411 green:1.0 blue:0.0];
-    [_siliconColorView setAtomColorRed:0.7843 green:0.7843 blue:0.3429];
-    [_phosphorousColorView setAtomColorRed:1.0 green:0.5 blue:0.0];
-    [_sulfurColorView setAtomColorRed:1.0 green:1.0 blue:0.1882];
-    [_chlorineColorView setAtomColorRed:0.1216 green:0.9411 blue:0.1216];
-    [_calciumColorView setAtomColorRed:0.2392 green:1.0 blue:0.0];
-    [_ironColorView setAtomColorRed:0.8784 green:0.4 blue:0.2];
-    [_zincColorView setAtomColorRed:0.4902 green:0.5 blue:0.6902];
-    [_bromineColorView setAtomColorRed:0.6510 green:0.1608 blue:0.1608];
-    [_cadmiumColorView setAtomColorRed:1.0 green:0.8510 blue:0.5608];
-    [_iodineColorView setAtomColorRed:0.5804 green:0.0 blue:0.5804];
-    [_unknownColorView setAtomColorRed:0.0 green:1.0 blue:0.0];
-
     isShowingControlPanel = YES;
     isShowingColorKey = YES;
 
@@ -166,6 +130,8 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
     
     [openGLRenderer createFramebuffersForView:_glView];
     [openGLRenderer resizeFramebuffersToMatchView:_glView];
+    
+    [self generateColorKeyValues];
     
     [molecule switchToDefaultVisualizationMode];
     molecule.isBeingDisplayed = YES;
@@ -575,6 +541,188 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
     }
 }
 
+#define KEY_IMAGE	@"elementImage"
+#define KEY_NAME	@"elementName"
+
+//@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *hydrogenColorView;
+//@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *carbonColorView;
+//@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *nitrogenColorView;
+//@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *oxygenColorView;
+//@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *fluorineColorView;
+//@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *sodiumColorView;
+//@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *magnesiumColorView;
+//@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *siliconColorView;
+//@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *phosphorousColorView;
+//@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *sulfurColorView;
+//@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *chlorineColorView;
+//@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *calciumColorView;
+//@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *ironColorView;
+//@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *zincColorView;
+//@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *bromineColorView;
+//@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *cadmiumColorView;
+//@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *iodineColorView;
+//@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *unknownColorView;
+
+- (void)generateColorKeyValues;
+{
+    allPossibleColorKeyValues = [[NSMutableArray alloc] initWithCapacity:NUM_ATOMTYPES];
+    NSSize atomImageSize = NSMakeSize(62.0, 62.0);
+    typedef enum { CARBON, HYDROGEN, OXYGEN, NITROGEN, SULFUR, PHOSPHOROUS, IRON, UNKNOWN, SILICON, FLUORINE, CHLORINE, BROMINE, IODINE, CALCIUM, ZINC, CADMIUM, SODIUM, MAGNESIUM, NUM_ATOMTYPES } SLSAtomType;
+
+    for (unsigned int currentAtomType = 0; currentAtomType < NUM_ATOMTYPES; currentAtomType++)
+    {
+        NSImage *imageForColorKeyItem = [self imageForAtomColoredRed:((CGFloat)atomProperties[currentAtomType].redComponent / 256.0) green:((CGFloat)atomProperties[currentAtomType].greenComponent / 256.0) blue:((CGFloat)atomProperties[currentAtomType].blueComponent / 256.0) atSize:atomImageSize];
+        NSString *nameForColorKeyItem = nil;
+        
+        switch (currentAtomType)
+        {
+            case CARBON: nameForColorKeyItem = @"Carbon"; break;
+            case HYDROGEN: nameForColorKeyItem = @"Hydrogen"; break;
+            case OXYGEN: nameForColorKeyItem = @"Oxygen"; break;
+            case NITROGEN: nameForColorKeyItem = @"Nitrogen"; break;
+            case SULFUR: nameForColorKeyItem = @"Sulfur"; break;
+            case PHOSPHOROUS: nameForColorKeyItem = @"Phosphorous"; break;
+            case IRON: nameForColorKeyItem = @"Iron"; break;
+            case UNKNOWN: nameForColorKeyItem = @"Unknown"; break;
+            case SILICON: nameForColorKeyItem = @"Silicon"; break;
+            case FLUORINE: nameForColorKeyItem = @"Fluorine"; break;
+            case CHLORINE: nameForColorKeyItem = @"Chlorine"; break;
+            case BROMINE: nameForColorKeyItem = @"Bromine"; break;
+            case IODINE: nameForColorKeyItem = @"Iodine"; break;
+            case CALCIUM: nameForColorKeyItem = @"Calcium"; break;
+            case ZINC: nameForColorKeyItem = @"Zinc"; break;
+            case CADMIUM: nameForColorKeyItem = @"Cadmium"; break;
+            case SODIUM: nameForColorKeyItem = @"Sodium"; break;
+            case MAGNESIUM: nameForColorKeyItem = @"Magnesium"; break;
+        }
+        
+        [allPossibleColorKeyValues addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                               imageForColorKeyItem, KEY_IMAGE,
+                                               nameForColorKeyItem, KEY_NAME,
+                                               nil]];
+    }    
+}
+
+- (void)updateColorKeyForMolecule;
+{
+    BOOL *elementValues = [molecule elementsPresentInMolecule];
+
+    for (NSUInteger currentAtomType = 0; currentAtomType < NUM_ATOMTYPES; currentAtomType++)
+    {
+        id currentColorKeyValue = [allPossibleColorKeyValues objectAtIndex:currentAtomType];
+        if (elementValues[currentAtomType])
+        {
+            if ([[self.colorKeyValueArrayController arrangedObjects] indexOfObject:currentColorKeyValue] == NSNotFound)
+            {
+                [self.colorKeyValueArrayController addObject:currentColorKeyValue];
+            }
+        }
+        else
+        {
+            [self.colorKeyValueArrayController removeObject:currentColorKeyValue];
+        }
+    }
+    
+    // Go through the NSDictionary of atoms and populate the database with them
+}
+
+- (NSImage *)imageForAtomColoredRed:(CGFloat)redComponent green:(CGFloat)greenComponent blue:(CGFloat)blueComponent atSize:(NSSize)imageSize;
+{
+    CGFloat lightDirection[3] = {0.312757, 0.248372, 0.916785};
+    
+    // 62 x 62 for view
+    NSInteger pixelWidthOfImage = round(imageSize.width);
+    NSInteger pixelHeightOfImage = round(imageSize.height);
+    NSUInteger totalBytesForImage = pixelWidthOfImage * pixelHeightOfImage * 4;
+    unsigned char *sphereImageBytes = (unsigned char *)malloc(totalBytesForImage);
+    
+    // Generate pixels for image
+    
+    for (unsigned int currentColumnInTexture = 0; currentColumnInTexture < pixelHeightOfImage; currentColumnInTexture++)
+    {
+        float normalizedYLocation = -1.0 + 2.0 * (float)(pixelHeightOfImage - currentColumnInTexture) / (float)pixelWidthOfImage;
+        for (unsigned int currentRowInTexture = 0; currentRowInTexture < pixelWidthOfImage; currentRowInTexture++)
+        {
+            float normalizedXLocation = -1.0 + 2.0 * (float)currentRowInTexture / (float)pixelWidthOfImage;
+            unsigned char alphaByte = 0;
+            unsigned char finalSphereColor[3] = {0,0,0};
+            
+            float distanceFromCenter = sqrt(normalizedXLocation * normalizedXLocation + normalizedYLocation * normalizedYLocation);
+            float currentSphereDepth = 0.0;
+            float lightingNormalX = normalizedXLocation, lightingNormalY = normalizedYLocation;
+            
+            if (distanceFromCenter <= 1.0)
+            {
+                // First, calculate the depth of the sphere at this point
+                currentSphereDepth = sqrt(1.0 - distanceFromCenter * distanceFromCenter);
+                
+                alphaByte = 255;
+            }
+            else
+            {
+                float normalizationFactor = sqrt(normalizedXLocation * normalizedXLocation + normalizedYLocation * normalizedYLocation);
+                lightingNormalX = lightingNormalX / normalizationFactor;
+                lightingNormalY = lightingNormalY / normalizationFactor;
+                alphaByte = 0;
+            }
+            
+            // Then, do the ambient lighting factor
+            float ambientLightingIntensityFactor = lightingNormalX * lightDirection[0] + lightingNormalY * lightDirection[1] + currentSphereDepth * lightDirection[2];
+            if (ambientLightingIntensityFactor < 0.0)
+            {
+                ambientLightingIntensityFactor = 0.0;
+            }
+            else if (ambientLightingIntensityFactor > 1.0)
+            {
+                ambientLightingIntensityFactor = 1.0;
+            }
+            
+            //            float lightingIntensity = MIN(0.1 + ambientLightingIntensityFactor, 1.0);
+            float lightingIntensity = ambientLightingIntensityFactor;
+            
+            finalSphereColor[0] = round(redComponent * lightingIntensity * 255.0);
+            finalSphereColor[1] = round(greenComponent * lightingIntensity * 255.0);
+            finalSphereColor[2] = round(blueComponent * lightingIntensity * 255.0);
+            
+            // Specular lighting
+            float specularLightingIntensityFactor = pow(ambientLightingIntensityFactor, 60.0) * 0.6;
+            finalSphereColor[0] = MIN((CGFloat)finalSphereColor[0] + (specularLightingIntensityFactor * (255.0 - (CGFloat)finalSphereColor[0])), 255);
+            finalSphereColor[1] = MIN((CGFloat)finalSphereColor[1] + (specularLightingIntensityFactor * (255.0 - (CGFloat)finalSphereColor[1])), 255);
+            finalSphereColor[2] = MIN((CGFloat)finalSphereColor[2] + (specularLightingIntensityFactor * (255.0 - (CGFloat)finalSphereColor[2])), 255);
+            
+            sphereImageBytes[currentColumnInTexture * pixelWidthOfImage * 4 + (currentRowInTexture * 4)] = finalSphereColor[0];
+            sphereImageBytes[currentColumnInTexture * pixelWidthOfImage * 4 + (currentRowInTexture * 4) + 1] = finalSphereColor[1];
+            sphereImageBytes[currentColumnInTexture * pixelWidthOfImage * 4 + (currentRowInTexture * 4) + 2] = finalSphereColor[2];
+            sphereImageBytes[currentColumnInTexture * pixelWidthOfImage * 4 + (currentRowInTexture * 4) + 3] = alphaByte;
+            /*
+             float lightingIntensity = 0.2 + 1.3 * clamp(dot(lightPosition, normal), 0.0, 1.0) * ambientOcclusionIntensity.r;
+             finalSphereColor *= lightingIntensity;
+             
+             // Per fragment specular lighting
+             lightingIntensity  = clamp(dot(lightPosition, normal), 0.0, 1.0);
+             lightingIntensity  = pow(lightingIntensity, 60.0) * ambientOcclusionIntensity.r * 1.2;
+             finalSphereColor += vec3(0.4, 0.4, 0.4) * lightingIntensity + vec3(1.0, 1.0, 1.0) * 0.2 * ambientOcclusionIntensity.r;
+             */
+            
+        }
+    }
+    
+    // Create NSImage from this
+    CGDataProviderRef dataProvider;
+    dataProvider = CGDataProviderCreateWithData(NULL, sphereImageBytes, totalBytesForImage, dataProviderReleaseCallback);
+    
+    CGColorSpaceRef defaultRGBColorSpace = CGColorSpaceCreateDeviceRGB();
+    CGImageRef cgImageFromBytes = CGImageCreate(pixelWidthOfImage, pixelHeightOfImage, 8, 32, 4 * pixelWidthOfImage, defaultRGBColorSpace, kCGBitmapByteOrderDefault | kCGImageAlphaLast, dataProvider, NULL, NO, kCGRenderingIntentDefault);
+    
+    // Capture image with current device orientation
+    CGDataProviderRelease(dataProvider);
+    CGColorSpaceRelease(defaultRGBColorSpace);
+    NSImage *finalImage = [[NSImage alloc] initWithCGImage:cgImageFromBytes size:NSZeroSize];
+    CGImageRelease(cgImageFromBytes);
+
+    return finalImage;
+}
+
 #pragma mark -
 #pragma mark Sample molecule loading
 
@@ -939,6 +1087,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 
 - (void)renderingEnded;
 {
+    [self updateColorKeyForMolecule];
     [self.overlayWindowController hideOverlay];
 
 	[openGLRenderer clearScreen];

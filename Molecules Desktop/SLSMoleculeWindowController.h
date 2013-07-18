@@ -49,6 +49,8 @@ typedef enum {LEAPCONNECTEDVIEW, LEAPDISCONNECTEDVIEW} SLSLeapConnectionViewType
     
     BOOL hasConnectedToLeap;
     
+    NSMutableArray *allPossibleColorKeyValues;
+    
     SLSAutorotationType currentAutorotationType;
 }
 
@@ -61,25 +63,7 @@ typedef enum {LEAPCONNECTEDVIEW, LEAPDISCONNECTEDVIEW} SLSLeapConnectionViewType
 @property(readwrite, weak) IBOutlet NSSplitView *applicationControlSplitView, *colorCodeSplitView;
 @property(readwrite, weak) IBOutlet NSView *controlsView, *colorCodeView;
 @property(readwrite, nonatomic) BOOL isDNAButtonPressed, isTRNAButtonPressed, isPumpButtonPressed, isCaffeineButtonPressed, isHemeButtonPressed, isNanotubeButtonPressed, isCholesterolButtonPressed, isInsulinButtonPressed, isTheoreticalBearingButtonPressed;
-
-@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *hydrogenColorView;
-@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *carbonColorView;
-@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *nitrogenColorView;
-@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *oxygenColorView;
-@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *fluorineColorView;
-@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *sodiumColorView;
-@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *magnesiumColorView;
-@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *siliconColorView;
-@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *phosphorousColorView;
-@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *sulfurColorView;
-@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *chlorineColorView;
-@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *calciumColorView;
-@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *ironColorView;
-@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *zincColorView;
-@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *bromineColorView;
-@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *cadmiumColorView;
-@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *iodineColorView;
-@property(readwrite, nonatomic, weak) IBOutlet SLSAtomColorView *unknownColorView;
+@property(readwrite, weak, nonatomic) IBOutlet NSArrayController *colorKeyValueArrayController;
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError;
 
@@ -98,6 +82,9 @@ typedef enum {LEAPCONNECTEDVIEW, LEAPDISCONNECTEDVIEW} SLSLeapConnectionViewType
 // Side panel visibility
 - (IBAction)showOrHideColorKey:(id)sender;
 - (IBAction)showOrHideControls:(id)sender;
+- (void)generateColorKeyValues;
+- (void)updateColorKeyForMolecule;
+- (NSImage *)imageForAtomColoredRed:(CGFloat)redComponent green:(CGFloat)greenComponent blue:(CGFloat)blueComponent atSize:(NSSize)imageSize;
 
 // Sample molecule loading
 - (void)openFileWithPath:(NSString *)filePath extension:(NSString *)fileExtension;

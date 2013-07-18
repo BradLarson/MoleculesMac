@@ -5,6 +5,7 @@
 
 #import <Foundation/Foundation.h>
 #import <OpenGL/OpenGL.h>
+#import <OpenGL/gl.h>
 
 @interface GLProgram : NSObject 
 {

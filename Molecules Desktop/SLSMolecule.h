@@ -72,6 +72,7 @@ typedef struct {
 	float scaleAdjustmentForX, scaleAdjustmentForY, scaleAdjustmentForZ;
 
     NSMutableArray *atomArray, *bondArray;
+    BOOL _elementsPresentInMolecule[NUM_ATOMTYPES];
     
     SLSOpenGLRenderer *currentRenderer;
 }
@@ -95,6 +96,7 @@ typedef struct {
 - (void)addMetadataToDatabase:(NSString *)metadata type:(SLSMetadataType)metadataType;
 - (NSInteger)addAtomToDatabase:(SLSAtomType)atomType atPoint:(SLS3DPoint)newPoint structureNumber:(NSInteger)structureNumber residueKey:(SLSResidueType)residueKey;
 - (void)addBondToDatabaseWithStartPoint:(NSValue *)startValue endPoint:(NSValue *)endValue bondType:(SLSBondType)bondType structureNumber:(NSInteger)structureNumber residueKey:(NSInteger)residueKey;
+- (BOOL *)elementsPresentInMolecule;
 
 // Status notification methods
 - (void)showStatusIndicator;

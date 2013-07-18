@@ -21,6 +21,7 @@ void dataProviderReleaseCallback (void *info, const void *data, size_t size)
 {
     CGFloat lightDirection[3] = {0.312757, 0.248372, 0.916785};
 
+    // 62 x 62 for view
     NSInteger pixelWidthOfImage = round(self.bounds.size.width);
     NSInteger pixelHeightOfImage = round(self.bounds.size.height);
     NSUInteger totalBytesForImage = pixelWidthOfImage * pixelHeightOfImage * 4;
